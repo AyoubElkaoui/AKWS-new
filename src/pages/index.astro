@@ -1,0 +1,936 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {
+    Sparkles,
+    ArrowRight,
+    FolderOpen,
+    Zap,
+    Search,
+    Smartphone,
+    Target,
+    BarChart3,
+    Code2,
+    Rocket,
+    CheckCircle,
+    Phone,
+    Monitor,
+    TrendingUp,
+    Award,
+    Globe,
+    Users,
+    Clock,
+    Star,
+    ChevronRight,
+    Play,
+    ArrowUpRight,
+    MousePointerClick,
+    Layers,
+    Activity
+} from 'lucide-astro';
+---
+
+<Layout>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <canvas id="hero-canvas" class="hero-canvas"></canvas>
+        <div class="hero-grid"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" data-gsap="fadeUp" data-delay="0">
+                    <div class="badge-dot"></div>
+                    <span data-splitting>Nieuwe websites vanaf €1,499</span>
+                </div>
+                <h1 class="hero-title">
+                    <div class="hero-line" data-gsap="slideUp" data-delay="0.2">
+                        <span data-splitting>Websites die</span>
+                        <span class="hero-highlight">
+                            <span class="highlight-text" data-splitting>converteren</span>
+                            <div class="highlight-bg"></div>
+                        </span>
+                    </div>
+                    <div class="hero-line" data-gsap="slideUp" data-delay="0.4">
+                        <span data-splitting>en</span>
+                        <span class="gradient-text" data-splitting>resultaat leveren</span>
+                    </div>
+                </h1>
+                <p class="hero-description" data-gsap="fadeUp" data-delay="0.6" data-splitting>
+                    Van strategie tot implementatie. Wij bouwen digitale ervaringen die je klanten omzetten
+                    in groei voor jouw bedrijf. Performance-first, SEO-geoptimaliseerd, conversion-focused.
+                </p>
+                <div class="hero-cta" data-gsap="fadeUp" data-delay="0.8">
+                    <a href="/contact" class="btn btn-primary btn-magnetic" data-magnetic>
+                        <span data-splitting>Start gratis analyse</span>
+                        <div class="btn-icon">
+                            <ArrowRight size={16} />
+                        </div>
+                    </a>
+                    <a href="#demo" class="btn btn-ghost btn-magnetic" data-magnetic>
+                        <div class="play-icon">
+                            <Play size={14} />
+                        </div>
+                        <span data-splitting>Bekijk demo</span>
+                    </a>
+                </div>
+                <div class="hero-social-proof" data-gsap="fadeUp" data-delay="1">
+                    <div class="social-avatars">
+                        <div class="avatar avatar-float" data-avatar="1"></div>
+                        <div class="avatar avatar-float" data-avatar="2"></div>
+                        <div class="avatar avatar-float" data-avatar="3"></div>
+                        <div class="avatar avatar-float" data-avatar="4"></div>
+                        <div class="avatar-count">+50</div>
+                    </div>
+                    <div class="social-text">
+                        <div class="rating">
+                            <Star size={12} class="star-animate" />
+                            <Star size={12} class="star-animate" />
+                            <Star size={12} class="star-animate" />
+                            <Star size={12} class="star-animate" />
+                            <Star size={12} class="star-animate" />
+                            <span class="rating-text">4.9</span>
+                        </div>
+                        <span class="social-label">Tevreden ondernemers</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual" data-gsap="fadeUp" data-delay="1.2">
+                <div class="visual-container">
+                    <div class="floating-card card-metrics" data-tilt data-parallax-y="-50">
+                        <div class="card-header">
+                            <div class="card-title">Performance</div>
+                            <div class="card-badge pulse">Live</div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <div class="metric-value counter" data-target="0.3">0</div>
+                                <div class="metric-label">Load time</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value counter" data-target="98">0</div>
+                                <div class="metric-label">Score</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-analytics" data-tilt data-parallax-y="-30">
+                        <div class="analytics-chart">
+                            <div class="chart-bars">
+                                <div class="bar morph-bar" data-height="60"></div>
+                                <div class="bar morph-bar" data-height="80"></div>
+                                <div class="bar morph-bar" data-height="45"></div>
+                                <div class="bar morph-bar" data-height="95"></div>
+                                <div class="bar morph-bar" data-height="70"></div>
+                                <div class="bar morph-bar" data-height="100"></div>
+                            </div>
+                        </div>
+                        <div class="analytics-footer">
+                            <TrendingUp size={16} />
+                            <span class="counter" data-target="247" data-suffix="%">0</span>
+                            <span> traffic</span>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-conversion" data-tilt data-parallax-y="-70">
+                        <div class="conversion-ring">
+                            <svg width="50" height="50" viewBox="0 0 50 50">
+                                <circle cx="25" cy="25" r="20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+                                <circle cx="25" cy="25" r="20" fill="none" stroke="url(#gradient)" stroke-width="2"
+                                        stroke-dasharray="126" stroke-dashoffset="126" stroke-linecap="round"
+                                        class="conversion-circle"/>
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="ring-center">
+                                <div class="ring-percentage counter" data-target="83" data-suffix="%">0</div>
+                            </div>
+                        </div>
+                        <div class="conversion-label">Conversion rate</div>
+                    </div>
+
+                    <!-- New interactive elements -->
+                    <div class="floating-card card-cursor" data-parallax-y="-20">
+                        <div class="cursor-trail">
+                            <MousePointerClick size={16} />
+                        </div>
+                        <div class="cursor-stats">
+                            <span class="cursor-ctr counter" data-target="12.4" data-suffix="%">0</span>
+                            <span class="cursor-label">CTR</span>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-layers" data-parallax-y="-40">
+                        <Layers size={20} class="layers-icon" />
+                        <div class="layers-stack">
+                            <div class="layer-item"></div>
+                            <div class="layer-item"></div>
+                            <div class="layer-item"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-gradient" data-parallax-y="50"></div>
+    </section>
+
+    <!-- Logo Cloud -->
+    <section class="logo-cloud" data-gsap="batch">
+        <div class="container">
+            <p class="logo-text" data-gsap="fadeUp">Vertrouwd door 50+ bedrijven</p>
+            <div class="logo-grid">
+                <div class="logo-item" data-gsap="slideUp" data-delay="0">TechCorp</div>
+                <div class="logo-item" data-gsap="slideUp" data-delay="0.1">InnovateLab</div>
+                <div class="logo-item" data-gsap="slideUp" data-delay="0.2">GrowthCo</div>
+                <div class="logo-item" data-gsap="slideUp" data-delay="0.3">ScaleUp</div>
+                <div class="logo-item" data-gsap="slideUp" data-delay="0.4">NextGen</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" data-gsap="batch">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-gsap="fadeUp">
+                    <Zap size={14} />
+                    <span data-splitting>Waarom AK Web Solutions</span>
+                </div>
+                <h2 class="section-title" data-gsap="fadeUp" data-delay="0.1" data-splitting>
+                    Meer dan alleen een website.
+                    <br>Een <span class="gradient-text">groei-machine</span>.
+                </h2>
+                <p class="section-description" data-gsap="fadeUp" data-delay="0.2" data-splitting>
+                    Elke lijn code, elk design element, elke strategie is gericht op één doel:
+                    jouw bedrijf laten groeien. Geen fancy features zonder doel.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card feature-main" data-gsap="slideUp" data-delay="0" data-tilt>
+                    <div class="feature-header">
+                        <div class="feature-icon icon-morph">
+                            <Rocket size={24} />
+                        </div>
+                        <div class="feature-meta">
+                            <h3 class="feature-title" data-splitting>Performance Excellence</h3>
+                            <p class="feature-subtitle">Sub-second loading times</p>
+                        </div>
+                    </div>
+                    <div class="feature-content">
+                        <div class="feature-stats">
+                            <div class="stat-group">
+                                <div class="stat-value counter" data-target="0.3" data-suffix="s">0</div>
+                                <div class="stat-label">Average load</div>
+                            </div>
+                            <div class="stat-group">
+                                <div class="stat-value counter" data-target="98" data-suffix="%">0</div>
+                                <div class="stat-label">PageSpeed</div>
+                            </div>
+                            <div class="stat-group">
+                                <div class="stat-value counter" data-target="99.9" data-suffix="%">0</div>
+                                <div class="stat-label">Uptime</div>
+                            </div>
+                        </div>
+                        <div class="feature-tech-stack">
+                            <span class="tech-badge tech-hover">Astro</span>
+                            <span class="tech-badge tech-hover">CDN</span>
+                            <span class="tech-badge tech-hover">Edge</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card" data-gsap="slideUp" data-delay="0.1" data-tilt>
+                    <div class="feature-icon icon-morph">
+                        <Search size={20} />
+                    </div>
+                    <h3 class="feature-title" data-splitting>SEO Dominance</h3>
+                    <p class="feature-description">
+                        Technical SEO, content strategie en link building.
+                        Top 3 rankings binnen 6 maanden.
+                    </p>
+                    <div class="feature-link link-hover">
+                        <span>Meer over SEO</span>
+                        <ChevronRight size={14} class="link-arrow" />
+                    </div>
+                </div>
+
+                <div class="feature-card" data-gsap="slideUp" data-delay="0.2" data-tilt>
+                    <div class="feature-icon icon-morph">
+                        <BarChart3 size={20} />
+                    </div>
+                    <h3 class="feature-title" data-splitting>Conversion Focus</h3>
+                    <p class="feature-description">
+                        A/B testing, heatmaps, user journey optimalisatie.
+                        Elke visitor wordt een potentiële klant.
+                    </p>
+                    <div class="feature-link link-hover">
+                        <span>Bekijk cases</span>
+                        <ChevronRight size={14} class="link-arrow" />
+                    </div>
+                </div>
+
+                <div class="feature-card" data-gsap="slideUp" data-delay="0.3" data-tilt>
+                    <div class="feature-icon icon-morph">
+                        <Smartphone size={20} />
+                    </div>
+                    <h3 class="feature-title" data-splitting>Mobile Excellence</h3>
+                    <p class="feature-description">
+                        60% van je traffic komt van mobiel.
+                        Wij zorgen voor perfecte mobile experience.
+                    </p>
+                    <div class="feature-link link-hover">
+                        <span>Mobile demo</span>
+                        <ChevronRight size={14} class="link-arrow" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section" data-gsap="batch">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-gsap="slideUp" data-delay="0" data-tilt>
+                    <div class="stat-icon">
+                        <Activity size={24} class="stat-pulse" />
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="150" data-suffix="+">0</div>
+                        <div class="stat-label">Websites gelanceerd</div>
+                    </div>
+                    <div class="stat-glow"></div>
+                </div>
+
+                <div class="stat-card" data-gsap="slideUp" data-delay="0.1" data-tilt>
+                    <div class="stat-icon">
+                        <TrendingUp size={24} class="stat-pulse" />
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="95" data-suffix="%">0</div>
+                        <div class="stat-label">Klant tevredenheid</div>
+                    </div>
+                    <div class="stat-glow"></div>
+                </div>
+
+                <div class="stat-card" data-gsap="slideUp" data-delay="0.2" data-tilt>
+                    <div class="stat-icon">
+                        <Target size={24} class="stat-pulse" />
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="300" data-suffix="%">0</div>
+                        <div class="stat-label">Gemiddelde groei</div>
+                    </div>
+                    <div class="stat-glow"></div>
+                </div>
+
+                <div class="stat-card" data-gsap="slideUp" data-delay="0.3" data-tilt>
+                    <div class="stat-icon">
+                        <Clock size={24} class="stat-pulse" />
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">24<span class="stat-suffix">/7</span></div>
+                        <div class="stat-label">Support beschikbaar</div>
+                    </div>
+                    <div class="stat-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section" data-gsap="batch">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-gsap="fadeUp">
+                    <Target size={14} />
+                    <span data-splitting>Ons proces</span>
+                </div>
+                <h2 class="section-title" data-gsap="fadeUp" data-delay="0.1" data-splitting>
+                    Van idee tot <span class="gradient-text">groei</span> in 4 weken
+                </h2>
+            </div>
+
+            <div class="process-timeline">
+                <div class="timeline-line" data-gsap="drawLine"></div>
+
+                <div class="process-step" data-gsap="slideRight" data-delay="0">
+                    <div class="step-marker">
+                        <div class="step-number step-magnetic" data-magnetic>1</div>
+                        <div class="step-pulse"></div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title" data-splitting>Discovery & Strategie</h3>
+                            <div class="step-duration">Week 1</div>
+                        </div>
+                        <p class="step-description" data-splitting>
+                            Diepgaande analyse van je markt, concurrentie en doelgroep.
+                            We maken een data-driven strategie voor maximale impact.
+                        </p>
+                        <div class="step-deliverables">
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Markt & concurrentie analyse</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>User persona mapping</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>SEO keyword strategie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Continue with other process steps... -->
+                <div class="process-step" data-gsap="slideRight" data-delay="0.2">
+                    <div class="step-marker">
+                        <div class="step-number step-magnetic" data-magnetic>2</div>
+                        <div class="step-pulse"></div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title" data-splitting>Design & Prototype</h3>
+                            <div class="step-duration">Week 2</div>
+                        </div>
+                        <p class="step-description" data-splitting>
+                            High-fidelity designs met focus op conversie.
+                            Interactieve prototypes om de user experience te perfectioneren.
+                        </p>
+                        <div class="step-deliverables">
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Wireframes & user flows</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>High-fidelity designs</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Interactive prototypes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-step" data-gsap="slideRight" data-delay="0.4">
+                    <div class="step-marker">
+                        <div class="step-number step-magnetic" data-magnetic>3</div>
+                        <div class="step-pulse"></div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title" data-splitting>Development & Testing</h3>
+                            <div class="step-duration">Week 3</div>
+                        </div>
+                        <p class="step-description" data-splitting>
+                            Pixel-perfect development met moderne technologieën.
+                            Uitgebreid testen op alle devices en browsers.
+                        </p>
+                        <div class="step-deliverables">
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Modern tech stack</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Performance optimalisatie</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Cross-browser testing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-step" data-gsap="slideRight" data-delay="0.6">
+                    <div class="step-marker">
+                        <div class="step-number step-magnetic" data-magnetic>4</div>
+                        <div class="step-pulse"></div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title" data-splitting>Launch & Optimalisatie</h3>
+                            <div class="step-duration">Week 4+</div>
+                        </div>
+                        <p class="step-description" data-splitting>
+                            Strategische launch met monitoring setup.
+                            Continuous optimalisatie op basis van real-world data.
+                        </p>
+                        <div class="step-deliverables">
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Production deployment</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Analytics & monitoring</span>
+                            </div>
+                            <div class="deliverable check-animate">
+                                <CheckCircle size={16} class="check-icon" />
+                                <span>Ongoing optimalisatie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" data-gsap="batch">
+        <div class="container">
+            <div class="cta-card" data-gsap="fadeUp" data-tilt>
+                <div class="cta-content">
+                    <h2 class="cta-title" data-splitting>
+                        Ready to <span class="gradient-text">scale</span> your business?
+                    </h2>
+                    <p class="cta-description" data-splitting>
+                        Join 50+ businesses that transformed their online presence into a growth engine.
+                        Start with a free strategy session.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="/contact" class="btn btn-primary btn-large btn-magnetic" data-magnetic>
+                            <span data-splitting>Book strategy session</span>
+                            <div class="btn-icon">
+                                <ArrowRight size={16} />
+                            </div>
+                        </a>
+                        <div class="cta-guarantee">
+                            <CheckCircle size={16} class="guarantee-check" />
+                            <span>100% satisfaction guarantee</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-testimonial">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote" data-splitting>
+                            "AK Web Solutions delivered exactly what we needed. Our conversion rate increased by 180% in just 3 months."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar author-glow"></div>
+                            <div class="author-info">
+                                <div class="author-name">Sarah Chen</div>
+                                <div class="author-title">CEO, TechFlow</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-glow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts with advanced libraries -->
+    <script>
+        import gsap from 'gsap';
+        import { ScrollTrigger } from 'gsap/ScrollTrigger';
+        import { TextPlugin } from 'gsap/TextPlugin';
+        import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+        import Lenis from '@studio-freight/lenis';
+        import Splitting from 'splitting';
+        import * as THREE from 'three';
+
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger, TextPlugin, MorphSVGPlugin);
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initSmoothScroll();
+            initTextSplitting();
+            initGSAPAnimations();
+            initThreeJS();
+            initMagneticElements();
+            initTiltEffects();
+            initCounterAnimations();
+            initMorphingEffects();
+            initParallaxEffects();
+        });
+
+        function initSmoothScroll() {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                smoothTouch: false
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+
+            // Connect Lenis with GSAP ScrollTrigger
+            lenis.on('scroll', ScrollTrigger.update);
+
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+
+            gsap.ticker.lagSmoothing(0);
+        }
+
+        function initTextSplitting() {
+            Splitting({
+                target: '[data-splitting]',
+                by: 'chars'
+            });
+
+            // Animate split text
+            gsap.set('.char', { opacity: 0, y: 50, rotationX: -90 });
+        }
+
+        function initGSAPAnimations() {
+            // Hero animations
+            const tl = gsap.timeline();
+
+            tl.to('.char', {
+                opacity: 1,
+                y: 0,
+                rotationX: 0,
+                duration: 0.8,
+                stagger: {
+                    amount: 1.5,
+                    from: 'start'
+                },
+                ease: 'back.out(1.7)'
+            });
+
+            // Highlight animation
+            gsap.to('.highlight-bg', {
+                scaleX: 1,
+                duration: 1,
+                ease: 'power2.out',
+                delay: 2
+            });
+
+            // Scroll-triggered animations
+            gsap.utils.toArray('[data-gsap="batch"]').forEach((section) => {
+                const elements = section.querySelectorAll('[data-gsap]:not([data-gsap="batch"])');
+
+                elements.forEach((el, index) => {
+                    const animationType = el.dataset.gsap;
+                    const delay = parseFloat(el.dataset.delay) || 0;
+
+                    let animation = {};
+
+                    switch(animationType) {
+                        case 'fadeUp':
+                            animation = {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1,
+                                ease: 'power3.out'
+                            };
+                            gsap.set(el, { opacity: 0, y: 50 });
+                            break;
+                        case 'slideUp':
+                            animation = {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1.2,
+                                ease: 'power4.out'
+                            };
+                            gsap.set(el, { opacity: 0, y: 100 });
+                            break;
+                        case 'slideRight':
+                            animation = {
+                                opacity: 1,
+                                x: 0,
+                                duration: 1,
+                                ease: 'power3.out'
+                            };
+                            gsap.set(el, { opacity: 0, x: -100 });
+                            break;
+                    }
+
+                    ScrollTrigger.create({
+                        trigger: el,
+                        start: 'top 80%',
+                        onEnter: () => {
+                            gsap.to(el, { ...animation, delay });
+                        }
+                    });
+                });
+            });
+
+            // Timeline line drawing
+            ScrollTrigger.create({
+                trigger: '[data-gsap="drawLine"]',
+                start: 'top 80%',
+                onEnter: () => {
+                    gsap.fromTo('.timeline-line', {
+                        height: 0
+                    }, {
+                        height: '100%',
+                        duration: 2,
+                        ease: 'power2.out'
+                    });
+                }
+            });
+        }
+
+        function initThreeJS() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            // Create floating particles
+            const particleGeometry = new THREE.BufferGeometry();
+            const particleCount = 100;
+            const positions = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 10;
+            }
+
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.02,
+                transparent: true,
+                opacity: 0.6
+            });
+
+            const particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                particles.rotation.x += 0.001;
+                particles.rotation.y += 0.001;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        function initMagneticElements() {
+            const magneticElements = document.querySelectorAll('[data-magnetic]');
+
+            magneticElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const { offsetX, offsetY } = e;
+                    const { offsetWidth, offsetHeight } = el;
+
+                    const x = (offsetX - offsetWidth / 2) / offsetWidth * 20;
+                    const y = (offsetY - offsetHeight / 2) / offsetHeight * 20;
+
+                    gsap.to(el, {
+                        x,
+                        y,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    gsap.to(el, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.5,
+                        ease: 'elastic.out(1, 0.3)'
+                    });
+                });
+            });
+        }
+
+        function initTiltEffects() {
+            const tiltElements = document.querySelectorAll('[data-tilt]');
+
+            tiltElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const xRotation = ((y - rect.height / 2) / rect.height) * 10;
+                    const yRotation = ((x - rect.width / 2) / rect.width) * -10;
+
+                    gsap.to(el, {
+                        rotationX: xRotation,
+                        rotationY: yRotation,
+                        transformPerspective: 1000,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    gsap.to(el, {
+                        rotationX: 0,
+                        rotationY: 0,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+        }
+
+        function initCounterAnimations() {
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                const target = parseFloat(counter.dataset.target);
+                const suffix = counter.dataset.suffix || '';
+
+                ScrollTrigger.create({
+                    trigger: counter,
+                    start: 'top 80%',
+                    onEnter: () => {
+                        gsap.fromTo(counter, {
+                            textContent: 0
+                        }, {
+                            textContent: target,
+                            duration: 2,
+                            ease: 'power2.out',
+                            snap: { textContent: 0.1 },
+                            onUpdate: function() {
+                                counter.textContent = Math.ceil(counter.textContent) + suffix;
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        function initMorphingEffects() {
+            // Morph bars on scroll
+            ScrollTrigger.create({
+                trigger: '.morph-bar',
+                start: 'top 80%',
+                onEnter: () => {
+                    gsap.to('.morph-bar', {
+                        scaleY: (index, target) => target.dataset.height / 100,
+                        duration: 1.5,
+                        stagger: 0.1,
+                        ease: 'elastic.out(1, 0.3)'
+                    });
+                }
+            });
+
+            // Icon morphing on hover
+            const iconElements = document.querySelectorAll('.icon-morph');
+            iconElements.forEach(icon => {
+                icon.addEventListener('mouseenter', () => {
+                    gsap.to(icon, {
+                        scale: 1.2,
+                        rotation: 360,
+                        duration: 0.6,
+                        ease: 'back.out(1.7)'
+                    });
+                });
+
+                icon.addEventListener('mouseleave', () => {
+                    gsap.to(icon, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+        }
+
+        function initParallaxEffects() {
+            const parallaxElements = document.querySelectorAll('[data-parallax-y]');
+
+            parallaxElements.forEach(el => {
+                const speed = parseFloat(el.dataset.parallaxY);
+
+                gsap.to(el, {
+                    y: speed,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
+            });
+        }
+
+        // Advanced hover effects
+        document.addEventListener('DOMContentLoaded', () => {
+            // Link hover effects
+            const linkHovers = document.querySelectorAll('.link-hover');
+            linkHovers.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    gsap.to(link.querySelector('.link-arrow'), {
+                        x: 5,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                link.addEventListener('mouseleave', () => {
+                    gsap.to(link.querySelector('.link-arrow'), {
+                        x: 0,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+
+            // Tech badge hover
+            const techBadges = document.querySelectorAll('.tech-hover');
+            techBadges.forEach(badge => {
+                badge.addEventListener('mouseenter', () => {
+                    gsap.to(badge, {
+                        scale: 1.05,
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        duration: 0.3
+                    });
+                });
+
+                badge.addEventListener('mouseleave', () => {
+                    gsap.to(badge, {
+                        scale: 1,
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        duration: 0.3
+                    });
+                });
+            });
+
+            // Star rating animation
+            const stars = document.querySelectorAll('.star-animate');
+            stars.forEach((star, index) => {
+                gsap.to(star, {
+                    scale: 1.1,
+                    duration: 0.3,
+                    delay: index * 0.1,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'power2.inOut'
+                });
+            });
+        });
+    </script>
+</Layout>

@@ -1,0 +1,42 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+    { href: '/', label: 'Home' },
+    { href: '/diensten', label: 'Diensten' },
+    { href: '/cases', label: 'Cases' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/contact', label: 'Contact' },
+];
+---
+
+<header style="position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10, 14, 26, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <div class="container">
+        <nav style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 0;">
+            <a href="/" style="font-size: 1.5rem; font-weight: 700; color: #60a5fa; text-decoration: none;">
+                AK Web Solutions
+            </a>
+
+            <div style="display: flex; gap: 2rem; align-items: center;">
+                {navItems.map((item) => (
+                        <a
+                                href={item.href}
+                                style={`
+              color: ${currentPath === item.href ? '#60a5fa' : '#e2e8f0'};
+              text-decoration: none;
+              font-weight: 500;
+              transition: color 0.2s;
+            `}
+                                onmouseover="this.style.color='#60a5fa'"
+                                onmouseout={`this.style.color='${currentPath === item.href ? '#60a5fa' : '#e2e8f0'}'`}
+                        >
+                            {item.label}
+                        </a>
+                ))}
+                <a href="/contact" class="btn btn-primary">
+                    Gratis Advies
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
