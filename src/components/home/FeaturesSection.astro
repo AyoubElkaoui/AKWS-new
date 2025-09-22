@@ -1,0 +1,202 @@
+---
+import { Zap, Rocket, Search, BarChart3, Smartphone, ChevronRight, Sparkles, Shield, Clock } from 'lucide-astro';
+---
+
+<section class="features-section" data-gsap="batch">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge premium-badge" data-gsap="fadeUp">
+                <Sparkles size={14} class="badge-sparkle" />
+                <span data-splitting>Waarom AK Web Solutions</span>
+                <div class="badge-particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+            <h2 class="section-title" data-gsap="fadeUp" data-delay="0.1" data-splitting>
+                Meer dan alleen een website.
+                <br>Een <span class="gradient-text animated-gradient">groei-machine</span>.
+            </h2>
+            <p class="section-description" data-gsap="fadeUp" data-delay="0.2" data-splitting>
+                Elke lijn code, elk design element, elke strategie is gericht op één doel:
+                jouw bedrijf laten groeien. Geen fancy features zonder doel.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <!-- Main Feature Card -->
+            <div class="feature-card feature-main feature-premium" data-gsap="slideUp" data-delay="0" data-tilt>
+                <div class="feature-border"></div>
+                <div class="feature-header">
+                    <div class="feature-icon icon-morph icon-premium">
+                        <Rocket size={28} />
+                        <div class="icon-glow"></div>
+                        <div class="icon-particles">
+                            <div class="icon-particle"></div>
+                            <div class="icon-particle"></div>
+                            <div class="icon-particle"></div>
+                        </div>
+                    </div>
+                    <div class="feature-meta">
+                        <h3 class="feature-title" data-splitting>Performance Excellence</h3>
+                        <p class="feature-subtitle">Sub-second loading times guaranteed</p>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <div class="feature-stats">
+                        <div class="stat-group stat-hover">
+                            <div class="stat-icon">
+                                <Clock size={16} />
+                            </div>
+                            <div class="stat-value counter" data-target="0.3" data-suffix="s">0</div>
+                            <div class="stat-label">Average load</div>
+                            <div class="stat-bar">
+                                <div class="stat-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-group stat-hover">
+                            <div class="stat-icon">
+                                <Zap size={16} />
+                            </div>
+                            <div class="stat-value counter" data-target="98" data-suffix="%">0</div>
+                            <div class="stat-label">PageSpeed</div>
+                            <div class="stat-bar">
+                                <div class="stat-progress" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-group stat-hover">
+                            <div class="stat-icon">
+                                <Shield size={16} />
+                            </div>
+                            <div class="stat-value counter" data-target="99.9" data-suffix="%">0</div>
+                            <div class="stat-label">Uptime</div>
+                            <div class="stat-bar">
+                                <div class="stat-progress" style="width: 99%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-tech-stack">
+                        <span class="tech-badge tech-hover tech-primary">
+                            <span class="tech-icon">⚡</span>
+                            Astro
+                        </span>
+                        <span class="tech-badge tech-hover tech-secondary">
+                            <span class="tech-icon">🌐</span>
+                            CDN
+                        </span>
+                        <span class="tech-badge tech-hover tech-accent">
+                            <span class="tech-icon">🚀</span>
+                            Edge
+                        </span>
+                    </div>
+                    <div class="feature-showcase">
+                        <div class="showcase-item">
+                            <div class="showcase-dot"></div>
+                            <span>Core Web Vitals optimized</span>
+                        </div>
+                        <div class="showcase-item">
+                            <div class="showcase-dot"></div>
+                            <span>Zero-config performance</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-glow-effect"></div>
+            </div>
+
+            <!-- SEO Feature -->
+            <div class="feature-card feature-premium" data-gsap="slideUp" data-delay="0.1" data-tilt>
+                <div class="feature-border"></div>
+                <div class="feature-icon icon-morph icon-seo">
+                    <Search size={24} />
+                    <div class="icon-glow"></div>
+                </div>
+                <h3 class="feature-title" data-splitting>SEO Dominance</h3>
+                <p class="feature-description">
+                    Technical SEO, content strategie en link building.
+                    Top 3 rankings binnen 6 maanden - gegarandeerd.
+                </p>
+                <div class="feature-metrics">
+                    <div class="metric-item">
+                        <span class="metric-number counter" data-target="156" data-suffix="%">0</span>
+                        <span class="metric-text">Organic growth</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric-item">
+                        <span class="metric-number">#1-3</span>
+                        <span class="metric-text">Average ranking</span>
+                    </div>
+                </div>
+                <div class="feature-link link-hover link-premium">
+                    <span>Meer over SEO</span>
+                    <ChevronRight size={16} class="link-arrow" />
+                    <div class="link-underline"></div>
+                </div>
+                <div class="feature-glow-effect"></div>
+            </div>
+
+            <!-- Conversion Feature -->
+            <div class="feature-card feature-premium" data-gsap="slideUp" data-delay="0.2" data-tilt>
+                <div class="feature-border"></div>
+                <div class="feature-icon icon-morph icon-conversion">
+                    <BarChart3 size={24} />
+                    <div class="icon-glow"></div>
+                </div>
+                <h3 class="feature-title" data-splitting>Conversion Focus</h3>
+                <p class="feature-description">
+                    A/B testing, heatmaps, user journey optimalisatie.
+                    Elke visitor wordt een potentiële klant.
+                </p>
+                <div class="feature-metrics">
+                    <div class="metric-item">
+                        <span class="metric-number counter" data-target="247" data-suffix="%">0</span>
+                        <span class="metric-text">CVR increase</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric-item">
+                        <span class="metric-number counter" data-target="89" data-suffix="%">0</span>
+                        <span class="metric-text">User retention</span>
+                    </div>
+                </div>
+                <div class="feature-link link-hover link-premium">
+                    <span>Bekijk cases</span>
+                    <ChevronRight size={16} class="link-arrow" />
+                    <div class="link-underline"></div>
+                </div>
+                <div class="feature-glow-effect"></div>
+            </div>
+
+            <!-- Mobile Feature -->
+            <div class="feature-card feature-premium" data-gsap="slideUp" data-delay="0.3" data-tilt>
+                <div class="feature-border"></div>
+                <div class="feature-icon icon-morph icon-mobile">
+                    <Smartphone size={24} />
+                    <div class="icon-glow"></div>
+                </div>
+                <h3 class="feature-title" data-splitting>Mobile Excellence</h3>
+                <p class="feature-description">
+                    60% van je traffic komt van mobiel.
+                    Wij zorgen voor perfecte mobile experience.
+                </p>
+                <div class="feature-metrics">
+                    <div class="metric-item">
+                        <span class="metric-number">100%</span>
+                        <span class="metric-text">Mobile optimized</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric-item">
+                        <span class="metric-number">PWA</span>
+                        <span class="metric-text">Ready</span>
+                    </div>
+                </div>
+                <div class="feature-link link-hover link-premium">
+                    <span>Mobile demo</span>
+                    <ChevronRight size={16} class="link-arrow" />
+                    <div class="link-underline"></div>
+                </div>
+                <div class="feature-glow-effect"></div>
+            </div>
+        </div>
+    </div>
+    <div class="section-background-glow"></div>
+</section>

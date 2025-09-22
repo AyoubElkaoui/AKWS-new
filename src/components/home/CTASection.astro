@@ -1,0 +1,46 @@
+---
+import { ArrowRight, CheckCircle } from 'lucide-astro';
+---
+
+<section class="cta-section" data-gsap="batch">
+    <div class="container">
+        <div class="cta-card" data-gsap="fadeUp" data-tilt>
+            <div class="cta-content">
+                <h2 class="cta-title" data-splitting>
+                    Ready to <span class="gradient-text">scale</span> your business?
+                </h2>
+                <p class="cta-description" data-splitting>
+                    Join 50+ businesses that transformed their online presence into a growth engine.
+                    Start with a free strategy session.
+                </p>
+                <div class="cta-buttons">
+                    <a href="/contact" class="btn btn-primary btn-large btn-magnetic" data-magnetic>
+                        <span data-splitting>Book strategy session</span>
+                        <div class="btn-icon">
+                            <ArrowRight size={16} />
+                        </div>
+                    </a>
+                    <div class="cta-guarantee">
+                        <CheckCircle size={16} class="guarantee-check" />
+                        <span>100% satisfaction guarantee</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-testimonial">
+                <div class="testimonial-content">
+                    <div class="testimonial-quote" data-splitting>
+                        "AK Web Solutions delivered exactly what we needed. Our conversion rate increased by 180% in just 3 months."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar author-glow"></div>
+                        <div class="author-info">
+                            <div class="author-name">Sarah Chen</div>
+                            <div class="author-title">CEO, TechFlow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-glow"></div>
+        </div>
+    </div>
+</section>

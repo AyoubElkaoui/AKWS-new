@@ -1,0 +1,315 @@
+---
+import { Target, CheckCircle, Lightbulb, Palette, Code, Rocket, BarChart3, Users, Search, Smartphone } from 'lucide-astro';
+---
+
+<section class="process-section" data-gsap="batch">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge premium-badge" data-gsap="fadeUp">
+                <Target size={14} />
+                <span data-splitting>Ons gestroomlijnd proces</span>
+                <div class="badge-glow"></div>
+            </div>
+            <h2 class="section-title" data-gsap="fadeUp" data-delay="0.1" data-splitting>
+                Van idee tot <span class="gradient-text animated-gradient">groei</span> in 4 weken
+            </h2>
+            <p class="section-description" data-gsap="fadeUp" data-delay="0.2">
+                Geen maanden wachten. Wij leveren snel, efficiënt en met gegarandeerd resultaat.
+            </p>
+        </div>
+
+        <div class="process-timeline">
+            <div class="timeline-line timeline-animated" data-gsap="drawLine"></div>
+            <div class="timeline-glow"></div>
+
+            <!-- Step 1: Discovery & Strategy -->
+            <div class="process-step step-premium" data-gsap="slideRight" data-delay="0">
+                <div class="step-marker">
+                    <div class="step-number step-magnetic" data-magnetic>
+                        <Lightbulb size={24} class="step-icon" />
+                        <div class="step-number-bg">1</div>
+                    </div>
+                    <div class="step-pulse"></div>
+                    <div class="step-glow step-glow-discovery"></div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title" data-splitting>Discovery & Strategie</h3>
+                        <div class="step-duration">
+                            <span class="duration-text">Week 1</span>
+                            <div class="duration-bar">
+                                <div class="duration-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="step-description" data-splitting>
+                        Diepgaande analyse van je markt, concurrentie en doelgroep.
+                        We ontwikkelen een data-driven strategie voor maximale impact en ROI.
+                    </p>
+                    <div class="step-deliverables">
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Uitgebreide markt & concurrentie analyse</span>
+                            <div class="deliverable-tooltip">Inclusief SEMrush en Ahrefs rapportage</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Gedetailleerde user persona mapping</span>
+                            <div class="deliverable-tooltip">Gebaseerd op echte gebruikersdata</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>SEO keyword strategie & content plan</span>
+                            <div class="deliverable-tooltip">500+ relevante keywords geïdentificeerd</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Conversion funnel optimalisatie</span>
+                            <div class="deliverable-tooltip">Elke stap geoptimaliseerd voor conversie</div>
+                        </div>
+                    </div>
+                    <div class="step-tools">
+                        <span class="tool-badge">Google Analytics</span>
+                        <span class="tool-badge">SEMrush</span>
+                        <span class="tool-badge">Hotjar</span>
+                        <span class="tool-badge">Ahrefs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Design & Prototype -->
+            <div class="process-step step-premium" data-gsap="slideRight" data-delay="0.2">
+                <div class="step-marker">
+                    <div class="step-number step-magnetic" data-magnetic>
+                        <Palette size={24} class="step-icon" />
+                        <div class="step-number-bg">2</div>
+                    </div>
+                    <div class="step-pulse"></div>
+                    <div class="step-glow step-glow-design"></div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title" data-splitting>Design & Prototype</h3>
+                        <div class="step-duration">
+                            <span class="duration-text">Week 2</span>
+                            <div class="duration-bar">
+                                <div class="duration-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="step-description" data-splitting>
+                        High-fidelity designs met focus op conversie en gebruikerservaring.
+                        Interactieve prototypes om elke pixel te perfectioneren.
+                    </p>
+                    <div class="step-deliverables">
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Wireframes & user journey flows</span>
+                            <div class="deliverable-tooltip">Alle user paths geoptimaliseerd</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Pixel-perfect high-fidelity designs</span>
+                            <div class="deliverable-tooltip">Desktop, tablet & mobile versies</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Interactive clickable prototypes</span>
+                            <div class="deliverable-tooltip">Test de flow voordat we bouwen</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Design system & style guide</span>
+                            <div class="deliverable-tooltip">Consistentie gegarandeerd</div>
+                        </div>
+                    </div>
+                    <div class="step-showcase">
+                        <div class="showcase-preview">
+                            <div class="preview-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                </div>
+                                <div class="screen-content">
+                                    <div class="preview-element element-1"></div>
+                                    <div class="preview-element element-2"></div>
+                                    <div class="preview-element element-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-tools">
+                        <span class="tool-badge">Figma</span>
+                        <span class="tool-badge">Adobe XD</span>
+                        <span class="tool-badge">Principle</span>
+                        <span class="tool-badge">InVision</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Development & Testing -->
+            <div class="process-step step-premium" data-gsap="slideRight" data-delay="0.4">
+                <div class="step-marker">
+                    <div class="step-number step-magnetic" data-magnetic>
+                        <Code size={24} class="step-icon" />
+                        <div class="step-number-bg">3</div>
+                    </div>
+                    <div class="step-pulse"></div>
+                    <div class="step-glow step-glow-development"></div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title" data-splitting>Development & Testing</h3>
+                        <div class="step-duration">
+                            <span class="duration-text">Week 3</span>
+                            <div class="duration-bar">
+                                <div class="duration-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="step-description" data-splitting>
+                        Pixel-perfect development met de nieuwste technologieën.
+                        Uitgebreid testen op alle devices, browsers en scenario's.
+                    </p>
+                    <div class="step-deliverables">
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Modern tech stack implementatie</span>
+                            <div class="deliverable-tooltip">Astro, React, TypeScript & meer</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Performance optimalisatie</span>
+                            <div class="deliverable-tooltip">Sub-second loading times</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Cross-browser & device testing</span>
+                            <div class="deliverable-tooltip">Perfect op alle platformen</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>SEO & accessibility compliance</span>
+                            <div class="deliverable-tooltip">WCAG 2.1 AA compliant</div>
+                        </div>
+                    </div>
+                    <div class="step-metrics">
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <BarChart3 size={16} />
+                            </div>
+                            <span class="metric-value">98+</span>
+                            <span class="metric-label">Lighthouse Score</span>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <Smartphone size={16} />
+                            </div>
+                            <span class="metric-value">100%</span>
+                            <span class="metric-label">Mobile Optimized</span>
+                        </div>
+                    </div>
+                    <div class="step-tools">
+                        <span class="tool-badge">Astro</span>
+                        <span class="tool-badge">TypeScript</span>
+                        <span class="tool-badge">GSAP</span>
+                        <span class="tool-badge">Tailwind</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Launch & Optimization -->
+            <div class="process-step step-premium" data-gsap="slideRight" data-delay="0.6">
+                <div class="step-marker">
+                    <div class="step-number step-magnetic" data-magnetic>
+                        <Rocket size={24} class="step-icon" />
+                        <div class="step-number-bg">4</div>
+                    </div>
+                    <div class="step-pulse"></div>
+                    <div class="step-glow step-glow-launch"></div>
+                </div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <h3 class="step-title" data-splitting>Launch & Optimalisatie</h3>
+                        <div class="step-duration">
+                            <span class="duration-text">Week 4+</span>
+                            <div class="duration-bar">
+                                <div class="duration-fill infinite-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="step-description" data-splitting>
+                        Strategische launch met volledige monitoring setup.
+                        Continue optimalisatie op basis van real-world data en gebruikersgedrag.
+                    </p>
+                    <div class="step-deliverables">
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Production deployment & CDN setup</span>
+                            <div class="deliverable-tooltip">Wereldwijde snelheid gegarandeerd</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Analytics & monitoring dashboard</span>
+                            <div class="deliverable-tooltip">Real-time inzichten</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>Ongoing performance optimalisatie</span>
+                            <div class="deliverable-tooltip">Continue verbetering</div>
+                        </div>
+                        <div class="deliverable check-animate deliverable-premium">
+                            <CheckCircle size={18} class="check-icon" />
+                            <span>24/7 monitoring & support</span>
+                            <div class="deliverable-tooltip">Altijd online, altijd snel</div>
+                        </div>
+                    </div>
+                    <div class="step-results">
+                        <div class="result-item">
+                            <div class="result-icon">
+                                <Users size={16} />
+                            </div>
+                            <span class="result-text">Gemiddeld +247% meer bezoekers</span>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-icon">
+                                <Target size={16} />
+                            </div>
+                            <span class="result-text">Gemiddeld +180% hogere conversie</span>
+                        </div>
+                    </div>
+                    <div class="step-tools">
+                        <span class="tool-badge">Vercel</span>
+                        <span class="tool-badge">Cloudflare</span>
+                        <span class="tool-badge">Google Analytics</span>
+                        <span class="tool-badge">Search Console</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Process Summary -->
+        <div class="process-summary" data-gsap="fadeUp" data-delay="0.8">
+            <div class="summary-card">
+                <h3 class="summary-title">Het resultaat?</h3>
+                <p class="summary-description">
+                    Een website die niet alleen mooi is, maar ook echt werkt.
+                    Meer bezoekers, hogere conversies, en een sterke online aanwezigheid.
+                </p>
+                <div class="summary-cta">
+                    <a href="/contact" class="btn btn-primary btn-magnetic" data-magnetic>
+                        <span>Start je project</span>
+                        <ArrowRight size={16} />
+                    </a>
+                    <span class="summary-guarantee">✓ 100% tevredenheidsgarantie</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="process-background-effects">
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-orb orb-3"></div>
+    </div>
+</section>

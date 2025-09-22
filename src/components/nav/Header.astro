@@ -1,42 +1,71 @@
----
-const currentPath = Astro.url.pathname;
 
-const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/diensten', label: 'Diensten' },
-    { href: '/cases', label: 'Cases' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
-];
+---
+import { Sparkles, ArrowRight, Play, Star } from 'lucide-astro';
+import FloatingCards from './FloatingCards.astro';
 ---
 
-<header style="position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10, 14, 26, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+<section class="hero-section" id="hero">
+    <canvas id="hero-canvas" class="hero-canvas"></canvas>
+    <div class="hero-grid"></div>
     <div class="container">
-        <nav style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 0;">
-            <a href="/" style="font-size: 1.5rem; font-weight: 700; color: #60a5fa; text-decoration: none;">
-                AK Web Solutions
-            </a>
-
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                {navItems.map((item) => (
-                        <a
-                                href={item.href}
-                                style={`
-              color: ${currentPath === item.href ? '#60a5fa' : '#e2e8f0'};
-              text-decoration: none;
-              font-weight: 500;
-              transition: color 0.2s;
-            `}
-                                onmouseover="this.style.color='#60a5fa'"
-                                onmouseout={`this.style.color='${currentPath === item.href ? '#60a5fa' : '#e2e8f0'}'`}
-                        >
-                            {item.label}
-                        </a>
-                ))}
-                <a href="/contact" class="btn btn-primary">
-                    Gratis Advies
+        <div class="hero-content">
+            <div class="hero-badge" data-gsap="fadeUp" data-delay="0">
+                <div class="badge-dot"></div>
+                <span data-splitting>Nieuwe websites vanaf €1,499</span>
+            </div>
+            <h1 class="hero-title">
+                <div class="hero-line" data-gsap="slideUp" data-delay="0.2">
+                    <span data-splitting>Websites die</span>
+                    <span class="hero-highlight">
+                        <span class="highlight-text" data-splitting>converteren</span>
+                        <div class="highlight-bg"></div>
+                    </span>
+                </div>
+                <div class="hero-line" data-gsap="slideUp" data-delay="0.4">
+                    <span data-splitting>en</span>
+                    <span class="gradient-text" data-splitting>resultaat leveren</span>
+                </div>
+            </h1>
+            <p class="hero-description" data-gsap="fadeUp" data-delay="0.6" data-splitting>
+                Van strategie tot implementatie. Wij bouwen digitale ervaringen die je klanten omzetten
+                in groei voor jouw bedrijf. Performance-first, SEO-geoptimaliseerd, conversion-focused.
+            </p>
+            <div class="hero-cta" data-gsap="fadeUp" data-delay="0.8">
+                <a href="/contact" class="btn btn-primary btn-magnetic" data-magnetic>
+                    <span data-splitting>Start gratis analyse</span>
+                    <div class="btn-icon">
+                        <ArrowRight size={16} />
+                    </div>
+                </a>
+                <a href="#demo" class="btn btn-ghost btn-magnetic" data-magnetic>
+                    <div class="play-icon">
+                        <Play size={14} />
+                    </div>
+                    <span data-splitting>Bekijk demo</span>
                 </a>
             </div>
-        </nav>
+            <div class="hero-social-proof" data-gsap="fadeUp" data-delay="1">
+                <div class="social-avatars">
+                    <div class="avatar avatar-float" data-avatar="1"></div>
+                    <div class="avatar avatar-float" data-avatar="2"></div>
+                    <div class="avatar avatar-float" data-avatar="3"></div>
+                    <div class="avatar avatar-float" data-avatar="4"></div>
+                    <div class="avatar-count">+50</div>
+                </div>
+                <div class="social-text">
+                    <div class="rating">
+                        <Star size={12} class="star-animate" />
+                        <Star size={12} class="star-animate" />
+                        <Star size={12} class="star-animate" />
+                        <Star size={12} class="star-animate" />
+                        <Star size={12} class="star-animate" />
+                        <span class="rating-text">4.9</span>
+                    </div>
+                    <span class="social-label">Tevreden ondernemers</span>
+                </div>
+            </div>
+        </div>
+        <FloatingCards />
     </div>
-</header>
+    <div class="hero-gradient" data-parallax-y="50"></div>
+</section>
