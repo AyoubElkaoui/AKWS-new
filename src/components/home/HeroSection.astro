@@ -1,0 +1,92 @@
+---
+const stats = [
+  { value: '150+', label: 'projecten afgerond' },
+  { value: '38%', label: 'gem. conversiestijging' },
+  { value: '99.9%', label: 'uptime & monitoring' },
+];
+
+const badges = [
+  'Astro 5 & Next.js specialisten',
+  'Google SEO & SEA gecertificeerd',
+  'Volledig in-house team',
+];
+---
+
+<section class="relative overflow-hidden pt-36 pb-28">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.3),_transparent_65%)]"></div>
+  <div class="absolute inset-x-0 top-10 flex justify-center blur-3xl">
+    <div class="h-64 w-[40rem] rounded-full bg-brand-500/20"></div>
+  </div>
+  <div class="absolute -top-24 left-1/2 hidden size-[520px] -translate-x-1/2 rounded-full bg-brand-500/5 blur-3xl lg:block"></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="grid gap-16 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
+      <div class="space-y-10">
+        <div class="space-y-6">
+          <span class="section-eyebrow">Digitale groei partner</span>
+          <h1 class="hero-title text-pretty text-4xl font-semibold text-white md:text-5xl lg:text-6xl">
+            Websites & marketing funnels die jouw groei versnellen.
+          </h1>
+          <p class="hero-subtitle text-balance text-lg text-white/70 md:text-xl">
+            Wij vertalen jouw strategie naar een high-performance website met bewezen UX-patterns, zoekmachine dominantie en automatiseringen die leads omzetten naar loyale klanten.
+          </p>
+        </div>
+
+        <div class="hero-cta flex flex-wrap items-center gap-4">
+          <a href="#contact" class="magnetic-btn btn-primary">
+            Plan een strategiecall
+          </a>
+          <a href="#cases" class="btn-secondary">
+            Bekijk recente cases
+          </a>
+        </div>
+
+        <div class="grid gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-brand-900/30 backdrop-blur-xl sm:grid-cols-3">
+          {stats.map((stat) => (
+            <div class="trust-indicators space-y-2">
+              <p class="text-3xl font-semibold text-white">{stat.value}</p>
+              <p class="text-sm uppercase tracking-[0.35em] text-white/50">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="floating-orb-1 absolute -left-10 top-16 size-28 rounded-full bg-brand-500/30 blur-xl"></div>
+        <div class="floating-orb-2 absolute -right-8 top-40 size-32 rounded-full bg-white/10 blur-3xl"></div>
+
+        <div class="glass-panel relative overflow-hidden p-10">
+          <div class="absolute inset-0 border border-white/10"></div>
+          <div class="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent"></div>
+
+          <div class="relative space-y-8">
+            <div>
+              <span class="section-eyebrow">Wat je ontvangt</span>
+              <h2 class="text-2xl font-semibold text-white">Strategie, design en techniek naadloos uitgelijnd.</h2>
+            </div>
+
+            <ul class="stagger-children space-y-4 text-sm text-white/70">
+              {badges.map((badge) => (
+                <li class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  <span class="grid size-8 place-content-center rounded-xl bg-brand-500/20 text-brand-200">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12.5L9.5 17L19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                  <span class="text-base text-white/80">{badge}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="rounded-2xl border border-white/10 bg-zinc-900/70 p-6">
+              <p class="text-xs font-semibold uppercase tracking-[0.35em] text-white/40">Focus</p>
+              <p class="mt-2 text-pretty text-lg text-white/80">
+                Conversiegericht design, SEO/SEA in dezelfde sprint en een schaalbare tech-stack (Astro, Next.js, Laravel, Shopify) zodat je nooit tegen de grenzen van je website aanloopt.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

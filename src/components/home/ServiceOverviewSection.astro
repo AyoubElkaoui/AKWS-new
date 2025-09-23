@@ -1,0 +1,113 @@
+---
+const services = [
+  {
+    title: 'Websites bouwen',
+    description: 'High-end websites met Astro of Next.js, gericht op snelheid, SEO en conversie. Inclusief UX, copy en implementatie.',
+    icon: 'globe',
+  },
+  {
+    title: 'SEO optimalisatie',
+    description: 'Technische SEO, contentstrategie en autoriteit. Van audits tot maandelijkse optimalisaties om je posities te domineren.',
+    icon: 'search',
+  },
+  {
+    title: 'SEA campagnes',
+    description: 'Slimme Google Ads campagnes met automatische dashboarding en voortdurende A/B tests voor maximale ROI.',
+    icon: 'target',
+  },
+  {
+    title: 'Hosting & onderhoud',
+    description: 'Beheerde hosting, security monitoring en updates. Altijd online en veilig met 24/7 incident response.',
+    icon: 'server',
+  },
+  {
+    title: 'IT-oplossingen',
+    description: 'Integraties met interne systemen, CRM-koppelingen en automatiseringen die teams laten samenwerken zonder frictie.',
+    icon: 'settings',
+  },
+  {
+    title: 'Software oplossingen',
+    description: 'Maatwerk portals, configurators en SaaS features die precies aansluiten op je processen en groeiambitie.',
+    icon: 'code',
+  },
+];
+---
+
+<section class="relative py-28">
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,29,0.95)_0%,rgba(12,10,29,0.7)_60%,rgba(12,10,29,0)_100%)]"></div>
+  <div class="absolute inset-0 grid-pattern opacity-10"></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="mb-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div class="space-y-6 lg:max-w-3xl">
+        <span class="section-eyebrow">Dienstenpakket</span>
+        <h2 class="text-pretty text-3xl font-semibold text-white md:text-4xl">
+          Alles in huis om digitale groei te versnellen.
+        </h2>
+        <p class="text-balance text-lg text-white/70">
+          Van het bouwen van een schaalbare website tot het aanjagen van verkeer en continu optimaliseren. We leveren een compleet ecosysteem zodat je één partner hebt voor strategie, realisatie en groei.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <span class="rounded-full border border-brand-500/40 bg-brand-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-brand-200">Growth</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white/60">Tech</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white/60">Marketing</span>
+      </div>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {services.map((service) => (
+        <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] p-7 transition duration-500 hover:-translate-y-2 hover:border-brand-500/50 hover:bg-brand-500/10">
+          <div class="card-glow bg-brand-500/20"></div>
+          <div class="relative space-y-5">
+            <div class="flex items-center gap-3">
+              <span class="grid size-10 place-content-center rounded-2xl border border-white/15 bg-white/10 text-white">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="opacity-80">
+                  <use href={`#icon-${service.icon}`} />
+                </svg>
+              </span>
+              <h3 class="text-lg font-semibold text-white">{service.title}</h3>
+            </div>
+            <p class="text-sm text-white/70">{service.description}</p>
+            <a class="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-brand-200" href="#contact">
+              Meer weten
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <svg class="hidden" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-globe" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <path d="M2 12h20" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M12 2a17.7 17.7 0 010 20a17.7 17.7 0 010 -20" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M4.93 4.93a10 10 0 0014.14 0a10 10 0 010 14.14a10 10 0 01-14.14 0a10 10 0 010 -14.14" stroke-width="1.5" />
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <circle cx="11" cy="11" r="7" stroke-width="1.5" />
+      <path d="M20 20l-3.5-3.5" stroke-width="1.5" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <circle cx="12" cy="12" r="7" stroke-width="1.5" />
+      <circle cx="12" cy="12" r="3" stroke-width="1.5" />
+      <path d="M12 2v3M22 12h-3M12 22v-3M2 12h3" stroke-width="1.5" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-server" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <rect x="3" y="4" width="18" height="6" rx="2" stroke-width="1.5" />
+      <rect x="3" y="14" width="18" height="6" rx="2" stroke-width="1.5" />
+      <path d="M7 7h.01M7 17h.01" stroke-width="1.5" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <circle cx="12" cy="12" r="3" stroke-width="1.5" />
+      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51h.09a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol id="icon-code" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <path d="M16 18l6-6l-6-6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M8 6l-6 6l6 6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+  </svg>
+</section>

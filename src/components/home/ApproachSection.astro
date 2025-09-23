@@ -1,0 +1,63 @@
+---
+const steps = [
+  {
+    title: '1. Diagnose & visie',
+    description: 'Strategische sessies, data-analyse en klantonderzoek om scherp te krijgen waar de grootste kansen liggen.',
+    deliverables: ['Growth roadmap', 'Concurrentie & SEO analyse', 'Doelgroep journeys'],
+  },
+  {
+    title: '2. Design & prototype',
+    description: 'UX flows, high-fidelity design en copywriting die jouw merk ademt. Getest met real users voordat we ontwikkelen.',
+    deliverables: ['UX-wireframes', 'UI design system', 'Micro-animaties & copy'],
+  },
+  {
+    title: '3. Build & launch',
+    description: 'Ontwikkeling in Astro of Next.js, performance optimalisatie en koppelingen met je stack. Afgesloten met launch sprint.',
+    deliverables: ['Headless CMS', 'Marketing automatisering', 'QA & launch support'],
+  },
+  {
+    title: '4. Scale & optimise',
+    description: 'SEO/SEA campagnes, conversie optimalisatie en maandelijkse growth experiments met duidelijke dashboards.',
+    deliverables: ['SEO & SEA sprints', 'CRO experimenten', 'KPI dashboards'],
+  },
+];
+---
+
+<section id="approach" class="relative py-28">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(37,99,235,0.18),_transparent_70%)]"></div>
+  <div class="absolute inset-0 grid-pattern opacity-10"></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="mb-20 max-w-3xl space-y-6">
+      <span class="section-eyebrow">Onze werkwijze</span>
+      <h2 class="text-pretty text-3xl font-semibold text-white md:text-4xl">
+        Een bewezen sprint-aanpak die snelheid combineert met kwaliteit.
+      </h2>
+      <p class="text-balance text-lg text-white/70">
+        We werken in duidelijke sprints met één multidisciplinair team. Jij hebt één aanspreekpunt, realtime inzicht in de voortgang en elke sprint levert tastbaar resultaat op.
+      </p>
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-2">
+      {steps.map((step) => (
+        <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/40 p-8 transition duration-500 hover:-translate-y-2 hover:border-brand-500/50">
+          <div class="card-glow bg-brand-500/20"></div>
+          <div class="relative space-y-6">
+            <header class="space-y-3">
+              <h3 class="text-pretty text-2xl font-semibold text-white">{step.title}</h3>
+              <p class="text-base text-white/70">{step.description}</p>
+            </header>
+            <ul class="grid gap-2 text-sm text-white/60">
+              {step.deliverables.map((item) => (
+                <li class="inline-flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-3 py-2">
+                  <span class="size-1.5 rounded-full bg-brand-300"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

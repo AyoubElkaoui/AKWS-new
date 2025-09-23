@@ -1,39 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/nav/Header.astro';
+import Footer from '../components/nav/Footer.astro';
+
 import HeroSection from '../components/home/HeroSection.astro';
-import LogoCloud from '../components/home/LogoCloud.astro';
 import FeaturesSection from '../components/home/FeaturesSection.astro';
-import StatsSection from '../components/home/StatsSection.astro';
-import ProcessSection from '../components/home/ProcessSection.astro';
+import ServiceOverviewSection from '../components/home/ServiceOverviewSection.astro';
+import ApproachSection from '../components/home/ApproachSection.astro';
+import CaseStudiesSection from '../components/home/CaseStudiesSection.astro';
+import TestimonialsSection from '../components/home/TestimonialsSection.astro';
 import CTASection from '../components/home/CTASection.astro';
 ---
 
-<Layout>
+<Layout title="AK Web Solutions – Websites, SEO & digitale groei">
+  <Header />
+  <main>
     <HeroSection />
-    <LogoCloud />
     <FeaturesSection />
-    <StatsSection />
-    <ProcessSection />
+    <ServiceOverviewSection />
+    <ApproachSection />
+    <CaseStudiesSection />
+    <TestimonialsSection />
     <CTASection />
-
-    <script>
-        import { initSmoothScroll, initTextSplitting, initGSAPAnimations } from '../scripts/animations.js';
-        import { initMagneticElements, initTiltEffects, initCounterAnimations, initMorphingEffects, initParallaxEffects } from '../scripts/interactions.js';
-        import { initThreeJS } from '../scripts/three-scene.js';
-        import { initAdvancedEffects } from '../scripts/advanced-effects.js';
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            initSmoothScroll();
-            initTextSplitting();
-            initGSAPAnimations();
-            initThreeJS();
-            initMagneticElements();
-            initTiltEffects();
-            initCounterAnimations();
-            initMorphingEffects();
-            initParallaxEffects();
-            initAdvancedEffects();
-        });
-    </script>
+  </main>
+  <Footer />
 </Layout>

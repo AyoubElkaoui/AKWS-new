@@ -1,71 +1,102 @@
-
 ---
-import { Sparkles, ArrowRight, Play, Star } from 'lucide-astro';
-import FloatingCards from './FloatingCards.astro';
+const navLinks = [
+  { href: '#services', label: 'Diensten' },
+  { href: '#cases', label: 'Cases' },
+  { href: '#approach', label: 'Aanpak' },
+  { href: '#testimonials', label: 'Reviews' },
+  { href: '#contact', label: 'Contact' },
+];
 ---
 
-<section class="hero-section" id="hero">
-    <canvas id="hero-canvas" class="hero-canvas"></canvas>
-    <div class="hero-grid"></div>
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-badge" data-gsap="fadeUp" data-delay="0">
-                <div class="badge-dot"></div>
-                <span data-splitting>Nieuwe websites vanaf €1,499</span>
-            </div>
-            <h1 class="hero-title">
-                <div class="hero-line" data-gsap="slideUp" data-delay="0.2">
-                    <span data-splitting>Websites die</span>
-                    <span class="hero-highlight">
-                        <span class="highlight-text" data-splitting>converteren</span>
-                        <div class="highlight-bg"></div>
-                    </span>
-                </div>
-                <div class="hero-line" data-gsap="slideUp" data-delay="0.4">
-                    <span data-splitting>en</span>
-                    <span class="gradient-text" data-splitting>resultaat leveren</span>
-                </div>
-            </h1>
-            <p class="hero-description" data-gsap="fadeUp" data-delay="0.6" data-splitting>
-                Van strategie tot implementatie. Wij bouwen digitale ervaringen die je klanten omzetten
-                in groei voor jouw bedrijf. Performance-first, SEO-geoptimaliseerd, conversion-focused.
-            </p>
-            <div class="hero-cta" data-gsap="fadeUp" data-delay="0.8">
-                <a href="/contact" class="btn btn-primary btn-magnetic" data-magnetic>
-                    <span data-splitting>Start gratis analyse</span>
-                    <div class="btn-icon">
-                        <ArrowRight size={16} />
-                    </div>
-                </a>
-                <a href="#demo" class="btn btn-ghost btn-magnetic" data-magnetic>
-                    <div class="play-icon">
-                        <Play size={14} />
-                    </div>
-                    <span data-splitting>Bekijk demo</span>
-                </a>
-            </div>
-            <div class="hero-social-proof" data-gsap="fadeUp" data-delay="1">
-                <div class="social-avatars">
-                    <div class="avatar avatar-float" data-avatar="1"></div>
-                    <div class="avatar avatar-float" data-avatar="2"></div>
-                    <div class="avatar avatar-float" data-avatar="3"></div>
-                    <div class="avatar avatar-float" data-avatar="4"></div>
-                    <div class="avatar-count">+50</div>
-                </div>
-                <div class="social-text">
-                    <div class="rating">
-                        <Star size={12} class="star-animate" />
-                        <Star size={12} class="star-animate" />
-                        <Star size={12} class="star-animate" />
-                        <Star size={12} class="star-animate" />
-                        <Star size={12} class="star-animate" />
-                        <span class="rating-text">4.9</span>
-                    </div>
-                    <span class="social-label">Tevreden ondernemers</span>
-                </div>
-            </div>
+<header class="fixed inset-x-0 top-0 z-50" id="site-header">
+  <div class="relative">
+    <div class="absolute inset-0 bg-zinc-950/80 backdrop-blur-xl"></div>
+    <div class="absolute inset-0 border-b border-white/10"></div>
+
+    <div class="relative mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
+      <a href="/" class="group inline-flex items-center gap-3 text-white">
+        <div class="grid size-11 place-content-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 font-display text-lg font-semibold tracking-tight transition-transform duration-300 group-hover:scale-105">
+          AK
         </div>
-        <FloatingCards />
+        <div class="flex flex-col text-left leading-tight">
+          <span class="text-xs font-semibold uppercase text-white/60 tracking-[0.45em]">AKWS</span>
+          <span class="text-base font-semibold text-white">Web Solutions</span>
+        </div>
+      </a>
+
+      <nav class="hidden items-center gap-8 lg:flex">
+        {navLinks.map((link) => (
+          <a href={link.href} class="nav-link" data-nav>
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="#contact" class="magnetic-btn btn-primary hidden md:inline-flex">
+          <span class="flex items-center gap-2">
+            Start project
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </a>
+
+        <button class="flex size-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white lg:hidden" id="menu-toggle" aria-label="Menu">
+          <span class="sr-only">Open navigatie</span>
+          <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" class="transition-opacity duration-200">
+            <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          <svg id="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" class="hidden transition-opacity duration-200">
+            <path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
     </div>
-    <div class="hero-gradient" data-parallax-y="50"></div>
-</section>
+
+    <div id="mobile-menu" class="relative hidden border-t border-white/5 bg-zinc-950/95 backdrop-blur-xl lg:hidden">
+      <div class="mx-auto grid max-w-6xl gap-2 px-6 py-6">
+        {navLinks.map((link) => (
+          <a href={link.href} class="rounded-2xl border border-white/5 bg-white/5 px-5 py-3 text-base font-semibold text-white/80 transition-all hover:border-brand-500 hover:bg-brand-500/10 hover:text-white" data-nav>
+            {link.label}
+          </a>
+        ))}
+        <a href="#contact" class="btn-primary justify-center">
+          Plan een gesprek
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    const header = document.getElementById('site-header');
+    const toggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+
+    let open = false;
+
+    const setState = (state) => {
+      open = state;
+
+      if (!mobileMenu) return;
+      mobileMenu.classList.toggle('hidden', !open);
+      iconMenu?.classList.toggle('hidden', open);
+      iconClose?.classList.toggle('hidden', !open);
+
+      if (open) {
+        mobileMenu.animate(
+          [{ opacity: 0, transform: 'translateY(-10px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 200, easing: 'ease-out' }
+        );
+      }
+    };
+
+    toggle?.addEventListener('click', () => setState(!open));
+
+    header?.querySelectorAll('[data-nav]').forEach((link) => {
+      link.addEventListener('click', () => setState(false));
+    });
+  </script>
+</header>

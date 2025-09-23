@@ -1,0 +1,64 @@
+---
+const features = [
+  {
+    title: 'Growth driven webdesign',
+    description: 'UX-gedreven wireframes, high-end visuals en micro-animaties die vertrouwen wekken en bezoekers door de funnel sturen.',
+    metric: 'Gem. sessieduur +52%',
+    gradient: 'from-brand-500/40 to-brand-700/30',
+  },
+  {
+    title: 'SEO & SEA als vliegwiel',
+    description: 'Technische SEO, contentstructuur en winstgevende Google Ads campagnes die samen het leadvolume verhogen.',
+    metric: 'Leadgroei +38%',
+    gradient: 'from-sky-400/30 via-brand-500/20 to-indigo-500/40',
+  },
+  {
+    title: 'Automatisering & performance',
+    description: 'Schaalbare infrastructuur op moderne stacks met API-koppelingen, CRM-integraties en realtime rapportage.',
+    metric: 'Laadtijd &lt; 0,8s',
+    gradient: 'from-cyan-400/20 via-emerald-400/20 to-brand-500/30',
+  },
+];
+---
+
+<section id="services" class="relative py-28">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(15,23,42,0.45),_rgba(15,23,42,0))]"></div>
+  <div class="absolute inset-0 grid-pattern opacity-10"></div>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="mb-16 max-w-3xl space-y-6">
+      <span class="section-eyebrow">Waar we het verschil maken</span>
+      <h2 class="text-pretty text-3xl font-semibold text-white md:text-4xl">
+        Een multidisciplinair team dat strategie, design en marketing samenbrengt.
+      </h2>
+      <p class="text-balance text-lg text-white/70">
+        Wij bouwen geen templates. We ontwikkelen digitale ervaringen die je merk versterken, leads converteren en klaar zijn voor schaal. Elk traject start met data, eindigt met een meetbaar resultaat en draait tussendoor op strakke samenwerking.
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+      {features.map((feature) => (
+        <article class="interactive-card group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition-transform duration-500">
+          <div class={`card-glow bg-gradient-to-br ${feature.gradient}`}></div>
+          <div class="relative flex h-full flex-col justify-between gap-12">
+            <header class="space-y-4">
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
+                <span class="size-1.5 rounded-full bg-brand-400"></span>
+                Premium service
+              </span>
+              <h3 class="text-pretty text-2xl font-semibold text-white">{feature.title}</h3>
+              <p class="text-base text-white/70">{feature.description}</p>
+            </header>
+
+            <footer class="flex items-center justify-between text-white/60">
+              <span class="text-sm font-medium uppercase tracking-[0.3em]">Impact</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white">
+                {feature.metric}
+              </span>
+            </footer>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

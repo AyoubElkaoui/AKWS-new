@@ -1,42 +1,53 @@
+
 ---
-export interface Props {
-    title?: string;
+interface Props {
+    title: string;
     description?: string;
 }
 
-const {
-    title = 'AK Web Solutions - Professionele Websites & SEO',
-    description = 'Professionele websites, SEO en online marketing. Laat jouw bedrijf groeien met onze digitale oplossingen.',
-} = Astro.props;
+const { title, description = 'AK Web Solutions – Strategische websites, SEO en automatiseringen die je business versnellen.' } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 
 import '../styles/global.css';
-import Header from '../components/nav/Header.astro';
-import Footer from '../components/nav/Footer.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={Astro.url} />
+<!doctype html>
+<html lang="nl" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
+        {canonical && <link rel="canonical" href={canonical} />}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+        <title>{title}</title>
+    </head>
+    <body class="relative min-h-screen overflow-x-hidden bg-zinc-950 text-zinc-100">
+        <div class="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.18),_transparent_55%)]" aria-hidden="true"></div>
+        <div class="pointer-events-none fixed inset-0 z-0 noise-overlay mix-blend-soft-light opacity-60" aria-hidden="true"></div>
+        <div class="relative z-10">
+            <slot />
+        </div>
 
-    <!-- Open Graph -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
+        <script type="module" src="/scripts/animations.ts"></script>
+        <script type="module" is:inline>
+            import Lenis from 'lenis';
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-</head>
-<body>
-<Header />
-<main>
-    <slot />
-</main>
-<Footer />
-</body>
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                smoothTouch: false,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+        </script>
+    </body>
 </html>
