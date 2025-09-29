@@ -24,27 +24,33 @@ const testimonials = [
 <section id="testimonials" class="relative py-28">
   <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.2),_transparent_75%)]"></div>
   <div class="absolute inset-0 grid-pattern opacity-10"></div>
+  <div class="section-gradient section-gradient--cream parallax-bg" style="top:-25%;right:-18%;"></div>
+  <div class="section-gradient section-gradient--cyan" style="bottom:-30%;left:-12%;"></div>
 
   <div class="relative mx-auto max-w-6xl px-6">
     <div class="mb-16 max-w-3xl space-y-6">
       <span class="section-eyebrow">Ervaringen</span>
-      <h2 class="text-pretty text-3xl font-semibold text-white md:text-4xl">
+      <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
         Klanten die hun digitale groei aan ons toevertrouwen.
       </h2>
     </div>
 
-    <div class="grid gap-8 md:grid-cols-3">
-      {testimonials.map((item) => (
-        <blockquote class="glass-panel relative flex h-full flex-col justify-between gap-8 p-8">
-          <p class="text-pretty text-base text-white/70">
-            “{item.quote}”
-          </p>
-          <footer class="flex flex-col gap-1 text-sm">
-            <span class="font-semibold text-white">{item.name}</span>
-            <span class="text-white/50">{item.role}</span>
-          </footer>
-        </blockquote>
-      ))}
+    <div class="relative">
+      <div class="motion-stripe motion-stripe--reverse"></div>
+
+      <div class="grid gap-8 md:grid-cols-3">
+        {testimonials.map((item) => (
+          <blockquote class="glass-panel glow-ring tilt-card relative flex h-full flex-col justify-between gap-8 p-8" data-tilt data-tilt-max="5" data-tilt-speed="600" data-tilt-perspective="900">
+            <p class="text-pretty text-base text-white/70">
+              “{item.quote}”
+            </p>
+            <footer class="flex flex-col gap-1 text-sm">
+              <span class="font-semibold text-white">{item.name}</span>
+              <span class="text-white/50">{item.role}</span>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
     </div>
   </div>
 </section>

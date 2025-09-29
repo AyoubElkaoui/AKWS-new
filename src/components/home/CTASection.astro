@@ -1,19 +1,31 @@
+---
+import LottieAnimation from '../ui/LottieAnimation.astro';
+---
+
 <section class="relative py-28">
   <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(12,10,29,0.9),_rgba(12,10,29,0.2))]"></div>
   <div class="absolute inset-0 grid-pattern opacity-10"></div>
 
-  <div class="relative mx-auto max-w-5xl overflow-hidden rounded-[3rem] border border-white/10 bg-zinc-950/80 px-10 py-16 text-white shadow-[0_40px_120px_-50px_rgba(37,99,235,0.6)]">
+  <div class="relative mx-auto max-w-5xl overflow-hidden rounded-[3rem] border border-white/10 bg-zinc-950/80 px-10 py-16 text-white shadow-[0_40px_120px_-50px_rgba(37,99,235,0.6)] orbit-border">
     <div class="absolute inset-0 bg-gradient-to-tr from-brand-600/30 via-brand-500/20 to-transparent"></div>
+    <LottieAnimation
+      src="https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json"
+      class="cta-lottie"
+      autoplay
+      loop
+      speed={1}
+      mode="normal"
+    />
     <div class="relative space-y-8">
       <span class="section-eyebrow">Next step</span>
-      <h2 class="text-pretty text-3xl font-semibold md:text-4xl">
+      <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
         Klaar om je volgende groeifase te versnellen?
       </h2>
       <p class="text-balance text-lg text-white/70 md:max-w-3xl">
         Laten we de roadmap uitstippelen. Tijdens een strategiesessie brengen we de kansen in kaart en laten we zien hoe we van A tot conversie komen.
       </p>
       <div class="flex flex-wrap items-center gap-4">
-        <a href="mailto:info@akwebsolutions.nl" class="magnetic-btn btn-primary">
+        <a href="mailto:info@akwebsolutions.nl" class="btn-primary">
           Boek een strategiesessie
         </a>
         <a href="https://cal.com" class="btn-secondary">

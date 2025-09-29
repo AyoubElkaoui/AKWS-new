@@ -1,22 +1,27 @@
 ---
+import LottieAnimation from '../ui/LottieAnimation.astro';
+
 const features = [
   {
     title: 'Growth driven webdesign',
     description: 'UX-gedreven wireframes, high-end visuals en micro-animaties die vertrouwen wekken en bezoekers door de funnel sturen.',
     metric: 'Gem. sessieduur +52%',
     gradient: 'from-brand-500/40 to-brand-700/30',
+    icon: 'https://assets9.lottiefiles.com/packages/lf20_u4yrau.json',
   },
   {
     title: 'SEO & SEA als vliegwiel',
     description: 'Technische SEO, contentstructuur en winstgevende Google Ads campagnes die samen het leadvolume verhogen.',
     metric: 'Leadgroei +38%',
     gradient: 'from-sky-400/30 via-brand-500/20 to-indigo-500/40',
+    icon: 'https://assets9.lottiefiles.com/packages/lf20_jcikwtux.json',
   },
   {
     title: 'Automatisering & performance',
     description: 'Schaalbare infrastructuur op moderne stacks met API-koppelingen, CRM-integraties en realtime rapportage.',
     metric: 'Laadtijd &lt; 0,8s',
     gradient: 'from-cyan-400/20 via-emerald-400/20 to-brand-500/30',
+    icon: 'https://assets2.lottiefiles.com/packages/lf20_touohxv0.json',
   },
 ];
 ---
@@ -24,11 +29,13 @@ const features = [
 <section id="services" class="relative py-28">
   <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(15,23,42,0.45),_rgba(15,23,42,0))]"></div>
   <div class="absolute inset-0 grid-pattern opacity-10"></div>
+  <div class="section-gradient section-gradient--cyan parallax-bg" style="top:-28%;right:-18%;"></div>
+  <div class="section-gradient section-gradient--cream" style="bottom:-20%;left:-12%;"></div>
 
   <div class="relative mx-auto max-w-6xl px-6">
     <div class="mb-16 max-w-3xl space-y-6">
       <span class="section-eyebrow">Waar we het verschil maken</span>
-      <h2 class="text-pretty text-3xl font-semibold text-white md:text-4xl">
+      <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
         Een multidisciplinair team dat strategie, design en marketing samenbrengt.
       </h2>
       <p class="text-balance text-lg text-white/70">
@@ -38,8 +45,9 @@ const features = [
 
     <div class="grid gap-8 lg:grid-cols-3">
       {features.map((feature) => (
-        <article class="interactive-card group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition-transform duration-500">
+        <article class="interactive-card glow-ring tilt-card group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition-transform duration-500" data-tilt data-tilt-max="6" data-tilt-speed="500" data-tilt-perspective="900" data-tilt-glare="true" data-tilt-max-glare="0.2">
           <div class={`card-glow bg-gradient-to-br ${feature.gradient}`}></div>
+          <LottieAnimation src={feature.icon} class="feature-lottie" autoplay loop speed={1} mode="normal" />
           <div class="relative flex h-full flex-col justify-between gap-12">
             <header class="space-y-4">
               <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/60">

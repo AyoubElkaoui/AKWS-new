@@ -36,12 +36,14 @@ const services = [
 <section class="relative py-28">
   <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,29,0.95)_0%,rgba(12,10,29,0.7)_60%,rgba(12,10,29,0)_100%)]"></div>
   <div class="absolute inset-0 grid-pattern opacity-10"></div>
+  <div class="section-gradient section-gradient--violet parallax-bg" style="top:-20%;left:-10%"></div>
+  <div class="section-gradient section-gradient--cream" style="bottom:-25%;right:-15%"></div>
 
   <div class="relative mx-auto max-w-6xl px-6">
     <div class="mb-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       <div class="space-y-6 lg:max-w-3xl">
         <span class="section-eyebrow">Dienstenpakket</span>
-        <h2 class="text-pretty text-3xl font-semibold text-white md:text-4xl">
+        <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
           Alles in huis om digitale groei te versnellen.
         </h2>
         <p class="text-balance text-lg text-white/70">
@@ -57,7 +59,7 @@ const services = [
 
     <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       {services.map((service) => (
-        <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] p-7 transition duration-500 hover:-translate-y-2 hover:border-brand-500/50 hover:bg-brand-500/10">
+        <article class="group glow-ring relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] p-7 transition duration-500 hover:-translate-y-2 hover:border-brand-500/50 hover:bg-brand-500/10 tilt-card" data-tilt data-tilt-max="8" data-tilt-speed="600" data-tilt-perspective="1100" data-tilt-scale="1.01">
           <div class="card-glow bg-brand-500/20"></div>
           <div class="relative space-y-5">
             <div class="flex items-center gap-3">

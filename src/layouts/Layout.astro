@@ -9,6 +9,7 @@ const { title, description = 'AK Web Solutions – Strategische websites, SEO en
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 
 import '../styles/global.css';
+import animationsUrl from '../scripts/animations.ts?url';
 ---
 
 <!doctype html>
@@ -22,16 +23,19 @@ import '../styles/global.css';
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+        <script defer type="module" src="https://cdn.jsdelivr.net/npm/@dotlottie/player-component@1.7.1/dist/dotlottie-player.js"></script>
+        <script defer type="module" src="https://unpkg.com/@lottiefiles/lottie-player@1.6.0/dist/lottie-player.js"></script>
         <title>{title}</title>
     </head>
     <body class="relative min-h-screen overflow-x-hidden bg-zinc-950 text-zinc-100">
+        <div id="progress-bar" class="progress-bar" aria-hidden="true"></div>
         <div class="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.18),_transparent_55%)]" aria-hidden="true"></div>
         <div class="pointer-events-none fixed inset-0 z-0 noise-overlay mix-blend-soft-light opacity-60" aria-hidden="true"></div>
         <div class="relative z-10">
             <slot />
         </div>
 
-        <script type="module" src="/scripts/animations.ts"></script>
+        <script type="module" src={animationsUrl}></script>
         <script type="module" is:inline>
             import Lenis from 'lenis';
 

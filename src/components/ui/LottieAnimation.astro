@@ -1,0 +1,40 @@
+---
+const {
+  src,
+  class: className = '',
+  loop = true,
+  autoplay = true,
+  speed = 1,
+  background = 'transparent',
+  mode = 'normal',
+  hover = false,
+  renderer = 'svg',
+  style = '',
+  ariaHidden = true,
+} = Astro.props;
+
+if (!src) {
+  throw new Error('LottieAnimation requires a "src" prop');
+}
+
+const isDotLottie = src.endsWith('.lottie');
+const Tag = isDotLottie ? 'dotlottie-player' : 'lottie-player';
+
+const boolAttr = (value: boolean) => (value ? true : undefined);
+---
+
+<Tag
+  class={className}
+  src={src}
+  loop={boolAttr(loop)}
+  autoplay={boolAttr(autoplay)}
+  speed={speed}
+  background={background}
+  mode={mode}
+  renderer={!isDotLottie ? renderer : undefined}
+  hover={boolAttr(hover)}
+  style={style}
+  aria-hidden={ariaHidden}
+  role={ariaHidden ? 'presentation' : undefined}
+  keep-last-frame=""
+></Tag>
