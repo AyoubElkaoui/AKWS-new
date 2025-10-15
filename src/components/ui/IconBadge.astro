@@ -1,0 +1,31 @@
+---
+interface Props {
+  name: string;
+  set?: string;
+  title?: string;
+  class?: string;
+  color?: string;
+  width?: number;
+}
+
+const {
+  name,
+  set = 'heroicons-outline',
+  title,
+  class: className = '',
+  color = 'rgba(244,244,255,0.92)',
+  width = 28,
+} = Astro.props as Props;
+
+const encodedColor = encodeURIComponent(color);
+const src = `https://api.iconify.design/${set}:${name}.svg?color=${encodedColor}&width=${width}&strokeWidth=1.6`;
+const alt = title ?? name.replace(/[-_]/g, ' ');
+---
+
+<img
+  src={src}
+  alt={alt}
+  loading="lazy"
+  decoding="async"
+  class={`icon-badge ${className}`.trim()}
+/>

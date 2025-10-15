@@ -11,6 +11,11 @@
   "dependencies": {
     "@motionone/dom": "^10.18.0",
     "@studio-freight/lenis": "^1.0.27",
+    "@astrojs/react": "^4.0.1",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.15.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "astro": "^5.13.9",
     "gsap": "^3.12.2",
     "lenis": "^1.3.11",

@@ -2,35 +2,60 @@
 import LottieAnimation from '../ui/LottieAnimation.astro';
 ---
 
-<section class="relative py-28">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(12,10,29,0.9),_rgba(12,10,29,0.2))]"></div>
-  <div class="absolute inset-0 grid-pattern opacity-10"></div>
+<section id="cta" class="orb-section" data-variant="cta">
+  <span class="orb-bubble" style="--orb-x: 8%; --orb-y: -18%; --orb-size: 30rem; --orb-color: rgba(122, 70, 255, 0.22);"></span>
+  <span class="orb-bubble" style="--orb-x: 78%; --orb-y: 12%; --orb-size: 32rem; --orb-color: rgba(46, 120, 255, 0.22);"></span>
 
-  <div class="relative mx-auto max-w-5xl overflow-hidden rounded-[3rem] border border-white/10 bg-zinc-950/80 px-10 py-16 text-white shadow-[0_40px_120px_-50px_rgba(37,99,235,0.6)] orbit-border">
-    <div class="absolute inset-0 bg-gradient-to-tr from-brand-600/30 via-brand-500/20 to-transparent"></div>
-    <LottieAnimation
-      src="https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json"
-      class="cta-lottie"
-      autoplay
-      loop
-      speed={1}
-      mode="normal"
-    />
-    <div class="relative space-y-8">
-      <span class="section-eyebrow">Next step</span>
-      <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
-        Klaar om je volgende groeifase te versnellen?
-      </h2>
-      <p class="text-balance text-lg text-white/70 md:max-w-3xl">
-        Laten we de roadmap uitstippelen. Tijdens een strategiesessie brengen we de kansen in kaart en laten we zien hoe we van A tot conversie komen.
-      </p>
-      <div class="flex flex-wrap items-center gap-4">
-        <a href="mailto:info@akwebsolutions.nl" class="btn-primary">
-          Boek een strategiesessie
-        </a>
-        <a href="https://cal.com" class="btn-secondary">
-          Bekijk agenda
-        </a>
+  <div class="orb-shell">
+    <div class="orb-panel orb-panel--cta">
+      <div class="orb-panel__spark">
+        <LottieAnimation
+          src="https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json"
+          class="orb-card__media"
+          autoplay
+          loop
+          speed={1}
+          mode="normal"
+          aria-hidden="true"
+        />
+      </div>
+      <div class="orb-panel__content">
+        <span class="orb-tag">Next step</span>
+        <h2 class="orb-title">Plan een sessie en laat ons jouw digitale groeiplan tekenen.</h2>
+        <p class="orb-copy">
+          Binnen 45 minuten krijg je inzicht in quick wins, benodigde tech en de roadmap waarmee we jouw website of funnel schaalbaar maken.
+        </p>
+        <form class="orb-form" action="https://formsubmit.co/info@akwebsolutions.nl" method="POST">
+          <input type="hidden" name="_subject" value="Aanvraag strategiecall via AK Web Solutions" />
+          <input type="hidden" name="_next" value="https://akwebsolutions.nl/bedankt" />
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+          <div class="orb-form__grid">
+            <label class="orb-form__field">
+              <span>Naam</span>
+              <input required type="text" name="name" placeholder="Voor- en achternaam" />
+            </label>
+            <label class="orb-form__field">
+              <span>Bedrijf</span>
+              <input type="text" name="company" placeholder="Bedrijfsnaam" />
+            </label>
+            <label class="orb-form__field">
+              <span>E-mailadres</span>
+              <input required type="email" name="email" placeholder="jij@bedrijf.nl" />
+            </label>
+            <label class="orb-form__field">
+              <span>Telefoon</span>
+              <input type="tel" name="phone" placeholder="0612 34 56 78" />
+            </label>
+            <label class="orb-form__field orb-form__field--textarea">
+              <span>Waar wil je op focussen?</span>
+              <textarea name="message" rows="4" placeholder="Beschrijf jouw uitdaging of doel"></textarea>
+            </label>
+          </div>
+          <div class="orb-meta orb-form__actions">
+            <button type="submit" class="hero-btn hero-btn--primary">Verstuur aanvraag</button>
+            <a href="https://cal.com" class="hero-btn hero-btn--ghost">Bekijk agenda</a>
+          </div>
+        </form>
       </div>
     </div>
   </div>

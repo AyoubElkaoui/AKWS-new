@@ -3,13 +3,24 @@
 interface Props {
     title: string;
     description?: string;
+    socialImage?: string;
+    structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description = 'AK Web Solutions – Strategische websites, SEO en automatiseringen die je business versnellen.' } = Astro.props;
+const {
+    title,
+    description = 'AK Web Solutions – Strategische websites, SEO en automatiseringen die je business versnellen.',
+    socialImage,
+    structuredData,
+} = Astro.props;
+
+const siteName = 'AK Web Solutions';
+const metaTitle = title.includes(siteName) ? title : `${title} – ${siteName}`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const absoluteSocialImage = socialImage && Astro.site ? new URL(socialImage, Astro.site).toString() : socialImage;
+const schemaEntries = Array.isArray(structuredData) ? structuredData : structuredData ? [structuredData] : [];
 
 import '../styles/global.css';
-import animationsUrl from '../scripts/animations.ts?url';
 ---
 
 <!doctype html>
@@ -18,40 +29,33 @@ import animationsUrl from '../scripts/animations.ts?url';
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description} />
+        <meta name="theme-color" content="#0f0f0f" />
         {canonical && <link rel="canonical" href={canonical} />}
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={description} />
+        {canonical && <meta property="og:url" content={canonical} />}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={siteName} />
+        {absoluteSocialImage && <meta property="og:image" content={absoluteSocialImage} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={description} />
+        {absoluteSocialImage && <meta name="twitter:image" content={absoluteSocialImage} />}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
         <script defer type="module" src="https://cdn.jsdelivr.net/npm/@dotlottie/player-component@1.7.1/dist/dotlottie-player.js"></script>
         <script defer type="module" src="https://unpkg.com/@lottiefiles/lottie-player@1.6.0/dist/lottie-player.js"></script>
-        <title>{title}</title>
+        <title>{metaTitle}</title>
+        {schemaEntries.map((entry) => (
+            <script type="application/ld+json" set:text={JSON.stringify(entry)}></script>
+        ))}
     </head>
-    <body class="relative min-h-screen overflow-x-hidden bg-zinc-950 text-zinc-100">
-        <div id="progress-bar" class="progress-bar" aria-hidden="true"></div>
-        <div class="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.18),_transparent_55%)]" aria-hidden="true"></div>
-        <div class="pointer-events-none fixed inset-0 z-0 noise-overlay mix-blend-soft-light opacity-60" aria-hidden="true"></div>
-        <div class="relative z-10">
+    <body class="min-h-screen overflow-x-hidden bg-[#0f0f0f] text-white">
+        <div data-spotlight class="site-spotlight">
             <slot />
         </div>
-
-        <script type="module" src={animationsUrl}></script>
-        <script type="module" is:inline>
-            import Lenis from 'lenis';
-
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smoothWheel: true,
-                smoothTouch: false,
-            });
-
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-
-            requestAnimationFrame(raf);
-        </script>
+        <script type="module" src="/src/scripts/animations.ts"></script>
     </body>
 </html>

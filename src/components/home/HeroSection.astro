@@ -1,212 +1,86 @@
----
-import LottieAnimation from '../ui/LottieAnimation.astro';
+<section class="section hero-section" id="hero">
+  <div id="container" aria-hidden="true"></div>
+  <div id="stats"></div>
+  <div id="ui-container"></div>
 
-const rotatingStatements = [
-  'Premium Astro 5 websites',
-  'SEO & SEA die blijven presteren',
-  'Automation flows zonder ruis',
-];
-
-const heroHighlights = [
-  'Launch in 30 dagen',
-  'Conversie-first design',
-  'Realtime performance dashboards',
-];
-
-const heroStats = [
-  { value: '+38%', label: 'Conversie uplift' },
-  { value: '0.7s', label: 'Gem. laadtijd' },
-  { value: '24/7', label: 'Monitoring & support' },
-];
-
-const trustLogos = ['CloudWorks', 'FitNation', 'LegalFlow', 'GrowthLab'];
-
-const heroNexusTicker = [
-  'Nieuwe site concept staat klaar voor review',
-  'SEO audit scores geüpdatet naar 92%',
-  'Launch checklist 92% afgerond',
-  'Automation flows staan live voor leads',
-];
-
-const heroNexusCards = [
-  {
-    variant: 'left',
-    badge: 'Dag 01',
-    title: 'Strategie & branding',
-    points: [
-      'Positionering & doelen scherp',
-      'Roadmap en KPI’s per sprint',
-      'Tone-of-voice & story framework',
-    ],
-  },
-  {
-    variant: 'right',
-    badge: 'Week 2',
-    title: 'Experience design',
-    points: [
-      'UX flows & high-fidelity prototyping',
-      'UI system met motion & micro-animaties',
-      'Conversion copy & content mapping',
-    ],
-  },
-  {
-    variant: 'bottom',
-    badge: 'Dag 30',
-    title: 'Launch & groei',
-    points: [
-      'Astro 5 build, hosting & QA automatisering',
-      'SEO/SEA accelerators klaar voor campagnes',
-      'Automation flows en realtime dashboards',
-    ],
-  },
-];
-
-const heroNexusPills = ['Strategie', 'UX design', 'Development', 'Marketing'];
-
-const heroNexusFlow = [
-  { title: 'Kick-off', detail: 'Roadmap, KPI’s en brand assets verzamelen.' },
-  { title: 'Design sprint', detail: 'UX/UI iteraties tot het voelt als jouw merk.' },
-  { title: 'Development', detail: 'Astro build, CMS koppelingen en performance QA.' },
-  { title: 'Launch & schaal', detail: 'Monitoring, CRO en campagne-ops opgeschaald.' },
-];
-
-const heroNexusLottie = 'https://assets10.lottiefiles.com/packages/lf20_b12ccf1g.json';
-
-const [primaryStatement, ...alternateStatements] = rotatingStatements;
-const [primaryTicker, ...tickerVariants] = heroNexusTicker;
----
-
-<section class="hero-wow relative overflow-hidden pt-28 pb-28">
-  <div class="hero-wow__gradient hero-wow__gradient--primary" aria-hidden="true"></div>
-  <div class="hero-wow__gradient hero-wow__gradient--secondary" aria-hidden="true"></div>
-  <div class="hero-wow__mesh" aria-hidden="true"></div>
-
-  <div class="hero-wow__inner relative mx-auto max-w-6xl px-6">
-    <div class="hero-nova__stack space-y-14">
-      <div class="hero-wow__content hero-nova__content">
-        <span class="hero-wow__badge">AK Web Solutions</span>
-
-        <h1 class="hero-wow__headline text-pretty text-4xl font-semibold text-white md:text-5xl lg:text-6xl" data-split>
-          Digitale groei zonder ruis.
-        </h1>
-
-        <p class="hero-wow__description text-balance text-lg text-white/70 md:text-xl">
-          Wij bouwen high-performance websites en marketingflows die direct impact maken. Eén team, één roadmap, alles gericht op meer omzet.
-        </p>
-
-        <p class="hero-wow__rotator" data-rotator>
-          <span data-rotator-text data-variants={JSON.stringify(alternateStatements)}>
-            {primaryStatement}
-          </span>
-        </p>
-
-        <div class="hero-wow__cta">
-          <a href="#contact" class="btn-primary">
-            Plan een strategiecall
-          </a>
-          <a href="#cases" class="btn-secondary">
-            Bekijk cases
-          </a>
-        </div>
-
-        <ul class="hero-wow__highlights" aria-label="Onze focuspunten">
-          {heroHighlights.map((item) => (
-            <li>
-              <span class="hero-wow__dot" aria-hidden="true"></span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div class="hero-nexus" data-spotlight>
-        <div class="hero-nexus__glow" aria-hidden="true"></div>
-        <div class="hero-nexus__mesh" aria-hidden="true"></div>
-
-        <span class="hero-nexus__ticker" data-nexus-ticker data-variants={JSON.stringify(tickerVariants)}>
-          {primaryTicker}
-        </span>
-
-        <div class="hero-nexus__matrix">
-          <div class="hero-nexus__core">
-            <span class="hero-nexus__pulse hero-nexus__pulse--outer"></span>
-            <span class="hero-nexus__pulse hero-nexus__pulse--inner"></span>
-
-            <div class="hero-nexus__core-media">
-              <LottieAnimation
-                src={heroNexusLottie}
-                class="hero-nexus__core-animation"
-                autoplay
-                loop
-                mode="normal"
-                speed={1}
-              />
-            </div>
-
-            <div class="hero-nexus__core-content">
-              <span class="hero-nexus__core-badge">Launch binnen 30 dagen</span>
-              <strong>AK Launch Orbit</strong>
-              <p>Van briefing naar live resultaat in één gefocusde sprint.</p>
-            </div>
-          </div>
-
-          <div class="hero-nexus__nodes">
-            {heroStats.map((stat, index) => (
-              <span class={`hero-nexus__node hero-nexus__node--${index}`}>
-                <strong>{stat.value}</strong>
-                <small>{stat.label}</small>
-              </span>
-            ))}
-          </div>
-
-          <div class="hero-nexus__cards">
-            {heroNexusCards.map((card) => (
-              <div class={`hero-nexus__card hero-nexus__card--${card.variant} tilt-card`} data-nexus-card>
-                <span class="hero-nexus__card-badge">{card.badge}</span>
-                <strong>{card.title}</strong>
-                <ul>
-                  {card.points.map((point) => (
-                    <li>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div class="hero-nexus__pills">
-            {heroNexusPills.map((pill, index) => (
-              <span style={`--index:${index};`}>{pill}</span>
-            ))}
-          </div>
-        </div>
-
-        <div class="hero-nexus__rail">
-          <div class="hero-nexus__rail-track">
-            <span class="hero-nexus__rail-progress" data-nexus-progress></span>
-          </div>
-          <div class="hero-nexus__rail-modules">
-            {heroNexusFlow.map((step) => (
-              <div class="hero-nexus__rail-module">
-                <span>{step.title}</span>
-                <small>{step.detail}</small>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-wow__trust hero-nova__trust">
-        <span class="hero-wow__trust-label">Vertrouwd door teams die voor groei kiezen</span>
-        <div class="hero-wow__trust-logos">
-          {trustLogos.map((logo) => (
-            <span>{logo}</span>
-          ))}
-        </div>
+  <header class="hero-header">
+    <div class="logo-container" aria-hidden="true">
+      <div class="logo-circles">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
       </div>
     </div>
-
-    <div class="hero-wow__scroll flex justify-center pt-12">
-      <span class="scroll-indicator">Scroll verder</span>
+    <div class="center-logo">
+      <h1 id="logo-text">Nexus.</h1>
     </div>
-  </div>
-</section>
+  </header>
+
+  <div class="hero">
+    <span class="hero-tag">AK Web Solutions</span>
+    <h1>Websites die voelbaar verschil maken voor je groei.</h1>
+    <p class="hero-summary">
+      Geen templates of losse campagnes, maar een digitaal fundament dat leads oplevert. Wij verbinden strategie, design en marketing zodat jouw bedrijf zichtbaar groeit.
+    </p>
+    <ul class="hero-points">
+      <li>
+        <span class="hero-points__icon"></span>
+        Maatwerk websites met topsnelheid, SEO en conversiegericht design
+      </li>
+      <li>
+        <span class="hero-points__icon"></span>
+        Campagnes en automations die leads door je funnel sturen
+      </li>
+      <li>
+        <span class="hero-points__icon"></span>
+        Eén team voor strategie, creatie, development en groei
+      </li>
+    </ul>
+    <div class="hero-actions">
+      <a href="/contact" class="hero-btn hero-btn--primary">Plan een strategiecall</a>
+      <a href="/cases" class="hero-btn hero-btn--ghost">Bekijk cases</a>
+    </div>
+
+
+
+
+
+ 
+
+<script type="module">
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const isTouchViewport = window.matchMedia('(max-width: 768px)');
+  const lowPowerThreads = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+
+  const shouldSkipHero = prefersReducedMotion.matches || isTouchViewport.matches || lowPowerThreads;
+
+  const loadHero = () =>
+    import('/src/scripts/nexusHero.ts')
+      .then(({ default: initNexusHero }) => {
+        if (typeof initNexusHero === 'function') {
+          initNexusHero();
+        }
+      })
+      .catch((error) => {
+        console.warn('[hero] init failed', error);
+      });
+
+  if (!shouldSkipHero) {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadHero, { timeout: 1200 });
+    } else {
+      window.setTimeout(loadHero, 160);
+    }
+  }
+
+  prefersReducedMotion.addEventListener?.('change', (event) => {
+    if (!event.matches && !isTouchViewport.matches && !(navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)) {
+      loadHero();
+    }
+  });
+
+  isTouchViewport.addEventListener?.('change', (event) => {
+    if (!event.matches && !prefersReducedMotion.matches && !(navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)) {
+      loadHero();
+    }
+  });
+</script>

@@ -8,6 +8,14 @@ const services = [
   'Software maatwerk',
 ];
 
+const links = [
+  { href: '/diensten', label: 'Diensten' },
+  { href: '/cases', label: 'Cases' },
+  { href: '/aanpak', label: 'Aanpak' },
+  { href: '/over', label: 'Over ons' },
+  { href: '/contact', label: 'Contact' },
+];
+
 const socials = [
   { href: 'https://www.linkedin.com/company/ak-web-solutions-nl', label: 'LinkedIn' },
   { href: 'https://facebook.com/people/AK-Web-Solutions/61573229608493', label: 'Facebook' },
@@ -15,102 +23,76 @@ const socials = [
 ];
 ---
 
-<footer id="contact" class="relative mt-40 border-t border-white/10 bg-zinc-950">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.25),_transparent_55%)]"></div>
-  <div class="absolute inset-0 grid-pattern opacity-20"></div>
+<footer class="orb-section orb-footer" id="contact">
+  <span class="orb-bubble" style="--orb-x: 12%; --orb-y: -14%; --orb-size: 34rem; --orb-color: rgba(122, 70, 255, 0.22);"></span>
+  <span class="orb-bubble" style="--orb-x: 86%; --orb-y: 26%; --orb-size: 34rem; --orb-color: rgba(52, 132, 255, 0.18);"></span>
 
-  <div class="relative mx-auto max-w-6xl px-6 py-20">
-    <div class="glass-panel mb-20 overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-r from-brand-600/40 via-brand-500/30 to-transparent"></div>
-      <div class="relative grid gap-8 px-10 py-12 md:grid-cols-[1.2fr,1fr] md:items-center">
-        <div class="space-y-6">
-          <span class="section-eyebrow">Klaar om het volgende hoofdstuk te starten?</span>
-          <h2 class="text-pretty text-3xl font-semibold text-white md:text-4xl">
-            Samen bouwen we een digitale ervaring die klanten aantrekt en vertrouwen wekt.
-          </h2>
-          <p class="text-balance text-base text-white/70 md:text-lg">
-            Vertel ons waar je naartoe wil groeien, dan vertalen wij dat naar een doordachte strategie, razendsnelle technologie en conversiegedreven design.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="mailto:info@akwebsolutions.nl" class="btn-primary">
-              Plan een strategiecall
-            </a>
-            <a href="https://wa.me/31612345678" class="btn-secondary">
-              Stuur een WhatsApp
-            </a>
-          </div>
-        </div>
-        <div class="rounded-3xl border border-white/10 bg-zinc-900/60 p-6 text-white/80">
-          <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-white/50">Direct contact</h3>
-          <div class="space-y-4">
-            <div>
-              <span class="text-xs font-semibold uppercase tracking-[0.35em] text-brand-300">Mail</span>
-              <p class="text-lg font-semibold">info@akwebsolutions.nl</p>
-            </div>
-            <div>
-              <span class="text-xs font-semibold uppercase tracking-[0.35em] text-brand-300">Telefoon</span>
-              <p class="text-lg font-semibold">+31 (0)6 12 34 56 78</p>
-            </div>
-            <div>
-              <span class="text-xs font-semibold uppercase tracking-[0.35em] text-brand-300">Locatie</span>
-              <p class="text-lg font-semibold">Arnhem • Nederland</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid gap-10 pb-10 md:grid-cols-[1.2fr,1fr]">
-      <div class="space-y-6">
-        <a href="/" class="inline-flex items-center gap-3 text-white">
-          <div class="grid size-11 place-content-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 font-display text-lg font-semibold tracking-tight">
-            AK
-          </div>
-          <div class="flex flex-col leading-tight">
-            <span class="text-xs font-semibold uppercase tracking-[0.45em] text-white/60">AKWS</span>
-            <span class="text-base font-semibold text-white">AK Web Solutions</span>
-          </div>
+  <div class="orb-shell">
+    <div class="footer-wrap">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <img src="/src/assets/fulllogo_transparent_nobuffer.png" alt="AK Web Solutions" width="220" height="64" loading="lazy" decoding="async" />
         </a>
-        <p class="max-w-lg text-balance text-sm text-white/60">
-          Digitale partner voor groeiende MKB-bedrijven. Wij combineren strategisch denken met moderne technologie om websites, SEO en automatiseringen te leveren die resultaat opleveren.
+        <p class="footer-note">
+          Wij helpen groeiende organisaties met snelle websites, schaalbare funnels en ongoing optimalisatie. Eén partner voor techniek, marketing en design.
         </p>
-        <div class="flex flex-wrap gap-3">
+        <div class="footer-socials">
           {socials.map((social) => (
-            <a href={social.href} target="_blank" rel="noreferrer" class="rounded-2xl border border-white/10 px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-brand-500 hover:text-white">
+            <a href={social.href} target="_blank" rel="noreferrer" class="footer-social">
               {social.label}
             </a>
           ))}
         </div>
       </div>
 
-      <div class="grid gap-10 sm:grid-cols-2">
-        <div>
-          <h4 class="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-white/50">Diensten</h4>
-          <ul class="space-y-2 text-sm text-white/70">
+      <div class="footer-nav">
+        <div class="footer-group">
+          <h4>Diensten</h4>
+          <ul>
             {services.map((service) => (
               <li>{service}</li>
             ))}
           </ul>
         </div>
-        <div>
-          <h4 class="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-white/50">Snelle links</h4>
-          <ul class="space-y-2 text-sm text-white/70">
-            <li><a class="hover:text-white" href="#services">Service overzicht</a></li>
-            <li><a class="hover:text-white" href="#cases">Cases</a></li>
-            <li><a class="hover:text-white" href="#approach">Onze aanpak</a></li>
-            <li><a class="hover:text-white" href="#testimonials">Klantverhalen</a></li>
-            <li><a class="hover:text-white" href="mailto:info@akwebsolutions.nl">Contact</a></li>
+        <div class="footer-group">
+          <h4>Menu</h4>
+          <ul>
+            {links.map((item) => (
+              <li>
+                <a href={item.href} class="footer-link">{item.label}</a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
+
+      <div class="footer-contact">
+        <h4>Laten we kennismaken</h4>
+        <p>Plan een call of mail ons direct – we reageren binnen één werkdag.</p>
+        <div class="footer-contact__grid">
+          <div>
+            <span>Mail</span>
+            <a href="mailto:info@akwebsolutions.nl">info@akwebsolutions.nl</a>
+          </div>
+          <div>
+            <span>Telefoon</span>
+            <a href="tel:+31685722387">+31 (0)6 85 72 23 87</a>
+          </div>
+          <div>
+            <span>Locatie</span>
+            <p>Baarn • Nederland</p>
+          </div>
+        </div>
+        <a href="/contact" class="hero-btn hero-btn--primary">Plan een strategiecall</a>
+      </div>
     </div>
 
-    <div class="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/50 sm:flex-row">
+    <div class="orb-footer__legal">
       <span>© {new Date().getFullYear()} AK Web Solutions. Alle rechten voorbehouden.</span>
-      <div class="flex flex-wrap gap-4">
-        <a href="/privacy" class="hover:text-white">Privacy</a>
-        <a href="/terms" class="hover:text-white">Voorwaarden</a>
-        <a href="/cookies" class="hover:text-white">Cookies</a>
+      <div class="orb-footer__legal-links">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Voorwaarden</a>
+        <a href="/cookies">Cookies</a>
       </div>
     </div>
   </div>

@@ -1,0 +1,505 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/nav/Header.astro';
+import Footer from '../components/nav/Footer.astro';
+import IconBadge from '../components/ui/IconBadge.astro';
+
+const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
+const pageUrl = `${siteUrl}/cases`;
+
+const heroStats = [
+  { value: '+212%', label: 'Meer leads in 6 maanden' },
+  { value: '+38%', label: 'SEO/SEA groei' },
+  { value: '<0,9s', label: 'Gem. laadtijd' },
+];
+
+const heroHighlights = [
+  {
+    icon: { set: 'heroicons-outline', name: 'sparkles' },
+    title: 'Merkervaring + performance',
+    copy: 'Branding, UX en snelheid in één traject. Geen losse bureaus meer.',
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'bolt' },
+    title: 'Sprints met meetbare KPI’s',
+    copy: 'Iedere sprint levert een release, dashboard-update en learnings op.',
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'cursor-arrow-rays' },
+    title: 'Automation die doorloopt',
+    copy: 'Campagnes, e-mailflows en dashboards blijven draaien na launch.',
+  },
+];
+
+const heroKeywords = ['Leadgen', 'Headless commerce', 'SaaS', 'Automation', 'Storytelling', 'SEO', 'CRO', 'Campaign Ops'];
+
+const outcomes = [
+  {
+    title: 'ProbandenService',
+    description: 'We gaven ProbandenService een nieuw gezicht en een website die deelnemers snel zeker stelt.',
+    results: [
+      '212% meer aanmeldingen door simpele landingspagina’s en duidelijke formulieren.',
+      'Nieuwe branding en fotografie die vertrouwen geeft aan deelnemers.',
+      'Automatische e-mails en dashboards zodat het team direct kan opvolgen.',
+    ],
+    tags: ['Branding', 'Leadgeneratie', 'CRO'],
+    url: 'https://probandenservice.nl',
+    caseStudy: { href: '#blog-probandenservice', label: 'Lees case study' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.46)',
+  },
+  {
+    title: 'MBA Installaties',
+    description: 'Voor MBA Installaties maakten we van losse aanvragen een rustige, voorspelbare salesstroom.',
+    results: [
+      '+38% meer leads door lokale pagina’s en gerichte advertenties.',
+      'Automatische opvolging voor elke offerteaanvraag.',
+      'Dashboard met in één oogopslag waar aanvragen vandaan komen.',
+    ],
+    tags: ['Installatie', 'Automation', 'SEO/SEA'],
+    url: 'https://mba-installaties.nl',
+    caseStudy: { href: '#blog-mba-installaties', label: 'Lees case study' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.46)',
+  },
+  {
+    title: "Loen’s Collection",
+    description: 'Loen’s Collection kreeg een snelle shop waarin je direct producten en verhalen kunt ontdekken.',
+    results: [
+      'Snelle, headless webshop met focus op beleving.',
+      ' +26% hogere orderwaarde door slimme suggesties.',
+      'Laadtijd onder 0,8s door lichte techniek.',
+    ],
+    tags: ['E-commerce', 'Storytelling', 'Performance'],
+    url: 'https://loenscollection.nl',
+    caseStudy: { href: '#blog-loens-collection', label: 'Lees case study' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.46)',
+  },
+  {
+    title: 'Fun Studios',
+    description: 'Voor Fun Studios koppelden we ticketverkoop aan marketing zodat fans terug blijven komen.',
+    results: [
+      'Ticketflow die direct aan e-mail en sms hangt.',
+      '32% meer herhaalboekingen door eenvoudige segmentatie.',
+      'Dashboard met actuele bezetting per event.',
+    ],
+    tags: ['Entertainment', 'UX', 'Automation'],
+    url: 'https://funstudios.nl',
+    caseStudy: { href: '#blog-fun-studios', label: 'Lees case study' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.46)',
+  },
+  {
+    title: 'AD Loodgietersbedrijf',
+    description: 'AD Loodgietersbedrijf staat nu bovenaan in de regio en krijgt directe aanvragen binnen.',
+    results: [
+      '+64% meer organisch verkeer met duidelijke regio-pagina’s.',
+      'WhatsApp en e-mail flows zorgen voor snelle reacties.',
+      '+22% meer afspraken door simpelere formulieren.',
+    ],
+    tags: ['Local SEO', 'Leadflow', 'CRO'],
+    url: 'https://ad-loodgietersbedrijf.nl',
+    caseStudy: { href: '#blog-ad-loodgieters', label: 'Lees case study' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.46)',
+  },
+];
+
+const metrics = [
+  { value: '+212%', label: 'Meer leads ProbandenService' },
+  { value: '+38%', label: 'SEO/SEA groei MBA Installaties' },
+  { value: '0.9s', label: 'Gem. laadtijd headless projecten' },
+];
+
+const pillars = [
+  {
+    icon: { set: 'heroicons-outline', name: 'light-bulb' },
+    title: 'Strategie + executie',
+    copy: 'We koppelen onderzoek, design, development en marketing in één traject zodat elk onderdeel op elkaar inspeelt.',
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.38)',
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'presentation-chart-line' },
+    title: 'Meetbare groei',
+    copy: 'Dashboards, KPI’s en maandelijkse evaluaties houden de focus op resultaat: leads, omzet en conversie.',
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.38)',
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'users' },
+    title: 'Samenwerking',
+    copy: 'We werken als verlengstuk van je team, met vaste aanspreekpunten en transparante sprintplanning.',
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.38)',
+  },
+];
+
+const highlightReel = [
+  {
+    title: 'ProbandenService',
+    meta: ['Branding', 'Leadgeneratie'],
+    body: 'UX, design en marketing automation in één traject. Nieuwe merkidentiteit, growth funnels en dashboards die realtime sturen op aanvraagvolume.',
+    url: 'https://probandenservice.nl',
+    glow: 'rgba(122, 70, 255, 0.38)',
+  },
+  {
+    title: 'MBA Installaties',
+    meta: ['Offerteflow', 'SEO/SEA'],
+    body: 'Integrale flow van aanvraag tot follow-up. Gepersonaliseerde content, lokale SEO en automatiseringen die sales direct voeden.',
+    url: 'https://mba-installaties.nl',
+    glow: 'rgba(46, 130, 255, 0.34)',
+  },
+  {
+    title: "Loen’s Collection",
+    meta: ['Headless commerce', 'Storytelling'],
+    body: 'Headless shop met modulaire storytelling, lookbooks en loyalty triggers. Alles geoptimaliseerd voor snelheid en conversie.',
+    url: 'https://loenscollection.nl',
+    glow: 'rgba(237, 137, 255, 0.34)',
+  },
+];
+
+const blogPosts = [
+  {
+    id: 'blog-probandenservice',
+    title: 'ProbandenService: nieuw merk, meer deelnemers',
+    summary: 'Met duidelijke taal en vertrouwde beelden kregen we snel meer aanmeldingen.',
+    takeaways: [
+      'Plain language en herkenbare foto’s geven vertrouwen.',
+      'Campagnes en mailflows helpen geïnteresseerden door te zetten.',
+      'Dashboard laat zien waar elke aanmelding vandaan komt.',
+    ],
+    readTime: '4 min leestijd',
+  },
+  {
+    id: 'blog-mba-installaties',
+    title: 'MBA Installaties: elke offerte netjes opgevolgd',
+    summary: 'We brachten rust door marketing en sales simpel op elkaar af te stemmen.',
+    takeaways: [
+      'Lokale pagina’s en advertenties leveren gericht verkeer.',
+      'Automatische herinneringen houden offertes warm.',
+      'Dashboard toont per regio welke acties werken.',
+    ],
+    readTime: '3 min leestijd',
+  },
+  {
+    id: 'blog-loens-collection',
+    title: 'Loen’s Collection: shoppen zonder wachttijd',
+    summary: 'Verhalen, producten en snelheid in één soepele shop.',
+    takeaways: [
+      'Modules vertellen het verhaal achter elke collectie.',
+      'Slimme aanbevelingen verhogen de gemiddelde order.',
+      'Afbeeldingen en code blijven supersnel laden.',
+    ],
+    readTime: '5 min leestijd',
+  },
+  {
+    id: 'blog-fun-studios',
+    title: 'Fun Studios: fans blijven terugkomen',
+    summary: 'Een duidelijke ticketflow en eerlijke updates zorgen voor volle zalen.',
+    takeaways: [
+      'Segmentatie op interesse levert 32% meer herhaalbezoek.',
+      'E-mail en sms gaan automatisch rond piekmomenten.',
+      'Dashboard toont realtime bezetting per event.',
+    ],
+    readTime: '4 min leestijd',
+  },
+  {
+    id: 'blog-ad-loodgieters',
+    title: 'AD Loodgieters: altijd bovenaan in Google Maps',
+    summary: 'Het is nu makkelijk om je lekkage direct aan te melden.',
+    takeaways: [
+      'Regiopagina’s met simpele taal beantwoorden concrete vragen.',
+      'WhatsApp en mail leiden klanten stap voor stap naar een afspraak.',
+      'Kortere mobiele formulieren zorgen voor meer aanvragen.',
+    ],
+    readTime: '3 min leestijd',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Welke resultaten kunnen we verwachten?',
+    answer: 'Tijdens de kickoff bepalen we KPI’s op basis van jouw groeidoel. In elke sprint rapporteren we op leads, conversie en zichtbaarheid zodat je exacte impact ziet.',
+  },
+  {
+    question: 'Werken jullie ook internationaal?',
+    answer: 'Ja. Naast Nederland werken we voor teams met internationale doeleinden. We stemmen content, taal en targeting af op de gewenste regio’s.',
+  },
+  {
+    question: 'Kunnen we een case bespreken voordat we starten?',
+    answer: 'Zeker. Plan een sessie en we laten je zien welke tooling, processen en resultaten achter de cases schuilgaan en wat relevant is voor jouw business.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Cases',
+      item: pageUrl,
+    },
+  ],
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cases AK Web Solutions',
+  url: pageUrl,
+  itemListElement: outcomes.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.title,
+    url: item.url,
+    description: item.description,
+  })),
+};
+---
+
+<Layout
+  title="Cases – AK Web Solutions"
+  description="Bekijk cases van AK Web Solutions: strategie, design, development en marketing die zorgen voor meer leads, conversie en zichtbaarheid."
+  structuredData={[breadcrumbSchema, itemListSchema, faqSchema]}
+>
+  <Header />
+  <main>
+    <section class="cases-hero">
+      <div class="cases-hero__bg" aria-hidden="true">
+        <span class="cases-hero__grid"></span>
+        <span class="cases-hero__orb cases-hero__orb--one"></span>
+        <span class="cases-hero__orb cases-hero__orb--two"></span>
+        <span class="cases-hero__flare"></span>
+      </div>
+      <div class="cases-hero__shell">
+        <div class="cases-hero__content" data-reveal>
+          <span class="cases-hero__tag">Case overview</span>
+          <h1>Projecten die laten zien wat snelle sprints opleveren.</h1>
+          <p>We bouwen leadmachines, headless commerce en growth funnels voor teams die snelheid én zekerheid willen. Dit is hoe data, design en automation samen effect maken.</p>
+          <div class="cases-hero__actions">
+            <a class="hero-btn hero-btn--primary" href="/contact">Plan een strategiesessie</a>
+            <a class="hero-btn hero-btn--ghost" href="/diensten">Bekijk diensten</a>
+          </div>
+          <div class="cases-hero__ticker" aria-hidden="true">
+            {heroKeywords.map((keyword) => (
+              <span>{keyword}</span>
+            ))}
+          </div>
+        </div>
+        <div class="cases-hero__stats">
+          {heroStats.map((metric, index) => (
+            <div class="cases-hero__stat" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="cases-hero__highlights">
+          {heroHighlights.map((item, index) => (
+            <article class="cases-hero__highlight tilt-card" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+              <span class="cases-hero__highlight-icon">
+                <IconBadge set={item.icon.set} name={item.icon.name} width={24} color="rgba(244,244,255,0.92)" />
+              </span>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">Resultaten</span>
+          <h2 class="pulse-title">Bewijs dat snelheid en zorgvuldigheid samen gaan.</h2>
+          <p class="pulse-copy">Onze cases laten zien hoe we met compacte sprints meer leads, omzet en performance realiseren.</p>
+        </header>
+        <div class="pulse-metrics">
+          {metrics.map((item, index) => (
+            <div class="pulse-metric" data-reveal style={`--reveal-delay: ${index * 0.05}s`}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">Uitgelichte trajecten</span>
+          <h2 class="pulse-title">Van lokale spelers tot nationale merken.</h2>
+          <p class="pulse-copy">In elke case combineren we strategie, design, development en marketing tot één groeimachine.</p>
+        </header>
+        <div class="pulse-grid pulse-grid--3">
+          {outcomes.map((item, index) => (
+            <article class="pulse-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <h3 class="pulse-card__title">{item.title}</h3>
+              <div class="pulse-tagcloud">
+                {item.tags.map((tag) => (
+                  <span class="pulse-pill">{tag}</span>
+                ))}
+              </div>
+              <p class="pulse-card__body">{item.description}</p>
+              {item.results && (
+                <ul class="pulse-list">
+                  {item.results.map((result) => (
+                    <li>{result}</li>
+                  ))}
+                </ul>
+              )}
+              <div class="pulse-card__footer">
+                <a class="orb-link" href={item.url} target="_blank" rel="noreferrer">
+                  Bekijk live
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                {item.caseStudy && (
+                  <a class="orb-link orb-link--ghost" href={item.caseStudy.href}>
+                    {item.caseStudy.label}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">Inside the build</span>
+          <h2 class="pulse-title">Zo pakken we beslissingen en automation aan.</h2>
+          <p class="pulse-copy">Deze snapshots laten zien welke keuzes we per project maken en hoe tooling en data samenwerken.</p>
+        </header>
+        <div class="pulse-grid pulse-grid--3">
+          {highlightReel.map((item, index) => (
+            <article class="pulse-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <h3 class="pulse-card__title">{item.title}</h3>
+              <div class="pulse-tagcloud">
+                {item.meta.map((tag) => (
+                  <span class="pulse-pill">{tag}</span>
+                ))}
+              </div>
+              <p class="pulse-card__body">{item.body}</p>
+              <a class="orb-link" href={item.url} target="_blank" rel="noreferrer">
+                Bekijk project
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">Waarom het werkt</span>
+          <h2 class="pulse-title">Eén team dat strategie en uitvoering verbindt.</h2>
+          <p class="pulse-copy">Zo zorgen we dat elke sprint richting oplevert in plaats van losse deliverables.</p>
+        </header>
+        <div class="pulse-grid pulse-grid--3">
+          {pillars.map((pillar, index) => (
+            <article class="pulse-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <span class="pulse-card__icon">
+                <IconBadge set={pillar.icon.set} name={pillar.icon.name} width={26} color="rgba(244,244,255,0.92)" />
+              </span>
+              <h3 class="pulse-card__title">{pillar.title}</h3>
+              <p class="pulse-card__body">{pillar.copy}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section" id="cases-blog">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">Blog & inzichten</span>
+          <h2 class="pulse-title">Dieper duiken in learnings per case.</h2>
+          <p class="pulse-copy">Lees hoe we keuzes maken, welke tools we koppelen en welke experimenten resultaat opleveren.</p>
+        </header>
+        <div class="pulse-grid pulse-grid--3">
+          {blogPosts.map((post, index) => (
+            <article id={post.id} class="pulse-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <span class="pulse-pill">{post.readTime}</span>
+              <h3 class="pulse-card__title">{post.title}</h3>
+              <p class="pulse-card__body">{post.summary}</p>
+              <ul class="pulse-list">
+                {post.takeaways.map((takeaway) => (
+                  <li>{takeaway}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">FAQ</span>
+          <h2 class="pulse-title">Veelgestelde vragen over onze cases.</h2>
+          <p class="pulse-copy">Meer context nodig voordat je instapt? Dit zijn vragen die we vaak krijgen rondom cases en resultaten.</p>
+        </header>
+        <div class="faq-list">
+          {faqs.map((item, index) => (
+            <details class="faq-item" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <article class="pulse-cta" data-reveal>
+          <span class="pulse-eyebrow">Nieuwe case starten?</span>
+          <h2 class="pulse-title">Plan een sessie en ontdek waar jouw groeipotentieel zit.</h2>
+          <p class="pulse-copy">We analyseren vooraf je data en komen met een concreet plan voor sprint één.</p>
+          <div class="pulse-cta__actions">
+            <a class="hero-btn hero-btn--primary" href="/contact">Plan een groeisessie</a>
+            <a class="hero-btn hero-btn--ghost" href="/diensten">Bekijk diensten</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

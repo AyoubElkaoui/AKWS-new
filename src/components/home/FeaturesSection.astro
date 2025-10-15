@@ -6,64 +6,61 @@ const features = [
     title: 'Growth driven webdesign',
     description: 'UX-gedreven wireframes, high-end visuals en micro-animaties die vertrouwen wekken en bezoekers door de funnel sturen.',
     metric: 'Gem. sessieduur +52%',
-    gradient: 'from-brand-500/40 to-brand-700/30',
+    glow: 'rgba(130, 92, 255, 0.45)',
     icon: 'https://assets9.lottiefiles.com/packages/lf20_u4yrau.json',
   },
   {
     title: 'SEO & SEA als vliegwiel',
     description: 'Technische SEO, contentstructuur en winstgevende Google Ads campagnes die samen het leadvolume verhogen.',
     metric: 'Leadgroei +38%',
-    gradient: 'from-sky-400/30 via-brand-500/20 to-indigo-500/40',
+    glow: 'rgba(67, 168, 255, 0.42)',
     icon: 'https://assets9.lottiefiles.com/packages/lf20_jcikwtux.json',
   },
   {
     title: 'Automatisering & performance',
     description: 'Schaalbare infrastructuur op moderne stacks met API-koppelingen, CRM-integraties en realtime rapportage.',
     metric: 'Laadtijd &lt; 0,8s',
-    gradient: 'from-cyan-400/20 via-emerald-400/20 to-brand-500/30',
+    glow: 'rgba(66, 218, 210, 0.32)',
     icon: 'https://assets2.lottiefiles.com/packages/lf20_touohxv0.json',
   },
 ];
 ---
 
-<section id="services" class="relative py-28">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(15,23,42,0.45),_rgba(15,23,42,0))]"></div>
-  <div class="absolute inset-0 grid-pattern opacity-10"></div>
-  <div class="section-gradient section-gradient--cyan parallax-bg" style="top:-28%;right:-18%;"></div>
-  <div class="section-gradient section-gradient--cream" style="bottom:-20%;left:-12%;"></div>
+<section id="services" class="orb-section" data-variant="violet">
+  <span class="orb-bubble" style="--orb-x: 10%; --orb-y: -16%; --orb-size: 46rem; --orb-color: rgba(124, 58, 237, 0.34);"></span>
+  <span class="orb-bubble" style="--orb-x: 88%; --orb-y: 72%; --orb-size: 38rem; --orb-color: rgba(37, 110, 235, 0.22);"></span>
+  <span class="orb-bubble" style="--orb-x: 48%; --orb-y: 110%; --orb-size: 50rem; --orb-color: rgba(94, 52, 237, 0.18); --orb-opacity: 0.42; --orb-blur: 160px;"></span>
 
-  <div class="relative mx-auto max-w-6xl px-6">
-    <div class="mb-16 max-w-3xl space-y-6">
-      <span class="section-eyebrow">Waar we het verschil maken</span>
-      <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
-        Een multidisciplinair team dat strategie, design en marketing samenbrengt.
-      </h2>
-      <p class="text-balance text-lg text-white/70">
-        Wij bouwen geen templates. We ontwikkelen digitale ervaringen die je merk versterken, leads converteren en klaar zijn voor schaal. Elk traject start met data, eindigt met een meetbaar resultaat en draait tussendoor op strakke samenwerking.
+  <div class="orb-shell">
+    <header class="orb-intro">
+      <span class="orb-tag">Waar we het verschil maken</span>
+      <h2 class="orb-title">Van eerste indruk tot conversie, alles werkt samen.</h2>
+      <p class="orb-copy">
+        Strategie, design en marketing zitten bij ons in één proces. Zo zorgen we dat jouw website snel laadt, vertrouwen wekt en campagnes direct kunnen opschalen.
       </p>
-    </div>
+    </header>
 
-    <div class="grid gap-8 lg:grid-cols-3">
-      {features.map((feature) => (
-        <article class="interactive-card glow-ring tilt-card group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition-transform duration-500" data-tilt data-tilt-max="6" data-tilt-speed="500" data-tilt-perspective="900" data-tilt-glare="true" data-tilt-max-glare="0.2">
-          <div class={`card-glow bg-gradient-to-br ${feature.gradient}`}></div>
-          <LottieAnimation src={feature.icon} class="feature-lottie" autoplay loop speed={1} mode="normal" />
-          <div class="relative flex h-full flex-col justify-between gap-12">
-            <header class="space-y-4">
-              <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
-                <span class="size-1.5 rounded-full bg-brand-400"></span>
-                Premium service
-              </span>
-              <h3 class="text-pretty text-2xl font-semibold text-white">{feature.title}</h3>
-              <p class="text-base text-white/70">{feature.description}</p>
-            </header>
-
-            <footer class="flex items-center justify-between text-white/60">
-              <span class="text-sm font-medium uppercase tracking-[0.3em]">Impact</span>
-              <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white">
-                {feature.metric}
-              </span>
-            </footer>
+    <div class="orb-grid orb-grid--feature">
+      {features.map((feature, index) => (
+        <article
+          class="orb-card orb-card--feature interactive-card tilt-card"
+          data-reveal
+          style={`--reveal-delay: ${index * 0.08}s; --card-glow: ${feature.glow};`}
+        >
+          <span class="card-glow" aria-hidden="true"></span>
+          <div class="orb-card__spark">
+            <LottieAnimation src={feature.icon} class="orb-card__media" autoplay loop speed={1} mode="normal" aria-hidden="true" />
+          </div>
+          <div class="orb-card__badge">
+            <span class="orb-chip orb-chip--ghost">Premium service</span>
+          </div>
+          <div class="orb-card__content">
+            <h3 class="orb-card__title">{feature.title}</h3>
+            <p class="orb-card__body">{feature.description}</p>
+          </div>
+          <div class="orb-card__footer">
+            <span>Impact</span>
+            <span class="orb-chip">{feature.metric}</span>
           </div>
         </article>
       ))}

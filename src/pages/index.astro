@@ -9,17 +9,64 @@ import ServiceOverviewSection from '../components/home/ServiceOverviewSection.as
 import ApproachSection from '../components/home/ApproachSection.astro';
 import CaseStudiesSection from '../components/home/CaseStudiesSection.astro';
 import TestimonialsSection from '../components/home/TestimonialsSection.astro';
+import ShowcaseSection from '../components/home/ShowcaseSection.astro';
 import CTASection from '../components/home/CTASection.astro';
+import TechStackMarquee from '../components/home/TechStackMarquee.astro';
+
+const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'AK Web Solutions',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  email: 'info@akwebsolutions.nl',
+  telephone: '+31685722387',
+  areaServed: 'NL',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Baarn',
+    addressCountry: 'NL',
+  },
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'sales',
+      telephone: '+31685722387',
+      email: 'info@akwebsolutions.nl',
+      areaServed: 'NL',
+      availableLanguage: ['Dutch', 'English'],
+    },
+  ],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'AK Web Solutions',
+  url: siteUrl,
+  potentialAction: {
+    '@type': 'ContactAction',
+    target: `${siteUrl}/contact`,
+    name: 'Plan een strategiecall',
+  },
+};
 ---
 
-<Layout title="AK Web Solutions – Websites, SEO & digitale groei">
+<Layout
+  title="AK Web Solutions – Websites, SEO & digitale groei"
+  description="AK Web Solutions bouwt strategiegedreven websites, campagnes en marketing automation die je bedrijf meetbaar laten groeien."
+  structuredData={[organizationSchema, websiteSchema]}
+>
   <Header />
   <main>
     <HeroSection />
+    <TechStackMarquee />
     <FeaturesSection />
     <ServiceOverviewSection />
     <ApproachSection />
     <CaseStudiesSection />
+    <ShowcaseSection />
     <TestimonialsSection />
     <CTASection />
   </main>

@@ -1,0 +1,262 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/nav/Header.astro';
+import Footer from '../components/nav/Footer.astro';
+
+import IconBadge from '../components/ui/IconBadge.astro';
+const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
+const pageUrl = `${siteUrl}/contact`;
+
+const contactSignals = [
+  { value: '< 1 dag', label: 'Reactietijd via mail' },
+  { value: '2 weken', label: 'Van intake tot eerste sprint' },
+  { value: 'Hybrid', label: 'Remote + on-site mogelijk' },
+];
+
+const faqs = [
+  {
+    question: 'Hoe snel plannen we een kennismaking in?',
+    answer: 'Na je bericht ontvang je binnen één werkdag een voorstel. Meestal plannen we binnen vijf werkdagen een strategiecall in.',
+  },
+  {
+    question: 'Kunnen we direct een call inplannen?',
+    answer: 'Ja, via de knop “Plan direct een call” kies je zelf een moment in onze agenda. We bereiden de call voor op basis van jouw input.',
+  },
+  {
+    question: 'Wat moet ik voorbereiden?',
+    answer: 'Een korte beschrijving van je doelen, huidige website en belangrijkste KPI’s is genoeg. Eventuele analytics of campagne-data mag je later delen.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Contact',
+      item: pageUrl,
+    },
+  ],
+};
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact AK Web Solutions',
+  url: pageUrl,
+  description: 'Neem contact op met AK Web Solutions voor strategie, webdesign, development en marketing automation.',
+  contactType: 'sales',
+  contactOption: 'CustomerService',
+  inLanguage: ['nl', 'en'],
+  telephone: '+31685722387',
+  email: 'info@akwebsolutions.nl',
+  areaServed: 'NL',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Baarn',
+    addressCountry: 'NL',
+  },
+};
+
+const heroMetrics = [
+  { value: '< 1 dag', label: 'Reactietijd' },
+  { value: '45 min', label: 'Kickstart sessie' },
+  { value: 'Hybrid', label: 'Remote + on-site' },
+];
+
+const heroHighlights = [
+  {
+    icon: { set: 'heroicons-outline', name: 'sparkles' },
+    title: 'Strategiecall',
+    body: 'We bereiden de call voor op basis van jouw doelen en data.',
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'clipboard-document-check' },
+    title: 'Concreet voorstel',
+    body: 'Binnen 24 uur ontvang je een plan voor sprint één en volgende stappen.',
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'chat-bubble-oval-left-ellipsis' },
+    title: 'Direct contact',
+    body: 'Je spreekt met strategen en makers. Geen saleslaag ertussen.',
+  },
+];
+---
+
+<Layout
+  title="Contact – AK Web Solutions"
+  description="Neem contact op met AK Web Solutions. We reageren binnen één werkdag en plannen graag een strategiecall om jouw groeidoel te bespreken."
+  structuredData={[breadcrumbSchema, contactSchema, faqSchema]}
+>
+  <Header />
+  <main>
+    <section class="contact-hero">
+      <div class="contact-hero__bg" aria-hidden="true">
+        <span class="contact-hero__grid"></span>
+        <span class="contact-hero__orb contact-hero__orb--left"></span>
+        <span class="contact-hero__orb contact-hero__orb--right"></span>
+        <span class="contact-hero__flare"></span>
+      </div>
+      <div class="contact-hero__shell">
+        <div class="contact-hero__intro" data-reveal>
+          <span class="contact-hero__tag">Contact</span>
+          <h1>Vertel ons over jouw volgende groeistap.</h1>
+          <p>Plan een sessie of stuur ons direct een bericht. We reageren binnen één werkdag met een voorstel voor sprint één.</p>
+          <div class="contact-hero__actions">
+            <a class="hero-btn hero-btn--primary" href="https://cal.com">Plan direct een call</a>
+            <a class="hero-btn hero-btn--ghost" href="tel:+31685722387">Bel ons direct</a>
+          </div>
+        </div>
+        <div class="contact-hero__stats">
+          {heroMetrics.map((metric, index) => (
+            <div class="contact-hero__stat" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="contact-hero__highlights">
+          {heroHighlights.map((item, index) => (
+            <article class="contact-highlight tilt-card" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+              <span class="contact-highlight__icon">
+                <IconBadge set={item.icon.set} name={item.icon.name} width={24} color="rgba(244,244,255,0.92)" />
+              </span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <div class="pulse-grid pulse-grid--2">
+          <form class="pulse-form" action="https://formsubmit.co/info@akwebsolutions.nl" method="POST" data-reveal>
+            <input type="hidden" name="_subject" value="Contactformulier via AK Web Solutions" />
+            <input type="hidden" name="_next" value="https://akwebsolutions.nl/bedankt" />
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+            <div class="pulse-form__grid">
+              <label class="pulse-form__field">
+                <span>Naam</span>
+                <input required type="text" name="name" placeholder="Voor- en achternaam" />
+              </label>
+              <label class="pulse-form__field">
+                <span>Bedrijf</span>
+                <input type="text" name="company" placeholder="Bedrijfsnaam" />
+              </label>
+              <label class="pulse-form__field">
+                <span>E-mailadres</span>
+                <input required type="email" name="email" placeholder="jij@bedrijf.nl" />
+              </label>
+              <label class="pulse-form__field">
+                <span>Telefoon</span>
+                <input type="tel" name="phone" placeholder="0612 34 56 78" />
+              </label>
+              <label class="pulse-form__field">
+                <span>Vertel kort wat je zoekt</span>
+                <textarea name="message" rows="5" placeholder="Waar kunnen we je mee helpen?"></textarea>
+              </label>
+            </div>
+
+            <div class="pulse-form__actions">
+              <button type="submit" class="hero-btn hero-btn--primary">Verstuur</button>
+              <a href="https://cal.com" class="hero-btn hero-btn--ghost">Plan direct een call</a>
+            </div>
+          </form>
+
+          <aside class="pulse-contact-list" data-reveal style="--reveal-delay: 0.12s">
+            <h3>Bel of mail ons</h3>
+            <ul>
+              <li>
+                <span>Mail</span>
+                <a href="mailto:info@akwebsolutions.nl">info@akwebsolutions.nl</a>
+              </li>
+              <li>
+                <span>Telefoon</span>
+                <a href="tel:+31685722387">+31 (0)6 85 72 23 87</a>
+              </li>
+              <li>
+                <span>Locatie</span>
+                <p>Baarn • Nederland</p>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">Hoe we werken</span>
+          <h2 class="pulse-title">Je krijgt snel antwoord, duidelijke volgende stappen.</h2>
+          <p class="pulse-copy">Binnen één werkdag hoor je van ons. We bereiden ons voor zodat de eerste call direct waarde geeft.</p>
+        </header>
+        <div class="pulse-metrics">
+          {contactSignals.map((item, index) => (
+            <div class="pulse-metric" data-reveal style={`--reveal-delay: ${index * 0.06}s`}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <header class="pulse-intro" data-reveal>
+          <span class="pulse-eyebrow">FAQ</span>
+          <h2 class="pulse-title">Veelgestelde vragen voor onze eerste call.</h2>
+          <p class="pulse-copy">Benieuwd hoe we samenwerken of wat je kunt verwachten? Dit zijn de meest gestelde vragen over het eerste contactmoment.</p>
+        </header>
+        <div class="faq-list">
+          {faqs.map((item, index) => (
+            <details class="faq-item" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pulse-section">
+      <div class="pulse-shell">
+        <article class="pulse-cta" data-reveal>
+          <span class="pulse-eyebrow">Samen aan de slag</span>
+          <h2 class="pulse-title">Plan direct een call of stuur een bericht.</h2>
+          <p class="pulse-copy">We reageren binnen één werkdag met een voorstel voor de eerste sprint en benodigde voorbereiding.</p>
+          <div class="pulse-cta__actions">
+            <a class="hero-btn hero-btn--primary" href="https://cal.com">Plan een call</a>
+            <a class="hero-btn hero-btn--ghost" href="mailto:info@akwebsolutions.nl">Mail ons</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

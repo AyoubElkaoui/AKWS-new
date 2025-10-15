@@ -5,52 +5,51 @@ const testimonials = [
       'AK Web Solutions heeft niet alleen onze website vernieuwd, maar ook ons complete marketingapparaat naar een hoger niveau getild. Onze salesafdeling werkt nu met realtime dashboards en het aantal kwalitatieve aanvragen is verdubbeld.',
     name: 'Sanne Visser',
     role: 'Marketing Manager, CloudWorks',
+    glow: 'rgba(144, 118, 255, 0.45)',
   },
   {
     quote:
       'We zochten een partner die strategie en uitvoering kon combineren. Binnen drie maanden stond er een nieuwe propositie live inclusief SEO en campagnes. Het team denkt mee en levert topkwaliteit.',
     name: 'Jasper Willems',
     role: 'Founder, LegalFlow',
+    glow: 'rgba(99, 198, 255, 0.42)',
   },
   {
     quote:
       'Wat mij het meest verraste is de snelheid waarmee AKWS impact maakt. De aanpak is super gestructureerd en elke sprint geeft direct resultaat in onze funnel.',
     name: 'Lotte de Vries',
     role: 'CMO, FitNation',
+    glow: 'rgba(246, 181, 255, 0.36)',
   },
 ];
 ---
 
-<section id="testimonials" class="relative py-28">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.2),_transparent_75%)]"></div>
-  <div class="absolute inset-0 grid-pattern opacity-10"></div>
-  <div class="section-gradient section-gradient--cream parallax-bg" style="top:-25%;right:-18%;"></div>
-  <div class="section-gradient section-gradient--cyan" style="bottom:-30%;left:-12%;"></div>
+<section id="testimonials" class="orb-section" data-variant="quote">
+  <span class="orb-bubble" style="--orb-x: 12%; --orb-y: -18%; --orb-size: 38rem; --orb-color: rgba(184, 68, 255, 0.26);"></span>
+  <span class="orb-bubble" style="--orb-x: 88%; --orb-y: 20%; --orb-size: 36rem; --orb-color: rgba(56, 132, 255, 0.2);"></span>
+  <span class="orb-bubble" style="--orb-x: 48%; --orb-y: 112%; --orb-size: 48rem; --orb-color: rgba(90, 52, 237, 0.18); --orb-opacity: 0.42;"></span>
 
-  <div class="relative mx-auto max-w-6xl px-6">
-    <div class="mb-16 max-w-3xl space-y-6">
-      <span class="section-eyebrow">Ervaringen</span>
-      <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
-        Klanten die hun digitale groei aan ons toevertrouwen.
-      </h2>
-    </div>
+  <div class="orb-shell">
+    <header class="orb-intro">
+      <span class="orb-tag">Ervaringen</span>
+      <h2 class="orb-title">Klanten die hun digitale groei aan ons toevertrouwen.</h2>
+    </header>
 
-    <div class="relative">
-      <div class="motion-stripe motion-stripe--reverse"></div>
-
-      <div class="grid gap-8 md:grid-cols-3">
-        {testimonials.map((item) => (
-          <blockquote class="glass-panel glow-ring tilt-card relative flex h-full flex-col justify-between gap-8 p-8" data-tilt data-tilt-max="5" data-tilt-speed="600" data-tilt-perspective="900">
-            <p class="text-pretty text-base text-white/70">
-              “{item.quote}”
-            </p>
-            <footer class="flex flex-col gap-1 text-sm">
-              <span class="font-semibold text-white">{item.name}</span>
-              <span class="text-white/50">{item.role}</span>
-            </footer>
-          </blockquote>
-        ))}
-      </div>
+    <div class="orb-grid orb-grid--quotes">
+      {testimonials.map((item, index) => (
+        <blockquote
+          class="orb-card orb-card--quote interactive-card tilt-card"
+          data-reveal
+          style={`--reveal-delay: ${index * 0.08}s; --card-glow: ${item.glow};`}
+        >
+          <span class="card-glow" aria-hidden="true"></span>
+          <p>“{item.quote}”</p>
+          <footer class="orb-quote__meta">
+            <span class="orb-quote__name">{item.name}</span>
+            <span class="orb-quote__role">{item.role}</span>
+          </footer>
+        </blockquote>
+      ))}
     </div>
   </div>
 </section>

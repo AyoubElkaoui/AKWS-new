@@ -23,43 +23,32 @@ const steps = [
 ];
 ---
 
-<section id="approach" class="relative py-28">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(37,99,235,0.18),_transparent_70%)]"></div>
-  <div class="absolute inset-0 grid-pattern opacity-10"></div>
-  <div class="section-gradient section-gradient--cyan parallax-bg" style="top:-18%;right:-12%;"></div>
-  <div class="section-gradient section-gradient--violet" style="bottom:-25%;left:-18%;"></div>
+<section id="approach" class="orb-section" data-variant="deep">
+  <span class="orb-bubble" style="--orb-x: 16%; --orb-y: -18%; --orb-size: 42rem; --orb-color: rgba(104, 70, 255, 0.28);"></span>
+  <span class="orb-bubble" style="--orb-x: 82%; --orb-y: 72%; --orb-size: 38rem; --orb-color: rgba(52, 125, 255, 0.22);"></span>
+  <span class="orb-bubble" style="--orb-x: 46%; --orb-y: 112%; --orb-size: 48rem; --orb-color: rgba(86, 56, 240, 0.18); --orb-opacity: 0.4;"></span>
 
-  <div class="relative mx-auto max-w-6xl px-6">
-    <div class="mb-20 max-w-3xl space-y-6">
-      <span class="section-eyebrow">Onze werkwijze</span>
-      <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
-        Een bewezen sprint-aanpak die snelheid combineert met kwaliteit.
-      </h2>
-      <p class="text-balance text-lg text-white/70">
-        We werken in duidelijke sprints met één multidisciplinair team. Jij hebt één aanspreekpunt, realtime inzicht in de voortgang en elke sprint levert tastbaar resultaat op.
+  <div class="orb-shell">
+    <header class="orb-intro">
+      <span class="orb-tag">Onze werkwijze</span>
+      <h2 class="orb-title">We bouwen in sprints, zodat jij elke fase resultaat ziet.</h2>
+      <p class="orb-copy">
+        Je krijgt één team en één aanspreekpunt. Van research naar ontwerp, van development naar optimalisatie: elke stap levert tastbaar op.
       </p>
-    </div>
+    </header>
 
-    <div class="grid gap-10 lg:grid-cols-2">
+    <ol class="orb-steps">
       {steps.map((step) => (
-        <article class="group glow-ring relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/40 p-8 transition duration-500 hover:-translate-y-2 hover:border-brand-500/50 tilt-card" data-tilt data-tilt-max="6" data-tilt-speed="500" data-tilt-perspective="1000">
-          <div class="card-glow bg-brand-500/20"></div>
-          <div class="relative space-y-6">
-            <header class="space-y-3">
-              <h3 class="text-pretty text-2xl font-semibold text-white">{step.title}</h3>
-              <p class="text-base text-white/70">{step.description}</p>
-            </header>
-            <ul class="grid gap-2 text-sm text-white/60">
-              {step.deliverables.map((item) => (
-                <li class="inline-flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-3 py-2">
-                  <span class="size-1.5 rounded-full bg-brand-300"></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+        <li class="orb-step">
+          <h3 class="orb-step__title">{step.title.replace(/^\d+\.\s*/, '')}</h3>
+          <p class="orb-step__body">{step.description}</p>
+          <div class="orb-step__list">
+            {step.deliverables.map((item) => (
+              <span class="orb-chip orb-chip--ghost">{item}</span>
+            ))}
           </div>
-        </article>
+        </li>
       ))}
-    </div>
+    </ol>
   </div>
 </section>

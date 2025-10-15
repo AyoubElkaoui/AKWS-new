@@ -1,0 +1,61 @@
+---
+interface Action {
+  href: string;
+  label: string;
+  primary?: boolean;
+}
+
+interface Highlight {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  tag?: string;
+  title: string;
+  description: string;
+  actions?: Action[];
+  highlights?: Highlight[];
+}
+
+const { tag, title, description, actions = [], highlights = [] } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero__bg" aria-hidden="true">
+    <span class="page-hero__glow page-hero__glow--one"></span>
+    <span class="page-hero__glow page-hero__glow--two"></span>
+    <span class="page-hero__orb page-hero__orb--left"></span>
+    <span class="page-hero__orb page-hero__orb--right"></span>
+    <span class="page-hero__ring"></span>
+    <span class="page-hero__grid"></span>
+  </div>
+
+  <div class="page-hero__shell">
+    <header class="page-hero__content" data-reveal>
+      {tag && <span class="page-hero__tag">{tag}</span>}
+      <h1>{title}</h1>
+      <p>{description}</p>
+      {actions.length > 0 && (
+        <div class="page-hero__actions">
+          {actions.map((action) => (
+            <a href={action.href} class={`hero-btn ${action.primary ? 'hero-btn--primary' : 'hero-btn--ghost'}`}>
+              {action.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
+
+    {highlights.length > 0 && (
+      <div class="page-hero__highlights">
+        {highlights.map((highlight, index) => (
+          <div class="page-hero__highlight" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+            <span>{highlight.value}</span>
+            <small>{highlight.label}</small>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

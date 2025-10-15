@@ -1,10 +1,10 @@
 ---
 const navLinks = [
-  { href: '#services', label: 'Diensten' },
-  { href: '#cases', label: 'Cases' },
-  { href: '#approach', label: 'Aanpak' },
-  { href: '#testimonials', label: 'Reviews' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/diensten', label: 'Diensten' },
+  { href: '/cases', label: 'Cases' },
+  { href: '/aanpak', label: 'Aanpak' },
+  { href: '/over', label: 'Over ons' },
+  { href: '/contact', label: 'Contact' },
 ];
 ---
 
@@ -14,14 +14,8 @@ const navLinks = [
     <div class="absolute inset-0 border-b border-white/10"></div>
 
     <div class="relative mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
-      <a href="/" class="group inline-flex items-center gap-3 text-white">
-        <div class="grid size-11 place-content-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 font-display text-lg font-semibold tracking-tight transition-transform duration-300 group-hover:scale-105">
-          AK
-        </div>
-        <div class="flex flex-col text-left leading-tight">
-          <span class="text-xs font-semibold uppercase text-white/60 tracking-[0.45em]">AKWS</span>
-          <span class="text-base font-semibold text-white">Web Solutions</span>
-        </div>
+      <a href="/" class="site-brand" aria-label="AK Web Solutions">
+        <img src="/src/assets/fulllogo_transparent_nobuffer.png" alt="AK Web Solutions" width="204" height="48" loading="lazy" />
       </a>
 
       <nav class="hidden items-center gap-8 lg:flex">
@@ -33,7 +27,7 @@ const navLinks = [
       </nav>
 
       <div class="flex items-center gap-4">
-        <a href="#contact" class="btn-primary hidden md:inline-flex">
+        <a href="/contact" class="btn-primary hidden md:inline-flex">
           <span class="flex items-center gap-2">
             Start project
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -61,7 +55,7 @@ const navLinks = [
             {link.label}
           </a>
         ))}
-        <a href="#contact" class="btn-primary justify-center">
+        <a href="/contact" class="btn-primary justify-center">
           Plan een gesprek
         </a>
       </div>

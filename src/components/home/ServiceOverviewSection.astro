@@ -4,80 +4,83 @@ const services = [
     title: 'Websites bouwen',
     description: 'High-end websites met Astro of Next.js, gericht op snelheid, SEO en conversie. Inclusief UX, copy en implementatie.',
     icon: 'globe',
+    glow: 'rgba(124, 88, 255, 0.48)',
   },
   {
     title: 'SEO optimalisatie',
     description: 'Technische SEO, contentstrategie en autoriteit. Van audits tot maandelijkse optimalisaties om je posities te domineren.',
     icon: 'search',
+    glow: 'rgba(67, 136, 255, 0.42)',
   },
   {
     title: 'SEA campagnes',
     description: 'Slimme Google Ads campagnes met automatische dashboarding en voortdurende A/B tests voor maximale ROI.',
     icon: 'target',
+    glow: 'rgba(251, 191, 36, 0.38)',
   },
   {
     title: 'Hosting & onderhoud',
     description: 'Beheerde hosting, security monitoring en updates. Altijd online en veilig met 24/7 incident response.',
     icon: 'server',
+    glow: 'rgba(34, 211, 238, 0.35)',
   },
   {
     title: 'IT-oplossingen',
     description: 'Integraties met interne systemen, CRM-koppelingen en automatiseringen die teams laten samenwerken zonder frictie.',
     icon: 'settings',
+    glow: 'rgba(45, 212, 191, 0.32)',
   },
   {
     title: 'Software oplossingen',
     description: 'Maatwerk portals, configurators en SaaS features die precies aansluiten op je processen en groeiambitie.',
     icon: 'code',
+    glow: 'rgba(244, 114, 182, 0.36)',
   },
 ];
 ---
 
-<section class="relative py-28">
-  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,10,29,0.95)_0%,rgba(12,10,29,0.7)_60%,rgba(12,10,29,0)_100%)]"></div>
-  <div class="absolute inset-0 grid-pattern opacity-10"></div>
-  <div class="section-gradient section-gradient--violet parallax-bg" style="top:-20%;left:-10%"></div>
-  <div class="section-gradient section-gradient--cream" style="bottom:-25%;right:-15%"></div>
+<section class="orb-section" data-variant="indigo">
+  <span class="orb-bubble" style="--orb-x: 14%; --orb-y: -22%; --orb-size: 40rem; --orb-color: rgba(122, 70, 255, 0.28);"></span>
+  <span class="orb-bubble" style="--orb-x: 84%; --orb-y: 18%; --orb-size: 32rem; --orb-color: rgba(56, 132, 255, 0.22);"></span>
+  <span class="orb-bubble" style="--orb-x: 50%; --orb-y: 108%; --orb-size: 52rem; --orb-color: rgba(90, 60, 240, 0.18); --orb-opacity: 0.4;"></span>
 
-  <div class="relative mx-auto max-w-6xl px-6">
-    <div class="mb-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-      <div class="space-y-6 lg:max-w-3xl">
-        <span class="section-eyebrow">Dienstenpakket</span>
-        <h2 class="headline-underline text-pretty text-3xl font-semibold text-white md:text-4xl" data-animate="underline" data-split>
-          Alles in huis om digitale groei te versnellen.
-        </h2>
-        <p class="text-balance text-lg text-white/70">
-          Van het bouwen van een schaalbare website tot het aanjagen van verkeer en continu optimaliseren. We leveren een compleet ecosysteem zodat je één partner hebt voor strategie, realisatie en groei.
-        </p>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <span class="rounded-full border border-brand-500/40 bg-brand-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-brand-200">Growth</span>
-        <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white/60">Tech</span>
-        <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white/60">Marketing</span>
+  <div class="orb-shell">
+    <div class="orb-intro">
+      <span class="orb-tag">Dienstenpakket</span>
+      <h2 class="orb-title">Alles wat je nodig hebt om online vindbaar én overtuigend te zijn.</h2>
+      <p class="orb-copy">
+        Eén team dat je site bouwt, onderhoudt en laat presteren. We koppelen systemen, sturen campagnes en blijven optimaliseren op basis van data.
+      </p>
+      <div class="orb-meta">
+        <span class="orb-chip">Growth</span>
+        <span class="orb-chip orb-chip--ghost">Tech</span>
+        <span class="orb-chip orb-chip--ghost">Marketing</span>
       </div>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      {services.map((service) => (
-        <article class="group glow-ring relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] p-7 transition duration-500 hover:-translate-y-2 hover:border-brand-500/50 hover:bg-brand-500/10 tilt-card" data-tilt data-tilt-max="8" data-tilt-speed="600" data-tilt-perspective="1100" data-tilt-scale="1.01">
-          <div class="card-glow bg-brand-500/20"></div>
-          <div class="relative space-y-5">
-            <div class="flex items-center gap-3">
-              <span class="grid size-10 place-content-center rounded-2xl border border-white/15 bg-white/10 text-white">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="opacity-80">
-                  <use href={`#icon-${service.icon}`} />
-                </svg>
-              </span>
-              <h3 class="text-lg font-semibold text-white">{service.title}</h3>
-            </div>
-            <p class="text-sm text-white/70">{service.description}</p>
-            <a class="inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-brand-200" href="#contact">
-              Meer weten
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    <div class="orb-grid orb-grid--services">
+      {services.map((service, index) => (
+        <article
+          class="orb-card orb-card--service interactive-card tilt-card"
+          data-reveal
+          style={`--reveal-delay: ${index * 0.08}s; --card-glow: ${service.glow};`}
+        >
+          <span class="card-glow" aria-hidden="true"></span>
+          <div class="orb-card__header">
+            <span class="orb-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <use href={`#icon-${service.icon}`} />
               </svg>
-            </a>
+            </span>
+            <h3 class="orb-card__title">{service.title}</h3>
           </div>
+          <p class="orb-card__body">{service.description}</p>
+          <a class="orb-link" href="#contact">
+            Meer weten
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
         </article>
       ))}
     </div>

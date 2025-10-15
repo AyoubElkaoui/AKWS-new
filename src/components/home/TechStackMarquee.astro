@@ -1,0 +1,56 @@
+---
+const techLogos = [
+  { name: 'Astro', src: 'https://cdn.simpleicons.org/astro/ffffff', accent: 'rgba(252, 144, 84, 0.65)' },
+  { name: 'Next.js', src: 'https://cdn.simpleicons.org/nextdotjs/ffffff', accent: 'rgba(118, 132, 255, 0.42)' },
+  { name: 'WordPress', src: 'https://cdn.simpleicons.org/wordpress/21759b', accent: 'rgba(33, 117, 155, 0.55)' },
+  { name: 'Shopify', src: 'https://cdn.simpleicons.org/shopify/95bf47', accent: 'rgba(149, 191, 71, 0.45)' },
+  { name: 'Webflow', src: 'https://cdn.simpleicons.org/webflow/4353ff', accent: 'rgba(67, 83, 255, 0.48)' },
+  { name: 'React', src: 'https://cdn.simpleicons.org/react/61dafb', accent: 'rgba(97, 218, 251, 0.4)' },
+  { name: 'TypeScript', src: 'https://cdn.simpleicons.org/typescript/3178c6', accent: 'rgba(49, 120, 198, 0.45)' },
+  { name: 'Tailwind', src: 'https://cdn.simpleicons.org/tailwindcss/38bdf8', accent: 'rgba(56, 189, 248, 0.42)' },
+  { name: 'Sanity', src: 'https://cdn.simpleicons.org/sanity/f03e2f', accent: 'rgba(240, 62, 47, 0.48)' },
+  { name: 'HubSpot', src: 'https://cdn.simpleicons.org/hubspot/ff7a59', accent: 'rgba(255, 122, 89, 0.5)' },
+];
+
+const marqueeItems = [...techLogos, ...techLogos];
+---
+
+<section id="stack" class="orb-section tech-strip" aria-label="Technologieën waar we mee bouwen">
+  <span class="orb-bubble" style="--orb-x: 14%; --orb-y: -18%; --orb-size: 36rem; --orb-color: rgba(122, 70, 255, 0.28);"></span>
+  <span class="orb-bubble" style="--orb-x: 84%; --orb-y: 112%; --orb-size: 42rem; --orb-color: rgba(51, 132, 255, 0.22);"></span>
+
+  <div class="orb-shell tech-strip__shell">
+    <header class="orb-intro tech-strip__intro">
+      <span class="orb-tag">Stack & tooling</span>
+      <h2 class="orb-title">Van headless CMS tot marketing automation – alles sluit op elkaar aan.</h2>
+      <p class="orb-copy">
+        Wij combineren moderne frameworks met growth tooling. Zo bouwen we razendsnelle experiences die makkelijk te beheren zijn én direct data teruggeven.
+      </p>
+    </header>
+
+    <div class="tech-strip__marquee" aria-hidden="true">
+      <div class="tech-strip__mask">
+        <div class="tech-strip__track" data-direction="left">
+          {marqueeItems.map((logo, index) => (
+            <div class="tech-strip__item" style={`--accent: ${logo.accent}`}>
+              <span class="tech-strip__icon">
+                <img src={logo.src} alt="" loading="lazy" decoding="async" aria-hidden="true" />
+              </span>
+              <span class="tech-strip__label">{logo.name}</span>
+            </div>
+          ))}
+        </div>
+        <div class="tech-strip__track" data-direction="right">
+          {marqueeItems.map((logo, index) => (
+            <div class="tech-strip__item" style={`--accent: ${logo.accent}`}>
+              <span class="tech-strip__icon">
+                <img src={logo.src} alt="" loading="lazy" decoding="async" aria-hidden="true" />
+              </span>
+              <span class="tech-strip__label">{logo.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

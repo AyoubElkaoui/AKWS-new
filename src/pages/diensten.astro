@@ -1,0 +1,451 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/nav/Header.astro';
+import Footer from '../components/nav/Footer.astro';
+import IconBadge from '../components/ui/IconBadge.astro';
+
+const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
+const pageUrl = `${siteUrl}/diensten`;
+
+const impactSignals = [
+  { value: '0.7s', label: 'Gem. laadtijd live trajecten' },
+  { value: '98%', label: 'Core Web Vitals in het groen' },
+  { value: '3x', label: 'Sneller van kick-off tot launch' },
+  { value: '+38%', label: 'Meetbare groei per kwartaal' },
+];
+
+const pillars = [
+  {
+    icon: { set: 'heroicons-outline', name: 'squares-2x2' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.48)',
+    badge: 'Traject 01',
+    title: 'Sterke basis',
+    description: 'We bouwen een snelle, duidelijke website die meteen uitlegt wat je doet en waar bezoekers moeten klikken.',
+    points: ['Heldere structuur & wireframes', 'Design en teksten zonder vakjargon', 'Koppeling met je CMS of systemen'],
+    link: { href: '/aanpak#discover', label: 'Bekijk aanpak' },
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'rocket-launch' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.48)',
+    badge: 'Traject 02',
+    title: 'Marketing versnellen',
+    description: 'We richten campagnes en dashboards in zodat je weet welke acties leads opleveren en waar het beter kan.',
+    points: ['Campagnes die snel live staan', 'Automatische opvolging per kanaal', 'Inzichtelijke rapportages'],
+    link: { href: '/cases', label: 'Zie resultaten' },
+  },
+  {
+    icon: { set: 'heroicons-outline', name: 'arrow-path' },
+    tone: 'violet',
+    glow: 'rgba(122, 70, 255, 0.48)',
+    badge: 'Traject 03',
+    title: 'Blijven verbeteren',
+    description: 'Elke maand testen we verbeteringen, lossen we blokkades op en zorgen we dat je site snel blijft.',
+    points: ['Technische check & onderhoud', 'Testen met echte bezoekers', 'Snelle fixes en features'],
+    link: { href: '/aanpak#grow', label: 'Zie werkwijze' },
+  },
+];
+
+const packages = [
+  {
+    title: 'Website & platform',
+    description: 'Van idee tot live website. We ontwerpen, bouwen en koppelen alles zodat je klaar bent om te lanceren.',
+    points: ['Kennissessie & planning', 'Design en teksten die aanspreken', 'Astro/Next.js build', 'Training voor je team'],
+    tone: 'violet',
+    glow: 'rgba(138, 96, 255, 0.48)',
+    badge: 'Launch ready',
+    icon: { set: 'heroicons-outline', name: 'briefcase' },
+  },
+  {
+    title: 'Growth & optimalisatie',
+    description: 'Sta je al live? Dan richten we campagnes, dashboards en testen in zodat je iedere maand groeit.',
+    points: ['Data & dashboard in één oogopslag', 'SEO/SEA campagnes zonder ruis', 'Korte experimenten met duidelijke uitkomst', 'Automatische opvolging'],
+    tone: 'violet',
+    glow: 'rgba(138, 96, 255, 0.48)',
+    badge: 'Growth sprints',
+    icon: { set: 'heroicons-outline', name: 'chart-bar' },
+  },
+  {
+    title: 'In-house uitbreiding',
+    description: 'We sluiten aan op je team als vaste squad. Je krijgt designers, developers en marketeers in één pakket.',
+    points: ['Sprints met vaste contactpersonen', 'Design en development support', 'Workshops om je team te helpen', 'Samen roadmap bepalen'],
+    tone: 'violet',
+    glow: 'rgba(138, 96, 255, 0.48)',
+    badge: 'Dedicated squad',
+    icon: { set: 'heroicons-outline', name: 'user-group' },
+  },
+];
+
+const capabilityGroups = [
+  {
+    title: 'Strategie & fundament',
+    description: 'We onderzoeken je huidige prestaties en leggen een helder plan neer.',
+    items: ['Website & performance audit', 'SEO quick wins en contentplanning', 'Meetplan en analytics set-up'],
+  },
+  {
+    title: 'Design & content',
+    description: 'We vertalen je verhaal naar een merkervaring die mensen wél begrijpen.',
+    items: ['UX flows & wireframes', 'UI design systeem', 'Copywriting met duidelijke taal'],
+  },
+  {
+    title: 'Development & integraties',
+    description: 'Je website voelt snel, schaalbaar en sluit aan op je tools.',
+    items: ['Astro/Next.js componenten', 'CMS en marketingkoppelingen', 'Performance- en accessibility checks'],
+  },
+  {
+    title: 'Campagnes & automation',
+    description: 'We zorgen dat campagnes, funnels en dashboards samenwerken.',
+    items: ['SEO/SEA campagnes', 'E-mail en marketing automation', 'Realtime dashboards op KPI’s'],
+  },
+  {
+    title: 'Optimalisatie & testing',
+    description: 'Elke sprint bevat experimenten zodat je weet wat werkt.',
+    items: ['CRO-testen met duidelijke hypotheses', 'Rapportages met learnings', 'Iteraties op basis van data'],
+  },
+  {
+    title: 'Enablement & support',
+    description: 'Je team krijgt alles wat nodig is om door te pakken.',
+    items: ['Workshops & trainingen', 'Documentatie en design kits', 'Support voor nieuwe features'],
+  },
+];
+
+const techStack = [
+  { label: 'Astro', icon: 'astro' },
+  { label: 'Next.js', icon: 'nextdotjs' },
+  { label: 'Sanity', icon: 'sanity' },
+  { label: 'Contentful', icon: 'contentful' },
+  { label: 'Shopify', icon: 'shopify' },
+  { label: 'Google Marketing Platform', icon: 'googlemarketingplatform' },
+  { label: 'Fathom', icon: 'fathom' },
+  { label: 'Make', icon: 'make' },
+];
+
+const clientBrands = [
+  { label: 'ProbandenService', icon: { set: 'heroicons-outline', name: 'beaker' } },
+  { label: 'MBA Installaties', icon: { set: 'heroicons-outline', name: 'building-office-2' } },
+  { label: "Loen’s Collection", icon: { set: 'heroicons-outline', name: 'shopping-bag' } },
+  { label: 'Fun Studios', icon: { set: 'heroicons-outline', name: 'sparkles' } },
+  { label: 'AD Loodgietersbedrijf', icon: { set: 'heroicons-outline', name: 'wrench-screwdriver' } },
+  { label: 'Nexxus Events', icon: { set: 'heroicons-outline', name: 'presentation-chart-line' } },
+];
+
+const workflow = [
+  {
+    step: '01',
+    title: 'Kick-off & plan',
+    body: 'We vertalen je doelen naar een kort en duidelijk actieplan met meetpunten.',
+    deliverables: ['Doelen & KPI’s scherp', 'Planning eerste sprints', 'Inzicht in quick wins'],
+  },
+  {
+    step: '02',
+    title: 'Design & storytelling',
+    body: 'We maken flows, design en copy die aansluiten op je merk en doelgroep.',
+    deliverables: ['UX flows en wireframes', 'UI design systeem', 'Copy & tone of voice'],
+  },
+  {
+    step: '03',
+    title: 'Development & integratie',
+    body: 'We bouwen modulair, koppelen tools en zorgen dat alles snel en betrouwbaar is.',
+    deliverables: ['Astro/Next.js componenten', 'CMS & automation koppelingen', 'Performance optimalisatie'],
+  },
+  {
+    step: '04',
+    title: 'Launch & growth',
+    body: 'Na livegang draaien we campagnes, testen we verbeteringen en sturen we bij op data.',
+    deliverables: ['Campagnes en automation live', 'CRO experimenten', 'Dashboard & learnings per sprint'],
+  },
+];
+
+const faqs = [
+  {
+    question: 'Kunnen jullie delen van het traject oppakken?',
+    answer: 'Ja. We werken modulair, wat betekent dat we kunnen focussen op design, development, marketing of automation. We stemmen het pakket af op jouw behoefte.',
+  },
+  {
+    question: 'Welke tools gebruiken jullie standaard?',
+    answer: 'We werken graag met Astro of Next.js voor development, en koppelen met headless CMS’en zoals Sanity of Contentful. Voor marketing gebruiken we onder andere Google Marketing Platform en Make.com.',
+  },
+  {
+    question: 'Hoe snel kunnen we live?',
+    answer: 'Met onze sprintaanpak gaan we van kick-off naar livegang in circa 8 tot 12 weken, afhankelijk van de complexiteit. Tijdens de intake maken we een planning op maat.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Diensten',
+      item: pageUrl,
+    },
+  ],
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Digitale diensten AK Web Solutions',
+  serviceType: 'Webdesign, marketing automation, SEO, growth marketing',
+  provider: {
+    '@type': 'Organization',
+    name: 'AK Web Solutions',
+    url: siteUrl,
+  },
+  areaServed: 'NL',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicepakketten',
+    itemListElement: packages.map((pkg, index) => ({
+      '@type': 'Offer',
+      position: index + 1,
+      name: pkg.title,
+      description: pkg.description,
+    })),
+  },
+};
+
+const heroMetrics = [
+  { value: '3', label: 'Traject pijlers' },
+  { value: '+12', label: 'Projecten per jaar' },
+  { value: '<1s', label: 'Gem. laadtijd' },
+];
+
+const serviceSpotlight = [
+  { title: 'Websites & platforms', body: 'Snel, modulair en SEO-proof. Van discovery tot launch in weken, niet maanden.', icon: { set: 'heroicons-outline', name: 'globe-alt' } },
+  { title: 'Campagnes & funnels', body: 'Van Google Ads tot marketing automation. Alles meetbaar in één dashboard.', icon: { set: 'heroicons-outline', name: 'chart-pie' } },
+  { title: 'CRO & optimalisatie', body: 'Maandelijkse experimenten en performance monitoring voor blijvende groei.', icon: { set: 'heroicons-outline', name: 'arrow-trending-up' } },
+];
+
+---
+
+<Layout
+  title="Diensten – AK Web Solutions"
+  description="Ontdek de services van AK Web Solutions: high-end websites, marketingautomatisering, SEO/SEA en doorlopende optimalisatie."
+  structuredData={[breadcrumbSchema, serviceSchema, faqSchema]}
+>
+  <Header />
+  <main>
+    <section class="services-hero">
+      <div class="services-hero__bg" aria-hidden="true">
+        <span class="services-hero__orb services-hero__orb--left"></span>
+        <span class="services-hero__orb services-hero__orb--right"></span>
+        <span class="services-hero__glow"></span>
+      </div>
+      <div class="services-hero__shell">
+        <div class="services-hero__intro" data-reveal>
+          <span class="services-hero__tag">Onze diensten</span>
+          <h1>Snelle sprints. Zichtbaar resultaat.</h1>
+          <p>We bouwen een digitaal fundament, schalen campagnes en blijven optimaliseren. Eén team dat techniek, design en marketing verbindt.</p>
+          <div class="services-hero__actions">
+            <a class="hero-btn hero-btn--primary" href="/contact">Plan een call</a>
+            <a class="hero-btn hero-btn--ghost" href="/cases">Bekijk resultaten</a>
+          </div>
+        </div>
+        <div class="services-hero__metrics">
+          {heroMetrics.map((metric, index) => (
+            <div class="services-hero__metric" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="services-hero__spotlight">
+        {serviceSpotlight.map((item, index) => (
+          <article class="services-spotlight-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+            <span class="services-spotlight-card__icon">
+              <IconBadge set={item.icon.set} name={item.icon.name} width={26} color="rgba(244,244,255,0.92)" />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="services-glance">
+      <div class="services-glance__shell">
+        <div class="services-glance__intro" data-reveal>
+          <span>Waarom teams schakelen</span>
+          <h2>Snelle delivery, meetbaar resultaat.</h2>
+          <p>We leveren sprints die aantoonbare impact maken: performance, zichtbaarheid en groeiversnelling. Geen losse deliverables maar een team dat doorwerkt.</p>
+        </div>
+        <div class="services-glance__metrics">
+          {impactSignals.map((item, index) => (
+            <article class="services-glance__metric tilt-card" data-reveal style={`--reveal-delay: ${index * 0.06}s`}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="services-spectrum">
+      <div class="services-spectrum__shell">
+        <header class="services-spectrum__intro" data-reveal>
+          <span>Capabilities</span>
+          <h2>Alles wat je nodig hebt voor een schaalbare digitale basis.</h2>
+          <p>We combineren strategie, design, techniek en marketing. Elk cluster is modulair: start klein of activeer een compleet team.</p>
+        </header>
+        <div class="services-spectrum__grid">
+          {capabilityGroups.map((group, index) => (
+            <article
+              class="services-spectrum__card tilt-card"
+              data-reveal
+              style={`--spectrum-index: ${index}; --reveal-delay: ${index * 0.08}s`}
+            >
+              <span class="services-spectrum__index">0{index + 1}</span>
+              <h3>{group.title}</h3>
+              <p>{group.description}</p>
+              <ul>
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="services-models">
+      <div class="services-models__shell">
+        <header class="services-models__intro" data-reveal>
+          <span>Engagement modellen</span>
+          <h2>Van launch tot doorontwikkeling: kies het tempo dat past.</h2>
+          <p>We bouwen samen aan jouw groeimachine. Start met een pakket en schaal eenvoudig op met aanvullende modules.</p>
+        </header>
+        <div class="services-models__grid">
+          {packages.map((pkg, index) => (
+            <article class="services-models__card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <div class="services-models__header">
+                <span class="services-models__badge">{pkg.badge}</span>
+                <h3>{pkg.title}</h3>
+              </div>
+              <p>{pkg.description}</p>
+              <ul>
+                {pkg.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+              <div class="services-models__cta">
+                <a class="hero-btn hero-btn--primary" href="/contact">Plan een sessie</a>
+                <a class="hero-btn hero-btn--ghost" href="/cases">Bekijk cases</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="services-alliance">
+      <div class="services-alliance__shell">
+        <div class="services-alliance__panel tilt-card" data-reveal>
+          <span class="services-alliance__label">Stack & tooling</span>
+          <h3>Performance tooling + marketing automation, één datalaag.</h3>
+          <div class="services-alliance__chips">
+            {techStack.map((item, index) => (
+              <span class="services-alliance__chip" data-reveal style={`--reveal-delay: ${index * 0.05}s`}>
+                <img src={`https://cdn.simpleicons.org/${item.icon}/FFFFFF`} alt={`${item.label} logo`} loading="lazy" decoding="async" />
+                {item.label}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div class="services-alliance__panel tilt-card" data-reveal style="--reveal-delay: 0.05s">
+          <span class="services-alliance__label">Merken die we helpen groeien</span>
+          <h3>We werken voor teams die snelheid en schaal verwachten.</h3>
+          <div class="services-alliance__chips services-alliance__chips--alt">
+            {clientBrands.map((client, index) => (
+              <span class="services-alliance__chip" data-reveal style={`--reveal-delay: ${index * 0.06}s`}>
+                <IconBadge set={client.icon.set} name={client.icon.name} width={22} title={client.label} />
+                {client.label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-journey">
+      <div class="services-journey__shell">
+        <header class="services-journey__intro" data-reveal>
+          <span>Sprint flow</span>
+          <h2>Hoe we in zes weken van idee naar live gaan.</h2>
+          <p>Elke sprint heeft een duidelijk doel, deliverables en metrische check-ins. We releasen doorlopend en schakelen bij op data.</p>
+        </header>
+        <div class="services-journey__timeline">
+          {workflow.map((stage, index) => (
+            <article class="services-journey__node tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <span class="services-journey__step">{stage.step}</span>
+              <h3>{stage.title}</h3>
+              <p>{stage.body}</p>
+              <ul>
+                {stage.deliverables.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="services-faq">
+      <div class="services-faq__shell">
+        <header class="services-faq__intro" data-reveal>
+          <span>FAQ</span>
+          <h2>Veelgestelde vragen voordat we starten.</h2>
+          <p>Heldere verwachtingen zorgen voor snelheid. Dit zijn antwoorden op vragen die we vaak krijgen.</p>
+        </header>
+        <div class="faq-list">
+          {faqs.map((item, index) => (
+            <details class="faq-item" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="services-cta">
+      <div class="services-cta__shell">
+        <article class="services-cta__panel tilt-card" data-reveal>
+          <span>Volgende stap</span>
+          <h2>Plan een strategiesessie en ontdek waar jouw groeipotentieel zit.</h2>
+          <p>We bereiden de call voor op basis van jouw doelen en data. Na 45 minuten weet je hoe sprint één eruit ziet.</p>
+          <div class="services-cta__actions">
+            <a class="hero-btn hero-btn--primary" href="/contact">Plan een call</a>
+            <a class="hero-btn hero-btn--ghost" href="/cases">Bekijk cases</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

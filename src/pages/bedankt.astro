@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/nav/Header.astro';
+import Footer from '../components/nav/Footer.astro';
+
+const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
+const pageUrl = `${siteUrl}/bedankt`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Bedankt',
+      item: pageUrl,
+    },
+  ],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Bedankt voor je bericht',
+  url: pageUrl,
+  description: 'Bedankt-pagina van AK Web Solutions. We nemen binnen één werkdag contact op en delen alvast relevante cases en diensten.',
+  isPartOf: siteUrl,
+};
+---
+
+<Layout
+  title="Bedankt – AK Web Solutions"
+  description="Bedankt voor je bericht aan AK Web Solutions. We reageren binnen één werkdag met de eerste vervolgstappen."
+  structuredData={[breadcrumbSchema, webPageSchema]}
+>
+  <Header />
+  <main>
+    <section class="page-section orb-section" data-variant="cta" data-glow="magenta">
+      <div class="page-shell orb-shell">
+        <header class="orb-intro">
+          <span class="orb-tag">Dank je wel</span>
+          <h1 class="orb-title">Bedankt voor je bericht!</h1>
+          <p class="orb-copy">We nemen binnen één werkdag contact met je op met vervolgstappen. In de tussentijd kun je alvast onze cases en diensten verkennen.</p>
+        </header>
+        <div class="orb-meta" data-reveal>
+          <a href="/cases" class="hero-btn hero-btn--primary">Bekijk cases</a>
+          <a href="/diensten" class="hero-btn hero-btn--ghost">Ontdek onze diensten</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
