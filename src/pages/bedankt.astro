@@ -41,17 +41,17 @@ const webPageSchema = {
   structuredData={[breadcrumbSchema, webPageSchema]}
 >
   <Header />
-  <main>
-    <section class="page-section orb-section" data-variant="cta" data-glow="magenta">
-      <div class="page-shell orb-shell">
-        <header class="orb-intro">
-          <span class="orb-tag">Dank je wel</span>
-          <h1 class="orb-title">Bedankt voor je bericht!</h1>
-          <p class="orb-copy">We nemen binnen één werkdag contact met je op met vervolgstappen. In de tussentijd kun je alvast onze cases en diensten verkennen.</p>
-        </header>
-        <div class="orb-meta" data-reveal>
-          <a href="/cases" class="hero-btn hero-btn--primary">Bekijk cases</a>
-          <a href="/diensten" class="hero-btn hero-btn--ghost">Ontdek onze diensten</a>
+  <main class="services-basic">
+    <section class="services-basic__hero">
+      <div class="services-basic__shell">
+        <div class="services-basic__hero-content" data-reveal style="text-align: center; max-width: 42rem; margin: 0 auto;">
+          <span style="display: inline-block; padding: 0.5rem 1rem; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 999px; font-size: 0.875rem; font-weight: 500; color: rgba(99, 102, 241, 0.9); margin-bottom: 1.5rem;">Dank je wel</span>
+          <h1>Bedankt voor je bericht!</h1>
+          <p style="font-size: 1.125rem;">We nemen binnen één werkdag contact met je op met vervolgstappen. In de tussentijd kun je alvast onze cases en diensten verkennen.</p>
+          <div class="services-basic__cta-row" style="margin-top: 2.5rem; justify-content: center;">
+            <a href="/cases" class="services-basic__btn services-basic__btn--primary">Bekijk cases</a>
+            <a href="/diensten" class="services-basic__btn services-basic__btn--link">Ontdek onze diensten</a>
+          </div>
         </div>
       </div>
     </section>

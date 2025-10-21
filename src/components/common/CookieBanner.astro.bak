@@ -1,0 +1,204 @@
+---
+// GDPR-compliant cookie banner
+---
+
+<div id="cookie-banner" class="cookie-banner" style="display: none;">
+  <div class="cookie-banner__content">
+    <div class="cookie-banner__text">
+      <h3>🍪 Cookies & Privacy</h3>
+      <p>
+        We gebruiken functionele cookies en Google Analytics om onze website te verbeteren. 
+        <a href="/privacy" target="_blank">Lees ons privacybeleid</a>
+      </p>
+    </div>
+    <div class="cookie-banner__actions">
+      <button id="cookie-accept" class="cookie-btn cookie-btn--primary">
+        Accepteren
+      </button>
+      <button id="cookie-reject" class="cookie-btn cookie-btn--secondary">
+        Alleen noodzakelijk
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(10, 15, 30, 0.98) 100%);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(99, 102, 241, 0.2);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.4s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .cookie-banner__content {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .cookie-banner__text {
+    flex: 1;
+  }
+
+  .cookie-banner__text h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: rgba(244, 244, 255, 0.95);
+    margin: 0 0 0.5rem;
+  }
+
+  .cookie-banner__text p {
+    font-size: 0.9375rem;
+    color: rgba(203, 213, 225, 0.82);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .cookie-banner__text a {
+    color: rgba(99, 102, 241, 0.9);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+
+  .cookie-banner__text a:hover {
+    color: rgba(129, 140, 248, 1);
+  }
+
+  .cookie-banner__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .cookie-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .cookie-btn--primary {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  }
+
+  .cookie-btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  }
+
+  .cookie-btn--secondary {
+    background: rgba(99, 102, 241, 0.1);
+    color: rgba(203, 213, 225, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+  }
+
+  .cookie-btn--secondary:hover {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .cookie-banner__content {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 1.25rem 1rem;
+    }
+
+    .cookie-banner__actions {
+      flex-direction: column;
+    }
+
+    .cookie-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Cookie consent management
+  (function() {
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+    
+    // Check if user already made a choice
+    const consent = localStorage.getItem('cookie-consent');
+    
+    if (!consent) {
+      // Show banner after 1 second
+      setTimeout(() => {
+        if (banner) banner.style.display = 'block';
+      }, 1000);
+    } else if (consent === 'accepted') {
+      // Load analytics if previously accepted
+      loadAnalytics();
+    }
+    
+    // Accept all cookies
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function() {
+        localStorage.setItem('cookie-consent', 'accepted');
+        if (banner) banner.style.display = 'none';
+        loadAnalytics();
+        // Dispatch event for other scripts (like reCAPTCHA)
+        window.dispatchEvent(new Event('cookie-consent-accepted'));
+      });
+    }
+    
+    // Reject optional cookies
+    if (rejectBtn) {
+      rejectBtn.addEventListener('click', function() {
+        localStorage.setItem('cookie-consent', 'rejected');
+        if (banner) banner.style.display = 'none';
+      });
+    }
+    
+    function loadAnalytics() {
+      // Google Analytics 4
+      const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // Vervang met jouw GA4 measurement ID
+      
+      // Load gtag.js
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+      document.head.appendChild(script);
+      
+      // Initialize gtag
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, {
+        anonymize_ip: true, // GDPR compliance
+        cookie_flags: 'SameSite=None;Secure'
+      });
+    }
+  })();
+</script>

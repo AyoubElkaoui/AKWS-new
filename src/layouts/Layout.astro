@@ -24,6 +24,7 @@ import '../styles/global.css';
 import '../styles/pulse-pages.css';
 import '../styles/services-page.css';
 import '../styles/blog.css';
+import CookieBanner from '../components/common/CookieBanner.astro';
 ---
 
 <!doctype html>
@@ -34,6 +35,31 @@ import '../styles/blog.css';
         <meta name="description" content={description} />
         <meta name="theme-color" content="#0f0f0f" />
         {canonical && <link rel="canonical" href={canonical} />}
+        
+        <!-- Google reCAPTCHA v3 -->
+        <script src="https://www.google.com/recaptcha/api.js?render=6Lfg5fErAAAAAFNB6fEZq1TBrAKH1zysHKXVhCZv" async defer></script>
+        
+        <!-- Google Analytics 4 - Only loads after cookie consent -->
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            
+            // Check consent from localStorage
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            if (cookieConsent === 'accepted') {
+                // Load Google Analytics
+                const gaScript = document.createElement('script');
+                gaScript.async = true;
+                gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-FN01ZESQ91';
+                document.head.appendChild(gaScript);
+                
+                gtag('js', new Date());
+                gtag('config', 'G-FN01ZESQ91', {
+                    'anonymize_ip': true,
+                    'cookie_flags': 'SameSite=None;Secure'
+                });
+            }
+        </script>
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={description} />
         {canonical && <meta property="og:url" content={canonical} />}
@@ -62,3 +88,5 @@ import '../styles/blog.css';
         <script type="module" src="/src/scripts/animations.ts"></script>
     </body>
 </html>
+
+<CookieBanner />
