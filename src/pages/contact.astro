@@ -175,14 +175,15 @@ const heroHighlights = [
           </aside>
 
           <!-- Form Side -->
-          <form id="contactForm" class="services-basic__form" action="https://formsubmit.co/info@akwebsolutions.nl" method="POST" data-reveal style="--reveal-delay: 0.1s">
-            <input type="hidden" name="_subject" value="Nieuw contactformulier - AK Web Solutions" />
-            <input type="hidden" name="_next" value="https://akwebsolutions.nl/bedankt" />
+          <form id="contactForm" class="services-basic__form" data-reveal style="--reveal-delay: 0.1s">
+            <!-- Honeypot for spam protection -->
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-            <input type="hidden" id="recaptchaToken" name="g-recaptcha-response" />
 
             <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Vraag een offerte aan</h2>
             <p style="color: rgba(244, 244, 255, 0.72); margin-bottom: 2rem;">Vul je gegevens in en vertel kort waar we je mee kunnen helpen. We nemen binnen 1 werkdag contact op.</p>
+            
+            <!-- Success/Error Messages -->
+            <div id="formMessage" style="display: none; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9375rem;"></div>
 
             <div class="services-basic__form-grid">
               <label class="services-basic__field">
@@ -207,9 +208,21 @@ const heroHighlights = [
               </label>
             </div>
 
-            <button type="submit" class="services-basic__btn services-basic__btn--primary" style="width: 100%;">
-              Verstuur aanvraag
+            <button type="submit" id="submitBtn" class="services-basic__btn services-basic__btn--primary" style="width: 100%; position: relative;">
+              <span id="btnText">Verstuur aanvraag</span>
+              <span id="btnLoader" style="display: none;">
+                <svg style="width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10" stroke-width="4" stroke="currentColor" stroke-opacity="0.25"></circle>
+                  <path d="M12 2a10 10 0 0 1 10 10" stroke-width="4" stroke="currentColor"></path>
+                </svg>
+                Versturen...
+              </span>
             </button>
+            <style>
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+            </style>
             <p style="font-size: 0.8125rem; color: rgba(244, 244, 255, 0.52); text-align: center; margin-top: 1rem;">
               We reageren binnen 1 werkdag • Vrijblijvend advies
             </p>
@@ -242,39 +255,107 @@ const heroHighlights = [
 </Layout>
 
 <script>
-  // reCAPTCHA v3 integration for contact form
+  // Professional contact form with reCAPTCHA v3 and Resend API
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contactForm') as HTMLFormElement | null;
-    if (!form) return;
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+    const btnText = document.getElementById('btnText') as HTMLSpanElement | null;
+    const btnLoader = document.getElementById('btnLoader') as HTMLSpanElement | null;
+    const formMessage = document.getElementById('formMessage') as HTMLDivElement | null;
 
-    form.addEventListener('submit', (e: Event) => {
+    if (!form || !submitBtn || !btnText || !btnLoader || !formMessage) return;
+
+    form.addEventListener('submit', async (e: Event) => {
       e.preventDefault();
 
-      // Check if grecaptcha is loaded
-      if (typeof (window as any).grecaptcha === 'undefined') {
-        console.error('reCAPTCHA not loaded');
-        alert('Er is een probleem met het beveiligingssysteem. Probeer de pagina opnieuw te laden.');
-        return;
+      // Check honeypot (spam protection)
+      const honeypot = form.querySelector('[name="_honey"]') as HTMLInputElement;
+      if (honeypot && honeypot.value) {
+        return; // Silent fail for bots
       }
 
-      // Execute reCAPTCHA v3
-      (window as any).grecaptcha.ready(() => {
-        (window as any).grecaptcha.execute('6Lfg5fErAAAAAFNB6fEZq1TBrAKH1zysHKXVhCZv', { action: 'contact_form' })
-          .then((token: string) => {
-            // Add token to hidden field
-            const tokenField = document.getElementById('recaptchaToken') as HTMLInputElement;
-            if (tokenField) {
-              tokenField.value = token;
-            }
-            
-            // Submit form
-            form.submit();
-          })
-          .catch((error: Error) => {
-            console.error('reCAPTCHA error:', error);
-            alert('Er ging iets mis met het beveiligingssysteem. Probeer het opnieuw.');
+      // Disable submit button and show loading
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'inline-block';
+      formMessage.style.display = 'none';
+
+      try {
+        // Check if grecaptcha is loaded
+        if (typeof (window as any).grecaptcha === 'undefined') {
+          throw new Error('reCAPTCHA niet geladen');
+        }
+
+        // Execute reCAPTCHA v3
+        const token = await new Promise<string>((resolve, reject) => {
+          (window as any).grecaptcha.ready(() => {
+            (window as any).grecaptcha
+              .execute('6Lfg5fErAAAAAFNB6fEZq1TBrAKH1zysHKXVhCZv', { action: 'contact_form' })
+              .then(resolve)
+              .catch(reject);
           });
-      });
+        });
+
+        // Get form data
+        const formData = new FormData(form);
+        const data = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          phone: formData.get('phone') || '',
+          company: formData.get('company') || '',
+          message: formData.get('message'),
+          recaptchaToken: token
+        };
+
+        // Submit to API
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Success!
+          formMessage.style.display = 'block';
+          formMessage.style.background = 'rgba(34, 197, 94, 0.1)';
+          formMessage.style.color = '#22c55e';
+          formMessage.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+          formMessage.innerHTML = `
+            <strong>✓ ${result.message}</strong><br>
+            <span style="font-size: 0.875rem; opacity: 0.8;">We sturen je een bevestiging naar ${data.email}</span>
+          `;
+          
+          // Reset form
+          form.reset();
+
+          // Scroll to success message
+          formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        } else {
+          // Error from API
+          throw new Error(result.error || 'Er ging iets mis');
+        }
+
+      } catch (error) {
+        // Show error message
+        formMessage.style.display = 'block';
+        formMessage.style.background = 'rgba(239, 68, 68, 0.1)';
+        formMessage.style.color = '#ef4444';
+        formMessage.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+        formMessage.innerHTML = `
+          <strong>✗ ${error instanceof Error ? error.message : 'Er ging iets mis'}</strong><br>
+          <span style="font-size: 0.875rem; opacity: 0.8;">Probeer het opnieuw of mail naar info@akwebsolutions.nl</span>
+        `;
+
+        console.error('Contact form error:', error);
+      } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline-block';
+        btnLoader.style.display = 'none';
+      }
     });
   });
 </script>

@@ -32,6 +32,11 @@
   initial-value: 0deg;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   background-color: #06070d;
   background-image:
