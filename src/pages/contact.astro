@@ -290,7 +290,7 @@ const heroHighlights = [
         const token = await new Promise<string>((resolve, reject) => {
           (window as any).grecaptcha.ready(() => {
             (window as any).grecaptcha
-              .execute('6Lfg5fErAAAAAFNB6fEZq1TBrAKH1zysHKXVhCZv', { action: 'contact_form' })
+              .execute((window as any).RECAPTCHA_SITE_KEY || '6Lfg5fErAAAAAFNB6fEZq1TBrAKH1zysHKXVhCZv', { action: 'contact_form' })
               .then(resolve)
               .catch(reject);
           });

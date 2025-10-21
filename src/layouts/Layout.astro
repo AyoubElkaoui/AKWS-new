@@ -25,6 +25,8 @@ import '../styles/pulse-pages.css';
 import '../styles/services-page.css';
 import '../styles/blog.css';
 import CookieBanner from '../components/common/CookieBanner.astro';
+// Public reCAPTCHA site key (can be set via build env PUBLIC_RECAPTCHA_SITE_KEY)
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fErAAAAAFNB6fEZq1TBrAKH1zysHKXVhCZv';
 ---
 
 <!doctype html>
@@ -37,7 +39,8 @@ import CookieBanner from '../components/common/CookieBanner.astro';
         {canonical && <link rel="canonical" href={canonical} />}
         
         <!-- Google reCAPTCHA v3 -->
-        <script src="https://www.google.com/recaptcha/api.js?render=6Lfg5fErAAAAAFNB6fEZq1TBrAKH1zysHKXVhCZv" async defer></script>
+        <script src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`} async defer></script>
+        <script is:inline>{`window.RECAPTCHA_SITE_KEY = ${JSON.stringify(recaptchaSiteKey)};`}</script>
         
         <!-- Google Analytics 4 - Only loads after cookie consent -->
         <script is:inline>

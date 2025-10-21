@@ -18,22 +18,42 @@ export default async function handler(req, res) {
     }
 
     // Verify reCAPTCHA token
-    const recaptchaResponse = await fetch(
-      'https://www.google.com/recaptcha/api/siteverify',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
-      }
-    );
+    const secret = process.env.RECAPTCHA_SECRET_KEY;
+    if (!secret) {
+      console.error('RECAPTCHA_SECRET_KEY is not set in environment');
+      return res.status(500).json({ error: 'Server misconfiguratie: reCAPTCHA sleutel ontbreekt' });
+    }
+
+    const params = new URLSearchParams();
+    params.append('secret', secret);
+    params.append('response', recaptchaToken);
+
+    const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString()
+    });
 
     const recaptchaData = await recaptchaResponse.json();
 
-    // Check if reCAPTCHA validation failed
-    if (!recaptchaData.success || recaptchaData.score < 0.5) {
+    // Helpful logging for debugging (keeps sensitive secret out of logs)
+    console.info('reCAPTCHA verification response:', {
+      success: recaptchaData.success,
+      score: recaptchaData.score,
+      action: recaptchaData.action,
+      hostname: recaptchaData.hostname,
+      'error-codes': recaptchaData['error-codes']
+    });
+
+    // Decide failure conditions:
+    // - If success is false -> fail
+    // - If score exists and is < 0.5 -> fail
+    // Otherwise allow (some enterprise setups may not return score)
+    const score = typeof recaptchaData.score === 'number' ? recaptchaData.score : undefined;
+    if (!recaptchaData.success || (typeof score === 'number' && score < 0.5)) {
       console.error('reCAPTCHA validation failed:', recaptchaData);
-      return res.status(400).json({ 
-        error: 'reCAPTCHA validatie mislukt. Probeer het opnieuw.' 
+      return res.status(400).json({
+        error: '✗ reCAPTCHA validatie mislukt. Probeer het opnieuw.\nProbeer het opnieuw of mail naar info@akwebsolutions.nl'
       });
     }
 
