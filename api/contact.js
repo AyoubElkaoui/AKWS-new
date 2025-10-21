@@ -58,11 +58,17 @@ export default async function handler(req, res) {
     }
 
     // Send email via Resend
+    const resendKey = process.env.RESEND_API_KEY;
+    if (!resendKey) {
+      console.error('RESEND_API_KEY is not set in environment');
+      return res.status(500).json({ error: 'Server misconfiguratie: e-mail sleutel ontbreekt' });
+    }
+
     const emailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+        'Authorization': `Bearer ${resendKey}`
       },
       body: JSON.stringify({
         from: 'AK Web Solutions <noreply@akwebsolutions.nl>',
