@@ -46,7 +46,9 @@
   </div>
 </section>
 
-<script is:inline>
+<script>
+  import initNexusHero from '../../scripts/nexusHero';
+  
   // Nexus 3D Hero Background (desktop only)
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const isTouchViewport = window.matchMedia('(max-width: 768px)');
@@ -55,15 +57,18 @@
   const shouldSkipHero = prefersReducedMotion.matches || isTouchViewport.matches || lowPowerThreads;
 
   if (!shouldSkipHero) {
-    // Dynamically import and initialize hero
-    import('../../scripts/nexusHero.ts').then(module => {
-      if (module.default) {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => module.default(), { timeout: 1200 });
-        } else {
-          setTimeout(() => module.default(), 160);
-        }
+    const loadHero = () => {
+      try {
+        initNexusHero();
+      } catch (err) {
+        console.warn('[hero] init failed', err);
       }
-    }).catch(err => console.warn('[hero] init failed', err));
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadHero, { timeout: 1200 });
+    } else {
+      setTimeout(loadHero, 160);
+    }
   }
 </script>
