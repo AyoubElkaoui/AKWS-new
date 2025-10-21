@@ -2,21 +2,21 @@
 const testimonials = [
   {
     quote:
-      'AK Web Solutions heeft niet alleen onze website vernieuwd, maar ook ons complete marketingapparaat naar een hoger niveau getild. Onze salesafdeling werkt nu met realtime dashboards en het aantal kwalitatieve aanvragen is verdubbeld.',
+      'AKWS heeft onze complete go-to-market getransformeerd. Van brochuresite naar leadgeneratiemachine met realtime data. Onze salesafdeling weet nu precies waar prospects vandaan komen en wat ze nodig hebben.',
     name: 'Sanne Visser',
     role: 'Marketing Manager, CloudWorks',
     glow: 'rgba(144, 118, 255, 0.45)',
   },
   {
     quote:
-      'We zochten een partner die strategie en uitvoering kon combineren. Binnen drie maanden stond er een nieuwe propositie live inclusief SEO en campagnes. Het team denkt mee en levert topkwaliteit.',
+      'We hadden geen tijd voor eindeloos briefen en brainstormsessies. AKWS kwam binnen met een duidelijk plan, voerde het uit in sprints en leverde binnen 8 weken een volledig nieuwe propositie + campagnes die direct ROI opleverden.',
     name: 'Jasper Willems',
     role: 'Founder, LegalFlow',
     glow: 'rgba(99, 198, 255, 0.42)',
   },
   {
     quote:
-      'Wat mij het meest verraste is de snelheid waarmee AKWS impact maakt. De aanpak is super gestructureerd en elke sprint geeft direct resultaat in onze funnel.',
+      'Wat ik waardeer is de no-nonsense aanpak: geen fluff, gewoon resultaat. Elke sprint leverde iets op dat direct bijdroeg aan onze KPIs. En de snelheid waarmee ze schakelen is next-level.',
     name: 'Lotte de Vries',
     role: 'CMO, FitNation',
     glow: 'rgba(246, 181, 255, 0.36)',
@@ -24,29 +24,32 @@ const testimonials = [
 ];
 ---
 
-<section id="testimonials" class="orb-section" data-variant="quote">
+<section id="testimonials" class="services-basic__section" style="position: relative;">
   <span class="orb-bubble" style="--orb-x: 12%; --orb-y: -18%; --orb-size: 38rem; --orb-color: rgba(184, 68, 255, 0.26);"></span>
   <span class="orb-bubble" style="--orb-x: 88%; --orb-y: 20%; --orb-size: 36rem; --orb-color: rgba(56, 132, 255, 0.2);"></span>
   <span class="orb-bubble" style="--orb-x: 48%; --orb-y: 112%; --orb-size: 48rem; --orb-color: rgba(90, 52, 237, 0.18); --orb-opacity: 0.42;"></span>
 
-  <div class="orb-shell">
-    <header class="orb-intro">
-      <span class="orb-tag">Ervaringen</span>
-      <h2 class="orb-title">Klanten die hun digitale groei aan ons toevertrouwen.</h2>
+  <div class="services-basic__shell">
+    <header class="services-basic__intro" data-reveal>
+      <span class="services-basic__eyebrow">Reviews</span>
+      <h2>Geen fluff. Gewoon eerlijke feedback.</h2>
     </header>
 
-    <div class="orb-grid orb-grid--quotes">
+    <div class="services-basic__grid">
       {testimonials.map((item, index) => (
         <blockquote
-          class="orb-card orb-card--quote interactive-card tilt-card"
+          class="services-basic__card services-basic__card--quote"
           data-reveal
-          style={`--reveal-delay: ${index * 0.08}s; --card-glow: ${item.glow};`}
+          style={`--reveal-delay: ${index * 0.08}s;`}
         >
-          <span class="card-glow" aria-hidden="true"></span>
-          <p>“{item.quote}”</p>
-          <footer class="orb-quote__meta">
-            <span class="orb-quote__name">{item.name}</span>
-            <span class="orb-quote__role">{item.role}</span>
+          <svg class="services-basic__quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" fill="currentColor" opacity="0.2"/>
+            <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h2v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" fill="currentColor" opacity="0.2"/>
+          </svg>
+          <p class="services-basic__quote-text">{item.quote}</p>
+          <footer class="services-basic__quote-footer">
+            <strong>{item.name}</strong>
+            <span>{item.role}</span>
           </footer>
         </blockquote>
       ))}

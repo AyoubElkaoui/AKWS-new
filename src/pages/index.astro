@@ -4,14 +4,12 @@ import Header from '../components/nav/Header.astro';
 import Footer from '../components/nav/Footer.astro';
 
 import HeroSection from '../components/home/HeroSection.astro';
-import FeaturesSection from '../components/home/FeaturesSection.astro';
-import ServiceOverviewSection from '../components/home/ServiceOverviewSection.astro';
-import ApproachSection from '../components/home/ApproachSection.astro';
-import CaseStudiesSection from '../components/home/CaseStudiesSection.astro';
-import TestimonialsSection from '../components/home/TestimonialsSection.astro';
-import ShowcaseSection from '../components/home/ShowcaseSection.astro';
-import CTASection from '../components/home/CTASection.astro';
 import TechStackMarquee from '../components/home/TechStackMarquee.astro';
+import ServicesNewSection from '../components/home/ServicesNewSection.astro';
+import ProcessSection from '../components/home/ProcessSection.astro';
+import CaseStudiesSection from '../components/home/CaseStudiesSection.astro';
+import WhyUsSection from '../components/home/WhyUsSection.astro';
+import CTASection from '../components/home/CTASection.astro';
 
 const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
 const organizationSchema = {
@@ -62,12 +60,10 @@ const websiteSchema = {
   <main>
     <HeroSection />
     <TechStackMarquee />
-    <FeaturesSection />
-    <ServiceOverviewSection />
-    <ApproachSection />
+    <ServicesNewSection />
+    <ProcessSection />
     <CaseStudiesSection />
-    <ShowcaseSection />
-    <TestimonialsSection />
+    <WhyUsSection />
     <CTASection />
   </main>
   <Footer />

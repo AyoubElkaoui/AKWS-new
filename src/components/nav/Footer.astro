@@ -1,4 +1,6 @@
 ---
+import logo from '../../assets/fulllogo_transparent_nobuffer.png';
+
 const services = [
   'Websites bouwen',
   'SEO optimalisatie',
@@ -11,7 +13,6 @@ const services = [
 const links = [
   { href: '/diensten', label: 'Diensten' },
   { href: '/cases', label: 'Cases' },
-  { href: '/aanpak', label: 'Aanpak' },
   { href: '/over', label: 'Over ons' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -23,76 +24,83 @@ const socials = [
 ];
 ---
 
-<footer class="orb-section orb-footer" id="contact">
-  <span class="orb-bubble" style="--orb-x: 12%; --orb-y: -14%; --orb-size: 34rem; --orb-color: rgba(122, 70, 255, 0.22);"></span>
-  <span class="orb-bubble" style="--orb-x: 86%; --orb-y: 26%; --orb-size: 34rem; --orb-color: rgba(52, 132, 255, 0.18);"></span>
+<footer class="footer-modern">
+  <!-- Background effects -->
+  <div class="footer-modern__bg">
+    <div class="footer-modern__gradient"></div>
+  </div>
 
-  <div class="orb-shell">
-    <div class="footer-wrap">
-      <div class="footer-brand">
-        <a href="/" class="footer-logo">
-          <img src="/src/assets/fulllogo_transparent_nobuffer.png" alt="AK Web Solutions" width="220" height="64" loading="lazy" decoding="async" />
+  <div class="footer-modern__shell">
+    <div class="footer-modern__wrap">
+      <!-- Brand Column -->
+      <div class="footer-modern__brand">
+        <a href="/" class="footer-modern__logo">
+          <img src={logo.src} alt="AK Web Solutions" width="220" height="52" loading="lazy" decoding="async" />
         </a>
-        <p class="footer-note">
-          Wij helpen groeiende organisaties met snelle websites, schaalbare funnels en ongoing optimalisatie. Eén partner voor techniek, marketing en design.
+        <p class="footer-modern__tagline">
+          Snelle websites met moderne technologie. Van website bouwen tot online marketing - alles onder één dak.
         </p>
-        <div class="footer-socials">
+        <div class="footer-modern__socials">
           {socials.map((social) => (
-            <a href={social.href} target="_blank" rel="noreferrer" class="footer-social">
+            <a href={social.href} target="_blank" rel="noopener noreferrer" class="footer-modern__social">
               {social.label}
             </a>
           ))}
         </div>
       </div>
 
-      <div class="footer-nav">
-        <div class="footer-group">
-          <h4>Diensten</h4>
-          <ul>
+      <!-- Links Columns -->
+      <div class="footer-modern__nav">
+        <div class="footer-modern__group">
+          <h4 class="footer-modern__title">Diensten</h4>
+          <ul class="footer-modern__list">
             {services.map((service) => (
-              <li>{service}</li>
+              <li class="footer-modern__item">{service}</li>
             ))}
           </ul>
         </div>
-        <div class="footer-group">
-          <h4>Menu</h4>
-          <ul>
+        
+        <div class="footer-modern__group">
+          <h4 class="footer-modern__title">Menu</h4>
+          <ul class="footer-modern__list">
             {links.map((item) => (
-              <li>
-                <a href={item.href} class="footer-link">{item.label}</a>
+              <li class="footer-modern__item">
+                <a href={item.href} class="footer-modern__link">{item.label}</a>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      <div class="footer-contact">
-        <h4>Laten we kennismaken</h4>
-        <p>Plan een call of mail ons direct – we reageren binnen één werkdag.</p>
-        <div class="footer-contact__grid">
-          <div>
-            <span>Mail</span>
-            <a href="mailto:info@akwebsolutions.nl">info@akwebsolutions.nl</a>
+      <!-- Contact Column -->
+      <div class="footer-modern__contact">
+        <h4 class="footer-modern__title">Direct contact</h4>
+        <p class="footer-modern__desc">Bel of mail ons. We reageren binnen 1 werkdag.</p>
+        
+        <div class="footer-modern__contact-list">
+          <div class="footer-modern__contact-item">
+            <span class="footer-modern__contact-label">E-mail</span>
+            <a href="mailto:info@akwebsolutions.nl" class="footer-modern__contact-link">info@akwebsolutions.nl</a>
           </div>
-          <div>
-            <span>Telefoon</span>
-            <a href="tel:+31685722387">+31 (0)6 85 72 23 87</a>
+          <div class="footer-modern__contact-item">
+            <span class="footer-modern__contact-label">Telefoon</span>
+            <a href="tel:+31685722387" class="footer-modern__contact-link">+31 (0)6 85 72 23 87</a>
           </div>
-          <div>
-            <span>Locatie</span>
-            <p>Baarn • Nederland</p>
+          <div class="footer-modern__contact-item">
+            <span class="footer-modern__contact-label">Locatie</span>
+            <p class="footer-modern__contact-text">Baarn, Nederland</p>
           </div>
         </div>
-        <a href="/contact" class="hero-btn hero-btn--primary">Plan een strategiecall</a>
       </div>
     </div>
 
-    <div class="orb-footer__legal">
-      <span>© {new Date().getFullYear()} AK Web Solutions. Alle rechten voorbehouden.</span>
-      <div class="orb-footer__legal-links">
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Voorwaarden</a>
-        <a href="/cookies">Cookies</a>
+    <!-- Bottom Bar -->
+    <div class="footer-modern__bottom">
+      <span class="footer-modern__copy">© {new Date().getFullYear()} AK Web Solutions. Alle rechten voorbehouden.</span>
+      <div class="footer-modern__legal">
+        <a href="/privacy" class="footer-modern__legal-link">Privacy</a>
+        <a href="/terms" class="footer-modern__legal-link">Voorwaarden</a>
+        <a href="/cookies" class="footer-modern__legal-link">Cookies</a>
       </div>
     </div>
   </div>

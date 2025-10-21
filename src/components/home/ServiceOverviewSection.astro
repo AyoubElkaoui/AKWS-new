@@ -39,47 +39,38 @@ const services = [
 ];
 ---
 
-<section class="orb-section" data-variant="indigo">
+<section class="services-basic__section" style="position: relative;">
   <span class="orb-bubble" style="--orb-x: 14%; --orb-y: -22%; --orb-size: 40rem; --orb-color: rgba(122, 70, 255, 0.28);"></span>
   <span class="orb-bubble" style="--orb-x: 84%; --orb-y: 18%; --orb-size: 32rem; --orb-color: rgba(56, 132, 255, 0.22);"></span>
   <span class="orb-bubble" style="--orb-x: 50%; --orb-y: 108%; --orb-size: 52rem; --orb-color: rgba(90, 60, 240, 0.18); --orb-opacity: 0.4;"></span>
 
-  <div class="orb-shell">
-    <div class="orb-intro">
-      <span class="orb-tag">Dienstenpakket</span>
-      <h2 class="orb-title">Alles wat je nodig hebt om online vindbaar én overtuigend te zijn.</h2>
-      <p class="orb-copy">
+  <div class="services-basic__shell">
+    <div class="services-basic__intro" data-reveal>
+      <span class="services-basic__eyebrow">Dienstenpakket</span>
+      <h2>Alles wat je nodig hebt om online vindbaar én overtuigend te zijn.</h2>
+      <p>
         Eén team dat je site bouwt, onderhoudt en laat presteren. We koppelen systemen, sturen campagnes en blijven optimaliseren op basis van data.
       </p>
-      <div class="orb-meta">
-        <span class="orb-chip">Growth</span>
-        <span class="orb-chip orb-chip--ghost">Tech</span>
-        <span class="orb-chip orb-chip--ghost">Marketing</span>
-      </div>
     </div>
 
-    <div class="orb-grid orb-grid--services">
+    <div class="services-basic__grid">
       {services.map((service, index) => (
         <article
-          class="orb-card orb-card--service interactive-card tilt-card"
+          class="services-basic__card"
           data-reveal
-          style={`--reveal-delay: ${index * 0.08}s; --card-glow: ${service.glow};`}
+          style={`--reveal-delay: ${index * 0.08}s;`}
         >
-          <span class="card-glow" aria-hidden="true"></span>
-          <div class="orb-card__header">
-            <span class="orb-icon">
+          <div class="services-basic__card-header">
+            <span class="services-basic__card-icon-small">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <use href={`#icon-${service.icon}`} />
               </svg>
             </span>
-            <h3 class="orb-card__title">{service.title}</h3>
+            <h3>{service.title}</h3>
           </div>
-          <p class="orb-card__body">{service.description}</p>
-          <a class="orb-link" href="#contact">
-            Meer weten
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+          <p>{service.description}</p>
+          <a class="services-basic__link" href="/contact">
+            Meer weten →
           </a>
         </article>
       ))}

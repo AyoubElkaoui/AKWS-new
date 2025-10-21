@@ -23,29 +23,32 @@ const steps = [
 ];
 ---
 
-<section id="approach" class="orb-section" data-variant="deep">
+<section id="approach" class="services-basic__section" style="position: relative;">
   <span class="orb-bubble" style="--orb-x: 16%; --orb-y: -18%; --orb-size: 42rem; --orb-color: rgba(104, 70, 255, 0.28);"></span>
   <span class="orb-bubble" style="--orb-x: 82%; --orb-y: 72%; --orb-size: 38rem; --orb-color: rgba(52, 125, 255, 0.22);"></span>
   <span class="orb-bubble" style="--orb-x: 46%; --orb-y: 112%; --orb-size: 48rem; --orb-color: rgba(86, 56, 240, 0.18); --orb-opacity: 0.4;"></span>
 
-  <div class="orb-shell">
-    <header class="orb-intro">
-      <span class="orb-tag">Onze werkwijze</span>
-      <h2 class="orb-title">We bouwen in sprints, zodat jij elke fase resultaat ziet.</h2>
-      <p class="orb-copy">
+  <div class="services-basic__shell">
+    <header class="services-basic__intro" data-reveal>
+      <span class="services-basic__eyebrow">Onze werkwijze</span>
+      <h2>We bouwen in sprints, zodat jij elke fase resultaat ziet.</h2>
+      <p>
         Je krijgt één team en één aanspreekpunt. Van research naar ontwerp, van development naar optimalisatie: elke stap levert tastbaar op.
       </p>
     </header>
 
-    <ol class="orb-steps">
-      {steps.map((step) => (
-        <li class="orb-step">
-          <h3 class="orb-step__title">{step.title.replace(/^\d+\.\s*/, '')}</h3>
-          <p class="orb-step__body">{step.description}</p>
-          <div class="orb-step__list">
-            {step.deliverables.map((item) => (
-              <span class="orb-chip orb-chip--ghost">{item}</span>
-            ))}
+    <ol class="services-basic__steps">
+      {steps.map((step, index) => (
+        <li class="services-basic__step" data-reveal style={`--reveal-delay: ${index * 0.1}s;`}>
+          <div class="services-basic__step-number">{index + 1}</div>
+          <div class="services-basic__step-content">
+            <h3>{step.title.replace(/^\d+\.\s*/, '')}</h3>
+            <p>{step.description}</p>
+            <div class="services-basic__step-tags">
+              {step.deliverables.map((item) => (
+                <span class="services-basic__tag">{item}</span>
+              ))}
+            </div>
           </div>
         </li>
       ))}

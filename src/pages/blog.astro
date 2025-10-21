@@ -1,0 +1,211 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/nav/Header.astro';
+import Footer from '../components/nav/Footer.astro';
+
+const allBlogPosts = await getCollection('blog');
+const sortedPosts = allBlogPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featuredPosts = sortedPosts.filter((post: CollectionEntry<'blog'>) => post.data.featured);
+
+const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
+const pageUrl = `${siteUrl}/blog`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: pageUrl,
+    },
+  ],
+};
+---
+
+<Layout
+  title="Blog – Webdesign Tips & SEO Advies | AK Web Solutions"
+  description="Praktische tips over webdesign, SEO, performance en online marketing. Leer hoe je meer uit je website haalt."
+  structuredData={[breadcrumbSchema]}
+>
+  <Header />
+  <main class="services-basic blog-page">
+    <!-- Hero Section -->
+    <section class="services-basic__hero">
+      <div class="services-basic__hero-bg" aria-hidden="true">
+        <span class="services-basic__grid"></span>
+        <span class="services-basic__orb services-basic__orb--left"></span>
+        <span class="services-basic__orb services-basic__orb--right"></span>
+      </div>
+      <div class="services-basic__shell">
+        <div class="services-basic__hero-content" data-reveal>
+          <h1>Tips, trends en strategieën voor een betere website.</h1>
+          <p>
+            Praktische artikelen over webdesign, SEO, performance en online groei. 
+            Alles wat je nodig hebt om meer uit je website te halen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Posts -->
+    {featuredPosts.length > 0 && (
+      <section class="services-basic__section" style="background: linear-gradient(180deg, #0a0b0f 0%, #0e1015 50%, #0b0c10 100%); border: none;">
+        <div class="services-basic__shell">
+          <div class="services-basic__intro" data-reveal>
+            <span class="services-basic__eyebrow">Uitgelicht</span>
+            <h2>Meest gelezen artikelen</h2>
+            <p>Start hier als je net begint met website optimalisatie.</p>
+          </div>
+          <div class="blog-grid blog-grid--2" data-reveal>
+            {featuredPosts.map((post: CollectionEntry<'blog'>) => (
+              <article class="blog-card">
+                <div class="blog-card__meta">
+                  <time class="blog-card__date" datetime={post.data.pubDate.toISOString()}>
+                    {new Date(post.data.pubDate).toLocaleDateString('nl-NL', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  <div class="blog-card__tags">
+                    {post.data.tags.slice(0, 2).map((tag: string) => (
+                      <span class="blog-card__tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <h3 class="blog-card__title">{post.data.title}</h3>
+                <p class="blog-card__description">{post.data.description}</p>
+                <a href={`/blog/${post.slug}`} class="blog-card__link">
+                  Lees artikel
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- All Posts -->
+    <section class="services-basic__section" style="background: linear-gradient(180deg, #0a0b0f 0%, #0e1015 50%, #0b0c10 100%); border: none;">
+      <div class="services-basic__shell">
+        <div class="services-basic__intro" data-reveal>
+          <span class="services-basic__eyebrow">Alle artikelen</span>
+          <h2>Leer alles over moderne websites</h2>
+          <p>Van kosten tot techniek - praktische kennis voor ondernemers.</p>
+          
+          <!-- Search Box -->
+          <div class="blog-search">
+            <input 
+              type="text" 
+              id="blogSearch" 
+              class="blog-search__input" 
+              placeholder="Zoek op onderwerp... (bijv. 'SEO', 'kosten', 'WordPress')"
+            />
+            <svg class="blog-search__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="blog-grid blog-grid--3" data-reveal id="blogGrid">
+          {sortedPosts.map((post: CollectionEntry<'blog'>) => (
+            <article class="blog-card">
+              <div class="blog-card__meta">
+                <time class="blog-card__date" datetime={post.data.pubDate.toISOString()}>
+                  {new Date(post.data.pubDate).toLocaleDateString('nl-NL', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                <div class="blog-card__tags">
+                  {post.data.tags.slice(0, 2).map((tag: string) => (
+                    <span class="blog-card__tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+              <h3 class="blog-card__title">{post.data.title}</h3>
+              <p class="blog-card__description">{post.data.description}</p>
+              <a href={`/blog/${post.slug}`} class="blog-card__link">
+                Lees meer
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="services-basic__cta">
+      <div class="services-basic__cta-glow"></div>
+      <div class="services-basic__shell">
+        <div class="services-basic__cta-box" data-reveal>
+          <span class="services-basic__eyebrow">Hulp nodig?</span>
+          <h2>Gratis website check</h2>
+          <p>
+            Wil je weten hoe jouw website scoort op snelheid, SEO en conversie? 
+            Ik geef je een gratis analyse met concrete verbeterpunten.
+          </p>
+          <ul class="services-basic__cta-list">
+            <li>✓ Snelheidsanalyse (PageSpeed)</li>
+            <li>✓ SEO quick scan</li>
+            <li>✓ UX verbeterpunten</li>
+            <li>✓ Prijsindicatie voor upgrades</li>
+          </ul>
+          <p class="services-basic__cta-note">
+            👉 Binnen 24 uur een persoonlijk rapport in je inbox.
+          </p>
+          <div class="services-basic__cta-actions">
+            <a href="/contact" class="services-basic__btn services-basic__btn--primary">
+              Vraag gratis check aan
+            </a>
+            <a href="/cases" class="services-basic__btn services-basic__btn--secondary">
+              Bekijk resultaten
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // Blog search functionality
+  const searchInput = document.getElementById('blogSearch');
+  const blogGrid = document.getElementById('blogGrid');
+  const blogCards = blogGrid?.querySelectorAll('.blog-card');
+
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    
+    blogCards?.forEach((card) => {
+      const title = card.querySelector('.blog-card__title')?.textContent?.toLowerCase() || '';
+      const description = card.querySelector('.blog-card__description')?.textContent?.toLowerCase() || '';
+      const tags = Array.from(card.querySelectorAll('.blog-card__tag'))
+        .map(tag => tag.textContent?.toLowerCase() || '')
+        .join(' ');
+      
+      const matches = title.includes(searchTerm) || 
+                     description.includes(searchTerm) || 
+                     tags.includes(searchTerm);
+      
+      (card as HTMLElement).style.display = matches ? '' : 'none';
+    });
+  });
+</script>

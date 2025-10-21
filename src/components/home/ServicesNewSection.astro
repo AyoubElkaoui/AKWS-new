@@ -1,0 +1,80 @@
+---
+const services = [
+  {
+    icon: 'globe',
+    title: 'Website bouwen',
+    description: 'We ontwerpen en bouwen een snelle website die jouw diensten helder uitlegt en makkelijk contact mogelijk maakt.',
+    outcomes: ['Heldere teksten zonder vakjargon', 'Foto\'s en video die jouw werk laten zien', 'Koppelingen met mail, agenda of boekhouding'],
+  },
+  {
+    icon: 'search',
+    title: 'Online marketing',
+    description: 'We zorgen dat mensen je vinden in Google en via social media. Jij ziet precies wat het oplevert.',
+    outcomes: ['Zoekwoorden en teksten waar klanten op zoeken', 'Google Ads en social campagnes met simpele rapportage', 'Nieuwsbrieven en opvolging voor terugkerend werk'],
+  },
+  {
+    icon: 'shield',
+    title: 'Technische zorgen weg',
+    description: 'Wij regelen updates, beveiliging en hosting. Storingen of vragen? Je belt of appt en we lossen het op.',
+    outcomes: ['Snelle hosting en onderhoud', 'Back-ups en beveiliging geregeld', 'Support door een vast contactpersoon'],
+  },
+];
+---
+
+<section id="services" class="services-new-section">
+  <span class="orb-bubble" style="--orb-x: 12%; --orb-y: -12%; --orb-size: 44rem; --orb-color: rgba(99, 102, 241, 0.26);"></span>
+  <span class="orb-bubble" style="--orb-x: 86%; --orb-y: 55%; --orb-size: 36rem; --orb-color: rgba(139, 92, 246, 0.22);"></span>
+
+  <div class="services-new-section__shell">
+    <div class="services-new-section__intro" data-reveal>
+      <span class="services-new-section__eyebrow">Wat we doen</span>
+      <h2>Alles onder één dak.<br />Van website tot nieuwe klanten.</h2>
+      <p>
+        Geen lange marketingverhalen. We vertalen jouw dienstverlening naar een website die werkt en marketing die oplevert.
+      </p>
+    </div>
+
+    <div class="services-new-section__grid">
+      {services.map((service, index) => (
+        <div class="services-new-section__card" data-reveal style={`--reveal-delay: ${index * 0.08}s;`}>
+          <div class="services-new-section__card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              {service.icon === 'globe' && (
+                <>
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </>
+              )}
+              {service.icon === 'search' && (
+                <>
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </>
+              )}
+              {service.icon === 'shield' && (
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              )}
+            </svg>
+          </div>
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+          <ul class="services-new-section__outcomes">
+            {service.outcomes.map(outcome => (
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {outcome}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="services-new-section__cta" data-reveal style="--reveal-delay: 0.5s;">
+      <a href="/diensten" class="services-new-section__btn">Bekijk alle diensten →</a>
+    </div>
+  </div>
+</section>

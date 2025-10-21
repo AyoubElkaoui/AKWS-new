@@ -1,68 +1,64 @@
 ---
 const cases = [
   {
-    client: 'CloudWorks',
-    industry: 'IT-dienstverlening',
-    headline: 'Van brochurewebsite naar leadmachine',
-    result: '+212% gekwalificeerde leads in 6 maanden',
+    client: 'ProbandenService',
+    industry: 'Healthcare Platform',
+    headline: 'Platform voor klinische studies met 500+ deelnemers',
+    result: 'Moderne website met gebruiksvriendelijke aanmeldformulieren',
     description:
-      'Replatforming naar Astro, implementatie van marketing automation en SEO/SEA campagnes gericht op enterprise leads.',
+      'Complete website voor platform waar vrijwilligers zich kunnen aanmelden voor medisch onderzoek. Focus op informatiestructuur en responsive design.',
   },
   {
-    client: 'FitNation',
-    industry: 'Lifestyle & health',
-    headline: 'Community platform met 4x engagement',
-    result: '+47% groei in memberships',
+    client: 'AD Loodgietersbedrijf',
+    industry: 'Lokale dienstverlening',
+    headline: 'Van onzichtbaar naar eerste pagina in Google',
+    result: 'SEO-geoptimaliseerd voor lokale zoekopdrachten',
     description:
-      'Design system ontwikkeld, headless CMS gekoppeld en app-integraties voor een schaalbare merkervaring.',
+      'Website voor professioneel loodgietersbedrijf met focus op lokale vindbaarheid en directe contactmogelijkheden via telefoon en formulier.',
   },
   {
-    client: 'LegalFlow',
-    industry: 'Juridisch',
-    headline: 'Conversiegedreven funnel voor leads op maat',
-    result: '-62% leadkosten via SEA en SEO',
+    client: 'Loen\'s Collection',
+    industry: 'E-commerce',
+    headline: 'E-commerce platform met snelle checkout',
+    result: 'Visueel design dat het merk versterkt + geïntegreerde betaalmethoden',
     description:
-      'Nieuwe merkidentiteit, CRO-framework en dashboards voor realtime inzicht in de pijplijn.',
+      'E-commerce platform voor unieke lifestyle producten. Snelle laadtijden en aantrekkelijk design voor optimale shopping ervaring.',
   },
 ];
 ---
 
-<section id="cases" class="orb-section" data-variant="cases">
+<section id="cases" class="services-basic__section" style="position: relative;">
   <span class="orb-bubble" style="--orb-x: 12%; --orb-y: -18%; --orb-size: 44rem; --orb-color: rgba(126, 68, 255, 0.26);"></span>
   <span class="orb-bubble" style="--orb-x: 86%; --orb-y: 12%; --orb-size: 34rem; --orb-color: rgba(46, 130, 255, 0.2);"></span>
   <span class="orb-bubble" style="--orb-x: 52%; --orb-y: 108%; --orb-size: 50rem; --orb-color: rgba(90, 60, 240, 0.18); --orb-opacity: 0.42;"></span>
 
-  <div class="orb-shell">
-    <div class="orb-intro">
-      <span class="orb-tag">Cases</span>
-      <h2 class="orb-title">Projecten die laten zien wat strategie + uitvoering oplevert.</h2>
-      <p class="orb-copy">
-        Van scale-ups tot ambitieuze MKB-organisaties: we bouwen aan digitale ecosystemen die duurzaam resultaat opleveren.
+  <div class="services-basic__shell">
+    <div class="services-basic__intro" data-reveal>
+      <span class="services-basic__eyebrow">Eerder werk</span>
+      <h2>Projecten die we realiseerden<br />voor ondernemers zoals jij.</h2>
+      <p>
+        Van lokale bedrijven tot platforms: bekijk wat we maken en hoe we je kunnen helpen.
       </p>
-      <div class="orb-meta">
-   <a href="/contact" class="hero-btn hero-btn--ghost">Plan een sessie</a>
-      </div>
     </div>
 
-    <div class="orb-grid orb-grid--cases">
-      {cases.map((item) => (
-        <article class="orb-card orb-card--case">
-          <div class="orb-case__meta">
-            <span>{item.client}</span>
-            <span>{item.industry}</span>
+    <div class="services-basic__grid">
+      {cases.map((item, index) => (
+        <article class="services-basic__card services-basic__card--case" data-reveal style={`--reveal-delay: ${index * 0.1}s;`}>
+          <div class="services-basic__case-header">
+            <span class="services-basic__case-client">{item.client}</span>
+            <span class="services-basic__case-industry">{item.industry}</span>
           </div>
-          <div class="orb-card__content">
-            <h3 class="orb-card__title">{item.headline}</h3>
-            <p class="orb-card__body">{item.description}</p>
-          </div>
-          <div class="orb-case__result">
-            <span>{item.result}</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+          <h3>{item.headline}</h3>
+          <p>{item.description}</p>
+          <div class="services-basic__case-result">
+            <strong>{item.result}</strong>
           </div>
         </article>
       ))}
+    </div>
+    
+    <div class="services-basic__cta-row" data-reveal style="margin-top: 3rem; justify-content: center;">
+      <a href="/cases" class="services-basic__btn services-basic__btn--primary">Bekijk alle cases</a>
     </div>
   </div>
 </section>

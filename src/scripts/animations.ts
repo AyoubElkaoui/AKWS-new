@@ -19,6 +19,8 @@ if (supportsWindow) {
 
     if (shouldSkipMotion()) {
       document.documentElement.classList.add('prefers-reduced-motion');
+      document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
+      hasBootstrapped = true;
       return;
     }
 
@@ -30,6 +32,8 @@ if (supportsWindow) {
     initializeTiltEffects();
     initializeUnderlineAnimations();
     initializeRevealAnimations();
+    initializeParallaxElements();
+    initializeServicesPageAnimations();
   };
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -248,10 +252,39 @@ function initializeRevealAnimations() {
         }
       });
     },
-    { rootMargin: '0px 0px -10% 0px', threshold: 0.2 }
+    { rootMargin: '0px 0px -5% 0px', threshold: 0.1 }
   );
 
   elements.forEach((el) => observer.observe(el));
+}
+
+function initializeParallaxElements() {
+  const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
+  if (!elements.length) return;
+
+  let ticking = false;
+
+  const update = () => {
+    elements.forEach((el) => {
+      const speed = Number.parseFloat(el.dataset.parallax ?? '0.15');
+      const rect = el.getBoundingClientRect();
+      const offset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      const translate = -offset * speed;
+      el.style.setProperty('--parallax-offset', `${translate}px`);
+    });
+    ticking = false;
+  };
+
+  const requestTick = () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  };
+
+  update();
+  window.addEventListener('scroll', requestTick, { passive: true });
+  window.addEventListener('resize', requestTick);
 }
 
 function initializeInteractivity() {
@@ -687,6 +720,303 @@ class AdvancedCursor {
 // Initialize advanced cursor
 if (typeof window !== 'undefined') {
   new AdvancedCursor();
+}
+
+function initializeServicesPageAnimations() {
+  // Services page card animations with stagger
+  gsap.utils.toArray('.services-basic__card').forEach((card: any, index: number) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        delay: index * 0.1
+      }
+    );
+  });
+
+  // Steps animation
+  gsap.utils.toArray('.services-basic__step').forEach((step: any, index: number) => {
+    const numberBadge = step.querySelector('span');
+    
+    gsap.fromTo(step,
+      {
+        opacity: 0,
+        x: -50,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        delay: index * 0.15
+      }
+    );
+
+    // Animate number badge separately
+    if (numberBadge) {
+      gsap.fromTo(numberBadge,
+        {
+          scale: 0,
+          rotation: -180,
+        },
+        {
+          scale: 1,
+          rotation: 0,
+          duration: 0.6,
+          ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: step,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          },
+          delay: index * 0.15 + 0.3
+        }
+      );
+    }
+  });
+
+  // Delivery articles animation
+  gsap.utils.toArray('.services-basic__delivery article').forEach((article: any, index: number) => {
+    gsap.fromTo(article,
+      {
+        opacity: 0,
+        y: 50,
+        rotateX: 45,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: article,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        delay: index * 0.1
+      }
+    );
+  });
+
+  // List articles with cascade effect
+  gsap.utils.toArray('.services-basic__list article').forEach((article: any, index: number) => {
+    gsap.fromTo(article,
+      {
+        opacity: 0,
+        scale: 0.9,
+        y: 40,
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'back.out(1.2)',
+        scrollTrigger: {
+          trigger: article,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        },
+        delay: index * 0.08
+      }
+    );
+  });
+
+  // FAQ items animation
+  gsap.utils.toArray('.services-basic__faq-item').forEach((item: any, index: number) => {
+    gsap.fromTo(item,
+      {
+        opacity: 0,
+        x: -30,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        },
+        delay: index * 0.08
+      }
+    );
+  });
+
+  // Testimonial card animation
+  const testimonialCard = document.querySelector('.services-basic__testimonial-card');
+  if (testimonialCard) {
+    gsap.fromTo(testimonialCard,
+      {
+        opacity: 0,
+        scale: 0.95,
+        y: 50,
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: testimonialCard,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+  }
+
+  // CTA box animation
+  const ctaBox = document.querySelector('.services-basic__cta-box');
+  if (ctaBox) {
+    gsap.fromTo(ctaBox,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: ctaBox,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+  }
+
+  // Animate headers with underline
+  gsap.utils.toArray('.services-basic__header').forEach((header: any) => {
+    const h2 = header.querySelector('h2');
+    const p = header.querySelector('p');
+    
+    if (h2) {
+      gsap.fromTo(h2,
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: header,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // Animate the underline
+      const underline = h2.querySelector('::after');
+      gsap.fromTo(h2,
+        {
+          '--underline-width': '0px',
+        },
+        {
+          '--underline-width': '60px',
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: header,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          },
+          delay: 0.4
+        }
+      );
+    }
+    
+    if (p) {
+      gsap.fromTo(p,
+        {
+          opacity: 0,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: header,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          },
+          delay: 0.2
+        }
+      );
+    }
+  });
+
+  // Buttons hover effects
+  document.querySelectorAll('.services-basic__btn').forEach(btn => {
+    const button = btn as HTMLElement;
+    
+    button.addEventListener('mouseenter', () => {
+      gsap.to(button, {
+        scale: 1.05,
+        duration: 0.3,
+        ease: 'back.out(1.5)'
+      });
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      gsap.to(button, {
+        scale: 1,
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    });
+  });
+
+  // Parallax effect for hero
+  const heroContent = document.querySelector('.services-basic__hero-content');
+  if (heroContent) {
+    gsap.to(heroContent, {
+      yPercent: -20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.services-basic__hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  }
+
+  // Add reveal delays to elements
+  document.querySelectorAll('[data-reveal]').forEach((el, index) => {
+    (el as HTMLElement).style.setProperty('--reveal-delay', `${index * 0.05}s`);
+  });
 }
 
 export {};

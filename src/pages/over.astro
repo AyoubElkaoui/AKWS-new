@@ -8,107 +8,119 @@ const siteUrl = Astro.site?.toString() ?? 'https://akwebsolutions.nl';
 const pageUrl = `${siteUrl}/over`;
 
 const heroStats = [
-  { value: '12', label: 'Projecten per jaar' },
-  { value: '18 mnd', label: 'Gem. samenwerking' },
-  { value: '<1 s', label: 'Focus op laadtijd' },
+  { value: '2-4 weken', label: 'Eerste live versie' },
+  { value: 'Astro & Next.js', label: 'Moderne frameworks' },
+  { value: 'Baarn', label: 'Gevestigd in' },
 ];
 
 const heroHighlights = [
   {
-    icon: { set: 'heroicons-outline', name: 'users' },
-    title: 'Compact kernteam',
-    body: 'Strategen, designers, developers en marketeers die in één sprint samenwerken.',
+    icon: { set: 'heroicons-outline', name: 'bolt' },
+    title: 'Snelheid als prioriteit',
+    body: 'Wij bouwen met Astro en Next.js - moderne frameworks die snelle, efficiënte websites opleveren zonder onnodige bloat.',
   },
   {
-    icon: { set: 'heroicons-outline', name: 'presentation-chart-line' },
-    title: 'Data als leidraad',
-    body: 'Dashboards en KPI’s sturen iedere sprint. Zo weet je exact wat er werkt.',
+    icon: { set: 'heroicons-outline', name: 'rocket-launch' },
+    title: 'Van 0 naar live in weken',
+    body: 'Geen maandenlange trajecten. Eerste versie live in 2-4 weken, dan itereren we op basis van échte data.',
   },
   {
-    icon: { set: 'heroicons-outline', name: 'chat-bubble-left-right' },
-    title: 'Directe communicatie',
-    body: 'Je spreekt met makers. Korte lijnen, weinig lagen, beslissingen en uitvoering in één call.',
+    icon: { set: 'heroicons-outline', name: 'chart-bar-square' },
+    title: 'Conversie > Uiterlijk',
+    body: 'Mooi design is de basis. Maar we meten alles: bounce rate, scroll depth, conversies. Data stuurt onze keuzes.',
   },
 ];
 
 const values = [
   {
-    icon: { set: 'heroicons-outline', name: 'light-bulb' },
-    title: 'Heldere strategie',
-    description: 'We starten met data, gesprekken en een plan dat voor iedereen duidelijk is.',
+    icon: { set: 'heroicons-outline', name: 'code-bracket' },
+    title: 'Moderne tech stack',
+    description: 'Wij bouwen met Astro voor snelle static sites, Next.js voor web apps, en Tailwind voor design systems. Moderne tools die schaalbare resultaten opleveren.',
     tone: 'violet',
     glow: 'rgba(122, 70, 255, 0.42)',
   },
   {
-    icon: { set: 'heroicons-outline', name: 'cpu-chip' },
-    title: 'Design + performance',
-    description: 'Design is pas af wanneer het snel laadt, vindbaar is en conversie oplevert.',
+    icon: { set: 'heroicons-outline', name: 'sparkles' },
+    title: 'Design dat converteert',
+    description: 'Glassmorphism, micro-interacties, moderne layouts - maar alleen als ze je conversie verhogen. Anders skippen we ze.',
     tone: 'violet',
     glow: 'rgba(122, 70, 255, 0.42)',
   },
   {
-    icon: { set: 'heroicons-outline', name: 'arrow-path' },
-    title: 'Samen implementeren',
-    description: 'We werken als verlengstuk van je team: transparant, pragmatisch en gericht op impact.',
+    icon: { set: 'heroicons-outline', name: 'magnifying-glass-circle' },
+    title: 'SEO in het DNA',
+    description: 'Core Web Vitals, schema markup, internal linking - vanaf dag 1 ingebouwd. Technische SEO is onderdeel van elk project.',
     tone: 'violet',
     glow: 'rgba(122, 70, 255, 0.42)',
   },
 ];
 
 const teamFacts = [
-  { label: 'Projecten per jaar', value: '12' },
-  { label: 'Gemiddelde samenwerking', value: '18 mnd' },
-  { label: 'Minimale laadtijd', value: '< 1 s' },
+  { label: 'Eerste versie online', value: '2-4 weken' },
+  { label: 'Technologie stack', value: 'Astro/Next.js' },
+  { label: 'Gevestigd', value: 'Baarn, NL' },
 ];
 
 const squads = [
   {
-    title: 'Strategie & project',
-    body: 'Analyse, roadmap, copywriting en projectmanagement. We zorgen dat elke sprint resultaat oplevert en jij weet wat de volgende stap is.',
+    title: 'Development',
+    body: 'Astro, Next.js, React, TypeScript. We bouwen met moderne frameworks die enterprise-grade performance leveren met schone, onderhoudbare code.',
     glow: 'rgba(122, 70, 255, 0.34)',
   },
   {
-    title: 'Design & content',
-    body: 'UX, UI, design systems en contentcreatie. Zo blijft jouw verhaal helder, onderscheidend en conversiegericht.',
+    title: 'Design & UX',
+    body: 'Figma, design systems, prototyping. Van eerste wireframe tot pixel-perfect implementation. Moderne design trends - maar alleen als ze conversie ondersteunen.',
     glow: 'rgba(122, 70, 255, 0.34)',
   },
   {
-    title: 'Development & growth',
-    body: 'Astro/Next.js development, koppelingen, analytics, SEO/SEA en automation. Alles voor schaalbare groei.',
+    title: 'SEO & Performance',
+    body: 'Core Web Vitals optimalisatie, technical SEO, schema markup, internal linking. We zorgen dat Google je site waardeert voor snelheid én relevantie.',
     glow: 'rgba(122, 70, 255, 0.34)',
   },
 ];
 
 const principles = [
   {
-    icon: { set: 'heroicons-outline', name: 'calendar-days' },
-    title: 'Altijd zicht op de sprint',
-    description: 'Iedere twee weken ontvang je een planning, deliverables en demo. Geen verrassingen, wel tempo.',
+    icon: { set: 'heroicons-outline', name: 'bolt' },
+    title: 'Snelheid eerst, features tweede',
+    description: 'Een trage site met 50 features verliest van een snelle site met 10. We prioriteren Core Web Vitals boven fancy shit.',
   },
   {
     icon: { set: 'heroicons-outline', name: 'chart-bar' },
-    title: 'Data stuurt de keuzes',
-    description: 'We meten alles: snelheid, leads en conversie. Resultaten bepalen de volgende experimenten.',
+    title: 'We meten alles',
+    description: 'Google Analytics, Vercel Analytics, heatmaps. Elke design keuze wordt gevalideerd met data. Geen "ik denk dat", alleen "de data toont aan".',
   },
   {
-    icon: { set: 'heroicons-outline', name: 'chat-bubble-bottom-center-text' },
-    title: 'Direct contact met makers',
-    description: 'Je praat met de mensen die het werk doen. Korte lijntjes, snelle iteraties en duidelijke feedbackloops.',
+    icon: { set: 'heroicons-outline', name: 'chat-bubble-left-right' },
+    title: 'Transparante communicatie',
+    description: 'Wat gaat goed, wat faalt, wat kost het, wanneer is het live. Je krijgt toegang tot onze Notion board en ziet real-time voortgang.',
   },
 ];
 
 const faqs = [
   {
-    question: 'Met wat voor type bedrijven werken jullie?',
-    answer: 'We werken vooral met scale-ups, marketingteams en bedrijven die hun digitale fundament willen versterken. Zowel B2B als B2C komt voorbij.',
+    question: 'Waarom bouwen jullie met Astro en Next.js?',
+    answer: 'Astro en Next.js zijn moderne frameworks die snelle, schaalbare websites opleveren met minder code. Ze laden sneller dan traditionele WordPress sites en zijn makkelijker te onderhouden. Perfect voor bedrijven die snelheid en betrouwbaarheid belangrijk vinden.',
   },
   {
-    question: 'Werken jullie remote of on-site?',
-    answer: 'We werken hoofdzakelijk remote maar plannen regelmatig sessies op locatie wanneer dat waarde toevoegt, bijvoorbeeld bij kick-offs of designreviews.',
+    question: 'Wat kost een website bij AKWS?',
+    answer: 'Vanaf €2.500 voor een snelle landing page, €4.500-€8.000 voor complete business websites, €10.000+ voor custom web apps. Zie onze diensten pagina voor exacte prijzen. We werken transparant - geen verborgen kosten.',
   },
   {
-    question: 'Welke disciplines zitten in jullie kernteam?',
-    answer: 'Strategie, projectmanagement, UX/UI design, development, content, SEO/SEA en automation. We schakelen trusted specialisten in wanneer nodig.',
+    question: 'Hoe lang duurt het voor mijn site live is?',
+    answer: 'Eerste werkende versie: 2-4 weken. Daarna itereren we op basis van feedback en data. Geen 3-maanden-wachten, maar snel live en dan optimaliseren.',
+  },
+  {
+    question: 'Doen jullie ook SEO?',
+    answer: 'SEO zit ingebakken in elke site die we bouwen. Technical SEO (Core Web Vitals, schema markup, sitemap) is standaard. Content SEO (keyword research, blogs schrijven) kunnen we als add-on leveren.',
+  },
+  {
+    question: 'Krijg ik toegang tot de code?',
+    answer: 'Altijd. Jij bezit de code, de content, en het design. Alles staat op jouw GitHub repository. Geen vendor lock-in, geen maandelijkse "onderhoudskosten" die eigenlijk gijzeling zijn.',
+  },
+  {
+    question: 'Kunnen jullie mijn bestaande site verbeteren?',
+    answer: 'Ja. We kunnen je bestaande site analyseren en voorstellen hoe we de snelheid, SEO en conversie kunnen verbeteren. Of we herbouwen de site volledig in een moderne tech stack.',
   },
 ];
 
@@ -156,41 +168,34 @@ const aboutSchema = {
 ---
 
 <Layout
-  title="Over ons – AK Web Solutions"
-  description="Leer het team van AK Web Solutions kennen. Wij combineren strategie, design, development en marketing om digitale groei te realiseren."
+  title="Over AKWS – Moderne Websites met Astro & Next.js"
+  description="Hi, ik ben Ayoub. Ik bouw snelle websites met moderne technologie. Astro, Next.js, React - schaalbare oplossingen voor groeiende bedrijven."
   structuredData={[breadcrumbSchema, aboutSchema, faqSchema]}
 >
   <Header />
-  <main>
-    <section class="team-hero">
-      <div class="team-hero__bg" aria-hidden="true">
-        <span class="team-hero__grid"></span>
-        <span class="team-hero__orb team-hero__orb--left"></span>
-        <span class="team-hero__orb team-hero__orb--right"></span>
-        <span class="team-hero__flare"></span>
-      </div>
-      <div class="team-hero__shell">
-        <div class="team-hero__intro" data-reveal>
-          <span class="team-hero__tag">Over ons</span>
-          <h1>Het team dat techniek, design en marketing aan elkaar smeedt.</h1>
-          <p>We zijn een klein, multidisciplinair team. Strategie, design, development en marketing zitten bij elkaar aan tafel en bewegen in sprints.</p>
-          <div class="team-hero__actions">
-            <a class="hero-btn hero-btn--primary" href="/contact">Plan een kennismaking</a>
-            <a class="hero-btn hero-btn--ghost" href="/aanpak">Bekijk aanpak</a>
+  <main class="services-basic">
+    <section class="services-basic__hero">
+      <div class="services-basic__shell">
+        <div class="services-basic__hero-content" data-reveal data-parallax="0.12">
+          <h1>Hi, ik ben Ayoub. Ik bouw websites die écht snel zijn.</h1>
+          <p>Geen templates. Geen maanden wachten. Gewoon moderne tech (Astro, Next.js, React) die snelle, betrouwbare websites oplevert. Want snelheid = betere gebruikerservaring = meer conversies.</p>
+          <div class="services-basic__cta-row">
+            <a class="services-basic__btn services-basic__btn--primary" href="/contact">Vraag offerte aan</a>
+            <a class="services-basic__btn services-basic__btn--link" href="/cases">Bekijk projecten</a>
           </div>
         </div>
-        <div class="team-hero__stats">
+        <div class="services-basic__stats">
           {heroStats.map((metric, index) => (
-            <div class="team-hero__stat" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+            <div class="services-basic__stat" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
               <strong>{metric.value}</strong>
               <span>{metric.label}</span>
             </div>
           ))}
         </div>
-        <div class="team-hero__highlights">
+        <div class="services-basic__highlights">
           {heroHighlights.map((item, index) => (
-            <article class="team-highlight tilt-card" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
-              <span class="team-highlight__icon">
+            <article class="services-basic__highlight" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+              <span class="services-basic__icon">
                 <IconBadge set={item.icon.set} name={item.icon.name} width={24} color="rgba(244,244,255,0.92)" />
               </span>
               <h3>{item.title}</h3>
@@ -201,16 +206,16 @@ const aboutSchema = {
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <header class="pulse-intro" data-reveal>
-          <span class="pulse-eyebrow">In cijfers</span>
-          <h2 class="pulse-title">Een compact team met enterprise-impact.</h2>
-          <p class="pulse-copy">We werken bewust met een beperkt aantal projecten per jaar zodat we diep kunnen samenwerken en snelheid houden.</p>
+    <section class="services-basic__section">
+      <div class="services-basic__shell">
+        <header class="services-basic__header" data-reveal>
+          <span class="services-basic__eyebrow">Focus op snelheid</span>
+          <h2>Moderne technologie voor snellere websites.</h2>
+          <p>We bouwen met Astro en Next.js - moderne frameworks die snelle, schaalbare websites opleveren. Zonder onnodige bloat, met focus op Core Web Vitals en gebruikerservaring.</p>
         </header>
-        <div class="pulse-metrics">
+        <div class="services-basic__metrics">
           {teamFacts.map((fact, index) => (
-            <div class="pulse-metric" data-reveal style={`--reveal-delay: ${index * 0.06}s`}>
+            <div class="services-basic__metric" data-reveal style={`--reveal-delay: ${index * 0.06}s`}>
               <strong>{fact.value}</strong>
               <span>{fact.label}</span>
             </div>
@@ -219,76 +224,76 @@ const aboutSchema = {
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <header class="pulse-intro" data-reveal>
-          <span class="pulse-eyebrow">Onze waarden</span>
-          <h2 class="pulse-title">Strategie, design en growth in één team.</h2>
-          <p class="pulse-copy">We combineren high-end design met performance en groei. Dit zijn de principes waarop ieder traject gebouwd is.</p>
+    <section class="services-basic__section">
+      <div class="services-basic__shell">
+        <header class="services-basic__header" data-reveal>
+          <span class="services-basic__eyebrow">Hoe we werken</span>
+          <h2>Moderne tech. Geen legacy.</h2>
+          <p>We gebruiken dezelfde tools die Vercel, Linear, en Stripe gebruiken. Want als het goed genoeg is voor unicorns, is het goed genoeg voor jou.</p>
         </header>
-        <div class="pulse-grid pulse-grid--3">
+        <div class="services-basic__grid">
           {values.map((value, index) => (
-            <article class="pulse-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
-              <span class="pulse-card__icon">
+            <article class="services-basic__card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <span class="services-basic__card-icon">
                 <IconBadge set={value.icon.set} name={value.icon.name} width={26} color="rgba(244,244,255,0.92)" />
               </span>
-              <h3 class="pulse-card__title">{value.title}</h3>
-              <p class="pulse-card__body">{value.description}</p>
+              <h3>{value.title}</h3>
+              <p>{value.description}</p>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <header class="pulse-intro" data-reveal>
-          <span class="pulse-eyebrow">Wie je aan tafel krijgt</span>
-          <h2 class="pulse-title">Alle disciplines die je nodig hebt voor groei.</h2>
-          <p class="pulse-copy">We werken met een vaste kern van strategen, designers, developers en marketeers. Afhankelijk van je project schalen we op met trusted specialists.</p>
+    <section class="services-basic__section">
+      <div class="services-basic__shell">
+        <header class="services-basic__header" data-reveal>
+          <span class="services-basic__eyebrow">De disciplines</span>
+          <h2>Van design tot deployment. Alles onder één dak.</h2>
+          <p>Je hebt geen aparte designer, developer, SEO specialist, en hosting provider nodig. Wij doen alles - en dat scheelt coördinatietijd, miscommunicatie, en frustratie.</p>
         </header>
-        <div class="pulse-grid pulse-grid--3">
+        <div class="services-basic__grid">
           {squads.map((squad, index) => (
-            <article class="pulse-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
-              <h3 class="pulse-card__title">{squad.title}</h3>
-              <p class="pulse-card__body">{squad.body}</p>
+            <article class="services-basic__card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <h3>{squad.title}</h3>
+              <p>{squad.body}</p>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <header class="pulse-intro" data-reveal>
-          <span class="pulse-eyebrow">Hoe we samenwerken</span>
-          <h2 class="pulse-title">Eenvoudige afspraken, korte lijnen.</h2>
-          <p class="pulse-copy">Dit zijn de principes die elk project sturen.</p>
+    <section class="services-basic__section">
+      <div class="services-basic__shell">
+        <header class="services-basic__header" data-reveal>
+          <span class="services-basic__eyebrow">Werkwijze</span>
+          <h2>De principes waar we niet van afwijken.</h2>
+          <p>Dit is hoe we werken met élk project. Geen uitzonderingen.</p>
         </header>
-        <div class="pulse-grid pulse-grid--3">
+        <div class="services-basic__grid">
           {principles.map((principle, index) => (
-            <article class="pulse-card tilt-card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
-              <span class="pulse-card__icon">
+            <article class="services-basic__card" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <span class="services-basic__card-icon">
                 <IconBadge set={principle.icon.set} name={principle.icon.name} width={24} color="rgba(244,244,255,0.92)" />
               </span>
-              <h3 class="pulse-card__title">{principle.title}</h3>
-              <p class="pulse-card__body">{principle.description}</p>
+              <h3>{principle.title}</h3>
+              <p>{principle.description}</p>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <header class="pulse-intro" data-reveal>
-          <span class="pulse-eyebrow">FAQ</span>
-          <h2 class="pulse-title">Veelgestelde vragen over AK Web Solutions.</h2>
-          <p class="pulse-copy">Dit zijn de vragen die we het vaakst krijgen wanneer organisaties meer willen weten over ons team en onze werkwijze.</p>
+    <section class="services-basic__section">
+      <div class="services-basic__shell">
+        <header class="services-basic__header" data-reveal>
+          <span class="services-basic__eyebrow">FAQ</span>
+          <h2>Vragen die we elke week krijgen.</h2>
+          <p>Eerlijke antwoorden op de vragen die je waarschijnlijk ook hebt.</p>
         </header>
-        <div class="faq-list">
+        <div class="services-basic__faq">
           {faqs.map((item, index) => (
-            <details class="faq-item" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+            <details class="services-basic__faq-item" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
               <summary>{item.question}</summary>
               <p>{item.answer}</p>
             </details>
@@ -297,15 +302,15 @@ const aboutSchema = {
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <article class="pulse-cta" data-reveal>
-          <span class="pulse-eyebrow">Kennismaken?</span>
-          <h2 class="pulse-title">Plan een sessie met het kernteam.</h2>
-          <p class="pulse-copy">In 45 minuten laten we zien hoe we werken, welke resultaten je kunt verwachten en hoe de eerste sprint eruitziet.</p>
-          <div class="pulse-cta__actions">
-            <a class="hero-btn hero-btn--primary" href="/contact">Plan een call</a>
-            <a class="hero-btn hero-btn--ghost" href="/cases">Bekijk projecten</a>
+    <section class="services-basic__section">
+      <div class="services-basic__shell">
+        <article class="services-basic__cta-box" data-reveal>
+          <span class="services-basic__eyebrow">Klaar voor een snellere website?</span>
+          <h2>Laten we je website verbeteren.</h2>
+          <p>Stuur een bericht met je huidige site of idee. We geven je binnen 24 uur een eerlijke assessment: wat kan beter, wat kost het, en hoe lang het duurt.</p>
+          <div class="services-basic__cta-row">
+            <a class="services-basic__btn services-basic__btn--primary" href="/contact">Vraag gratis audit aan</a>
+            <a class="services-basic__btn services-basic__btn--link" href="/diensten">Bekijk diensten & prijzen</a>
           </div>
         </article>
       </div>

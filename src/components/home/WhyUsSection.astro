@@ -1,0 +1,38 @@
+---
+const reasons = [
+  {
+    title: 'Eenvoudig taalgebruik',
+    text: 'Je krijgt geen lange marketingverhalen. We vertalen jouw dienstverlening naar duidelijke woorden en beelden.',
+  },
+  {
+    title: 'Alles onder één dak',
+    text: 'Van ontwerp tot advertenties: we regelen het volledige traject zodat jij door kan met je werk.',
+  },
+  {
+    title: 'Meetbaar resultaat',
+    text: 'Je ontvangt simpele rapportages over bezoekers, telefoontjes en formulieren. Geen ingewikkelde grafieken.',
+  },
+];
+---
+
+<section id="why" class="services-basic__section" style="position: relative;">
+  <span class="orb-bubble" style="--orb-x: 12%; --orb-y: -18%; --orb-size: 38rem; --orb-color: rgba(184, 68, 255, 0.26);"></span>
+  <span class="orb-bubble" style="--orb-x: 88%; --orb-y: 20%; --orb-size: 36rem; --orb-color: rgba(56, 132, 255, 0.2);"></span>
+
+  <div class="services-basic__shell">
+    <header class="services-basic__intro" data-reveal>
+      <span class="services-basic__eyebrow">Waarom kiezen voor ons</span>
+      <h2>Samenwerken met één vast team.</h2>
+      <p>We nemen het werk uit handen en denken actief mee met jouw bedrijf.</p>
+    </header>
+
+    <div class="services-basic__grid">
+      {reasons.map((item, index) => (
+        <div class="services-basic__card" data-reveal style={`--reveal-delay: ${index * 0.08}s;`}>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

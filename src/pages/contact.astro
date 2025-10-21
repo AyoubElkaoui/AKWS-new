@@ -110,132 +110,124 @@ const heroHighlights = [
   structuredData={[breadcrumbSchema, contactSchema, faqSchema]}
 >
   <Header />
-  <main>
-    <section class="contact-hero">
-      <div class="contact-hero__bg" aria-hidden="true">
-        <span class="contact-hero__grid"></span>
-        <span class="contact-hero__orb contact-hero__orb--left"></span>
-        <span class="contact-hero__orb contact-hero__orb--right"></span>
-        <span class="contact-hero__flare"></span>
-      </div>
-      <div class="contact-hero__shell">
-        <div class="contact-hero__intro" data-reveal>
-          <span class="contact-hero__tag">Contact</span>
-          <h1>Vertel ons over jouw volgende groeistap.</h1>
-          <p>Plan een sessie of stuur ons direct een bericht. We reageren binnen één werkdag met een voorstel voor sprint één.</p>
-          <div class="contact-hero__actions">
-            <a class="hero-btn hero-btn--primary" href="https://cal.com">Plan direct een call</a>
-            <a class="hero-btn hero-btn--ghost" href="tel:+31685722387">Bel ons direct</a>
-          </div>
+  <main class="services-basic">
+    <!-- Hero Section -->
+    <section class="services-basic__hero">
+      <div class="services-basic__shell">
+        <div class="services-basic__hero-content" data-reveal>
+          <h1>Laten we je website verbeteren.</h1>
+          <p>Vul het formulier in of bel direct. We reageren binnen 1 werkdag met een concrete aanpak en vrijblijvend advies over je huidige site.</p>
         </div>
-        <div class="contact-hero__stats">
+
+        <!-- Quick Stats -->
+        <div class="services-basic__stats">
           {heroMetrics.map((metric, index) => (
-            <div class="contact-hero__stat" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
+            <div class="services-basic__stat" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
+              <strong class="services-basic__stat-value">{metric.value}</strong>
+              <span class="services-basic__stat-label">{metric.label}</span>
             </div>
-          ))}
-        </div>
-        <div class="contact-hero__highlights">
-          {heroHighlights.map((item, index) => (
-            <article class="contact-highlight tilt-card" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
-              <span class="contact-highlight__icon">
-                <IconBadge set={item.icon.set} name={item.icon.name} width={24} color="rgba(244,244,255,0.92)" />
-              </span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <div class="pulse-grid pulse-grid--2">
-          <form class="pulse-form" action="https://formsubmit.co/info@akwebsolutions.nl" method="POST" data-reveal>
-            <input type="hidden" name="_subject" value="Contactformulier via AK Web Solutions" />
+    <!-- Contact Form + Info Section -->
+    <section class="services-basic__section" style="padding-top: clamp(4rem, 8vw, 6rem);">
+      <div class="services-basic__shell">
+        <div class="services-basic__grid services-basic__grid--2">
+          
+          <!-- Contact Info Side -->
+          <aside class="services-basic__card" data-reveal>
+            <h2 style="font-size: 1.75rem; margin-bottom: 1rem;">Direct contact</h2>
+            <p style="color: rgba(244, 244, 255, 0.72); margin-bottom: 2rem;">Liever direct bellen of mailen? Dat kan ook.</p>
+            
+            <div class="services-basic__contact-list">
+              <div class="services-basic__contact-item">
+                <span class="services-basic__contact-label">Telefoon</span>
+                <a href="tel:+31685722387" class="services-basic__contact-link">+31 (0)6 85 72 23 87</a>
+              </div>
+              <div class="services-basic__contact-item">
+                <span class="services-basic__contact-label">E-mail</span>
+                <a href="mailto:info@akwebsolutions.nl" class="services-basic__contact-link">info@akwebsolutions.nl</a>
+              </div>
+              <div class="services-basic__contact-item">
+                <span class="services-basic__contact-label">Locatie</span>
+                <p class="services-basic__contact-text">Baarn, Nederland</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(99, 102, 241, 0.1);">
+              <h3 style="font-size: 1.125rem; margin-bottom: 1rem;">Wat krijg je?</h3>
+              <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;">
+                {heroHighlights.map((item) => (
+                  <li style="display: flex; gap: 0.75rem; align-items: start;">
+                    <span style="flex-shrink: 0; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: rgba(99, 102, 241, 0.15); display: flex; align-items: center; justify-content: center; margin-top: 0.125rem;">
+                      <IconBadge set={item.icon.set} name={item.icon.name} width={14} color="rgba(99, 102, 241, 0.9)" />
+                    </span>
+                    <div>
+                      <strong style="display: block; font-size: 0.9375rem; margin-bottom: 0.25rem;">{item.title}</strong>
+                      <span style="font-size: 0.875rem; color: rgba(244, 244, 255, 0.62);">{item.body}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+
+          <!-- Form Side -->
+          <form class="services-basic__form" action="https://formsubmit.co/info@akwebsolutions.nl" method="POST" data-reveal style="--reveal-delay: 0.1s">
+            <input type="hidden" name="_subject" value="Nieuw contactformulier - AK Web Solutions" />
             <input type="hidden" name="_next" value="https://akwebsolutions.nl/bedankt" />
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
-            <div class="pulse-form__grid">
-              <label class="pulse-form__field">
-                <span>Naam</span>
+            <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Vraag een offerte aan</h2>
+            <p style="color: rgba(244, 244, 255, 0.72); margin-bottom: 2rem;">Vul je gegevens in en vertel kort waar we je mee kunnen helpen. We nemen binnen 1 werkdag contact op.</p>
+
+            <div class="services-basic__form-grid">
+              <label class="services-basic__field">
+                <span>Naam *</span>
                 <input required type="text" name="name" placeholder="Voor- en achternaam" />
               </label>
-              <label class="pulse-form__field">
-                <span>Bedrijf</span>
-                <input type="text" name="company" placeholder="Bedrijfsnaam" />
-              </label>
-              <label class="pulse-form__field">
-                <span>E-mailadres</span>
+              <label class="services-basic__field">
+                <span>E-mail *</span>
                 <input required type="email" name="email" placeholder="jij@bedrijf.nl" />
               </label>
-              <label class="pulse-form__field">
+              <label class="services-basic__field">
                 <span>Telefoon</span>
-                <input type="tel" name="phone" placeholder="0612 34 56 78" />
+                <input type="tel" name="phone" placeholder="06 12 34 56 78" />
               </label>
-              <label class="pulse-form__field">
-                <span>Vertel kort wat je zoekt</span>
-                <textarea name="message" rows="5" placeholder="Waar kunnen we je mee helpen?"></textarea>
+              <label class="services-basic__field">
+                <span>Bedrijf / Website</span>
+                <input type="text" name="company" placeholder="Bedrijfsnaam of website URL" />
+              </label>
+              <label class="services-basic__field services-basic__field--full">
+                <span>Waar kunnen we je mee helpen? *</span>
+                <textarea required name="message" rows="6" placeholder="Bijvoorbeeld: Nieuwe website bouwen, huidige site sneller maken, SEO verbeteren..."></textarea>
               </label>
             </div>
 
-            <div class="pulse-form__actions">
-              <button type="submit" class="hero-btn hero-btn--primary">Verstuur</button>
-              <a href="https://cal.com" class="hero-btn hero-btn--ghost">Plan direct een call</a>
-            </div>
+            <button type="submit" class="services-basic__btn services-basic__btn--primary" style="width: 100%;">
+              Verstuur aanvraag
+            </button>
+            <p style="font-size: 0.8125rem; color: rgba(244, 244, 255, 0.52); text-align: center; margin-top: 1rem;">
+              We reageren binnen 1 werkdag • Vrijblijvend advies
+            </p>
           </form>
 
-          <aside class="pulse-contact-list" data-reveal style="--reveal-delay: 0.12s">
-            <h3>Bel of mail ons</h3>
-            <ul>
-              <li>
-                <span>Mail</span>
-                <a href="mailto:info@akwebsolutions.nl">info@akwebsolutions.nl</a>
-              </li>
-              <li>
-                <span>Telefoon</span>
-                <a href="tel:+31685722387">+31 (0)6 85 72 23 87</a>
-              </li>
-              <li>
-                <span>Locatie</span>
-                <p>Baarn • Nederland</p>
-              </li>
-            </ul>
-          </aside>
         </div>
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <header class="pulse-intro" data-reveal>
-          <span class="pulse-eyebrow">Hoe we werken</span>
-          <h2 class="pulse-title">Je krijgt snel antwoord, duidelijke volgende stappen.</h2>
-          <p class="pulse-copy">Binnen één werkdag hoor je van ons. We bereiden ons voor zodat de eerste call direct waarde geeft.</p>
+    <!-- FAQ Section - Compact -->
+    <section class="services-basic__section">
+      <div class="services-basic__shell">
+        <header class="services-basic__intro" data-reveal>
+          <h2>Veelgestelde vragen</h2>
+          <p>Snel antwoord op de meest gestelde vragen over onze werkwijze.</p>
         </header>
-        <div class="pulse-metrics">
-          {contactSignals.map((item, index) => (
-            <div class="pulse-metric" data-reveal style={`--reveal-delay: ${index * 0.06}s`}>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <header class="pulse-intro" data-reveal>
-          <span class="pulse-eyebrow">FAQ</span>
-          <h2 class="pulse-title">Veelgestelde vragen voor onze eerste call.</h2>
-          <p class="pulse-copy">Benieuwd hoe we samenwerken of wat je kunt verwachten? Dit zijn de meest gestelde vragen over het eerste contactmoment.</p>
-        </header>
-        <div class="faq-list">
+        <div class="services-basic__faq">
           {faqs.map((item, index) => (
-            <details class="faq-item" data-reveal style={`--reveal-delay: ${index * 0.1}s`}>
+            <details class="services-basic__faq-item" data-reveal style={`--reveal-delay: ${index * 0.08}s`}>
               <summary>{item.question}</summary>
               <p>{item.answer}</p>
             </details>
@@ -244,19 +236,6 @@ const heroHighlights = [
       </div>
     </section>
 
-    <section class="pulse-section">
-      <div class="pulse-shell">
-        <article class="pulse-cta" data-reveal>
-          <span class="pulse-eyebrow">Samen aan de slag</span>
-          <h2 class="pulse-title">Plan direct een call of stuur een bericht.</h2>
-          <p class="pulse-copy">We reageren binnen één werkdag met een voorstel voor de eerste sprint en benodigde voorbereiding.</p>
-          <div class="pulse-cta__actions">
-            <a class="hero-btn hero-btn--primary" href="https://cal.com">Plan een call</a>
-            <a class="hero-btn hero-btn--ghost" href="mailto:info@akwebsolutions.nl">Mail ons</a>
-          </div>
-        </article>
-      </div>
-    </section>
   </main>
   <Footer />
 </Layout>

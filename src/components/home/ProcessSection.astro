@@ -1,0 +1,63 @@
+---
+const process = [
+  {
+    phase: '01',
+    title: 'Kennismaken',
+    description: 'We bespreken je bedrijf, doelen en voorbeelden die je aanspreken. Daarna krijg je een duidelijk voorstel met planning en investering.',
+    deliverables: ['Vrijblijvend gesprek', 'Helder voorstel', 'Planning en scope'],
+  },
+  {
+    phase: '02',
+    title: 'Inhoud en plan',
+    description: 'Samen verzamelen we teksten, foto\'s en afspraken. Wij maken een planning en houden je op de hoogte van de voortgang.',
+    deliverables: ['Contentplanning', 'Wireframes', 'Overzicht materialen'],
+  },
+  {
+    phase: '03',
+    title: 'Bouwen en testen',
+    description: 'We bouwen de website en richten campagnes in. Jij kijkt mee en geeft feedback voordat we live gaan.',
+    deliverables: ['Werkende website', 'Campagne-instellingen', 'Testverslagen'],
+  },
+  {
+    phase: '04',
+    title: 'Live en doorgroeien',
+    description: 'Na livegang meten we de resultaten en sturen we bij waar nodig. Je hebt één team voor vragen en nieuwe ideeën.',
+    deliverables: ['Rapportage', 'Optimalisatievoorstellen', 'Snelle updates'],
+  },
+];
+---
+
+<section id="process" class="process-section">
+  <span class="orb-bubble" style="--orb-x: 10%; --orb-y: -15%; --orb-size: 42rem; --orb-color: rgba(124, 58, 237, 0.28);"></span>
+  <span class="orb-bubble" style="--orb-x: 88%; --orb-y: 50%; --orb-size: 38rem; --orb-color: rgba(56, 110, 235, 0.2);"></span>
+
+  <div class="process-section__shell">
+    <div class="process-section__intro" data-reveal>
+      <span class="process-section__eyebrow">Hoe we werken</span>
+      <h2>Van kennismaken tot live.<br />In 4 stappen.</h2>
+      <p>
+        We nemen het werk uit handen en houden je bij elke stap op de hoogte. Geen verrassingen, alleen helder communiceren.
+      </p>
+    </div>
+
+    <div class="process-section__timeline">
+      {process.map((step, index) => (
+        <div class="process-section__step" data-reveal style={`--reveal-delay: ${index * 0.12}s;`}>
+          <div class="process-section__step-header">
+            <div class="process-section__step-number">{step.phase}</div>
+            <div class="process-section__step-meta">
+              <h3>{step.title}</h3>
+            </div>
+          </div>
+          <p class="process-section__step-desc">{step.description}</p>
+          <div class="process-section__step-deliverables">
+            {step.deliverables.map(item => (
+              <span class="process-section__deliverable">{item}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    </div>
+  </div>
+</section>

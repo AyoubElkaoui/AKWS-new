@@ -2,60 +2,20 @@
 import LottieAnimation from '../ui/LottieAnimation.astro';
 ---
 
-<section id="cta" class="orb-section" data-variant="cta">
+<section id="cta" class="services-basic__section" style="position: relative; padding-bottom: clamp(5rem, 8vw, 7rem);">
   <span class="orb-bubble" style="--orb-x: 8%; --orb-y: -18%; --orb-size: 30rem; --orb-color: rgba(122, 70, 255, 0.22);"></span>
   <span class="orb-bubble" style="--orb-x: 78%; --orb-y: 12%; --orb-size: 32rem; --orb-color: rgba(46, 120, 255, 0.22);"></span>
 
-  <div class="orb-shell">
-    <div class="orb-panel orb-panel--cta">
-      <div class="orb-panel__spark">
-        <LottieAnimation
-          src="https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json"
-          class="orb-card__media"
-          autoplay
-          loop
-          speed={1}
-          mode="normal"
-          aria-hidden="true"
-        />
-      </div>
-      <div class="orb-panel__content">
-        <span class="orb-tag">Next step</span>
-        <h2 class="orb-title">Plan een sessie en laat ons jouw digitale groeiplan tekenen.</h2>
-        <p class="orb-copy">
-          Binnen 45 minuten krijg je inzicht in quick wins, benodigde tech en de roadmap waarmee we jouw website of funnel schaalbaar maken.
-        </p>
-        <form class="orb-form" action="https://formsubmit.co/info@akwebsolutions.nl" method="POST">
-          <input type="hidden" name="_subject" value="Aanvraag strategiecall via AK Web Solutions" />
-          <input type="hidden" name="_next" value="https://akwebsolutions.nl/bedankt" />
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-          <div class="orb-form__grid">
-            <label class="orb-form__field">
-              <span>Naam</span>
-              <input required type="text" name="name" placeholder="Voor- en achternaam" />
-            </label>
-            <label class="orb-form__field">
-              <span>Bedrijf</span>
-              <input type="text" name="company" placeholder="Bedrijfsnaam" />
-            </label>
-            <label class="orb-form__field">
-              <span>E-mailadres</span>
-              <input required type="email" name="email" placeholder="jij@bedrijf.nl" />
-            </label>
-            <label class="orb-form__field">
-              <span>Telefoon</span>
-              <input type="tel" name="phone" placeholder="0612 34 56 78" />
-            </label>
-            <label class="orb-form__field orb-form__field--textarea">
-              <span>Waar wil je op focussen?</span>
-              <textarea name="message" rows="4" placeholder="Beschrijf jouw uitdaging of doel"></textarea>
-            </label>
-          </div>
-          <div class="orb-meta orb-form__actions">
-            <button type="submit" class="hero-btn hero-btn--primary">Verstuur aanvraag</button>
-            <a href="https://cal.com" class="hero-btn hero-btn--ghost">Bekijk agenda</a>
-          </div>
-        </form>
+  <div class="services-basic__shell">
+    <div class="services-basic__cta-box" data-reveal>
+      <span class="services-basic__eyebrow">Laten we kennismaken</span>
+      <h2>Bel of mail voor een vrijblijvend gesprek.</h2>
+      <p>
+        We bespreken je situatie, denken mee over oplossingen en geven je een helder voorstel. Geen verplichtingen, gewoon eerlijk advies.
+      </p>
+      <div class="services-basic__cta-row">
+        <a href="/contact" class="services-basic__btn services-basic__btn--primary">Neem contact op</a>
+        <a href="/diensten" class="services-basic__btn services-basic__btn--secondary">Bekijk onze diensten</a>
       </div>
     </div>
   </div>

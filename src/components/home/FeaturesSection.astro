@@ -3,64 +3,57 @@ import LottieAnimation from '../ui/LottieAnimation.astro';
 
 const features = [
   {
-    title: 'Growth driven webdesign',
-    description: 'UX-gedreven wireframes, high-end visuals en micro-animaties die vertrouwen wekken en bezoekers door de funnel sturen.',
-    metric: 'Gem. sessieduur +52%',
+    title: 'Webdesign dat converteert',
+    description: 'Strategisch UX-design, razendsnel laden en micro-interacties die bezoekers naar actie leiden. Gebouwd voor conversie, niet voor awards.',
+    metric: 'Conversie +127%',
     glow: 'rgba(130, 92, 255, 0.45)',
     icon: 'https://assets9.lottiefiles.com/packages/lf20_u4yrau.json',
   },
   {
-    title: 'SEO & SEA als vliegwiel',
-    description: 'Technische SEO, contentstructuur en winstgevende Google Ads campagnes die samen het leadvolume verhogen.',
-    metric: 'Leadgroei +38%',
+    title: 'SEO & SEA die opschalen',
+    description: 'Technische SEO vanaf dag 1, winstgevende Google Ads en contentstrategieën die consistent qualified leads binnenhalen.',
+    metric: 'ROI +340%',
     glow: 'rgba(67, 168, 255, 0.42)',
     icon: 'https://assets9.lottiefiles.com/packages/lf20_jcikwtux.json',
   },
   {
-    title: 'Automatisering & performance',
-    description: 'Schaalbare infrastructuur op moderne stacks met API-koppelingen, CRM-integraties en realtime rapportage.',
-    metric: 'Laadtijd &lt; 0,8s',
+    title: 'Automatisering & integraties',
+    description: 'CRM-koppelingen, marketing automation en realtime dashboards. Jouw sales en marketing draaien op één waarheid.',
+    metric: '24/7 geautomatiseerd',
     glow: 'rgba(66, 218, 210, 0.32)',
     icon: 'https://assets2.lottiefiles.com/packages/lf20_touohxv0.json',
   },
 ];
 ---
 
-<section id="services" class="orb-section" data-variant="violet">
+<section id="services" class="services-basic__section" style="background: linear-gradient(180deg, #0a0b0f 0%, #0e1015 50%, #0b0c10 100%);">
   <span class="orb-bubble" style="--orb-x: 10%; --orb-y: -16%; --orb-size: 46rem; --orb-color: rgba(124, 58, 237, 0.34);"></span>
   <span class="orb-bubble" style="--orb-x: 88%; --orb-y: 72%; --orb-size: 38rem; --orb-color: rgba(37, 110, 235, 0.22);"></span>
   <span class="orb-bubble" style="--orb-x: 48%; --orb-y: 110%; --orb-size: 50rem; --orb-color: rgba(94, 52, 237, 0.18); --orb-opacity: 0.42; --orb-blur: 160px;"></span>
 
-  <div class="orb-shell">
-    <header class="orb-intro">
-      <span class="orb-tag">Waar we het verschil maken</span>
-      <h2 class="orb-title">Van eerste indruk tot conversie, alles werkt samen.</h2>
-      <p class="orb-copy">
-        Strategie, design en marketing zitten bij ons in één proces. Zo zorgen we dat jouw website snel laadt, vertrouwen wekt en campagnes direct kunnen opschalen.
+  <div class="services-basic__shell">
+    <header class="services-basic__intro" data-reveal>
+      <span class="services-basic__eyebrow">Onze focus</span>
+      <h2>Websites, campagnes en automations die meetbare groei opleveren.</h2>
+      <p>
+        We bouwen niet alleen mooi – we bouwen strategisch. Elke pagina, campagne en automatisering is ontworpen om leads binnen te halen en conversies te verhogen.
       </p>
     </header>
 
-    <div class="orb-grid orb-grid--feature">
+    <div class="services-basic__grid">
       {features.map((feature, index) => (
         <article
-          class="orb-card orb-card--feature interactive-card tilt-card"
+          class="services-basic__card"
           data-reveal
-          style={`--reveal-delay: ${index * 0.08}s; --card-glow: ${feature.glow};`}
+          style={`--reveal-delay: ${index * 0.08}s;`}
         >
-          <span class="card-glow" aria-hidden="true"></span>
-          <div class="orb-card__spark">
-            <LottieAnimation src={feature.icon} class="orb-card__media" autoplay loop speed={1} mode="normal" aria-hidden="true" />
+          <div class="services-basic__card-icon">
+            <LottieAnimation src={feature.icon} class="services-basic__icon-animation" autoplay loop speed={1} mode="normal" aria-hidden="true" />
           </div>
-          <div class="orb-card__badge">
-            <span class="orb-chip orb-chip--ghost">Premium service</span>
-          </div>
-          <div class="orb-card__content">
-            <h3 class="orb-card__title">{feature.title}</h3>
-            <p class="orb-card__body">{feature.description}</p>
-          </div>
-          <div class="orb-card__footer">
-            <span>Impact</span>
-            <span class="orb-chip">{feature.metric}</span>
+          <div class="services-basic__card-content">
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+            <span class="services-basic__metric">{feature.metric}</span>
           </div>
         </article>
       ))}

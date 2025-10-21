@@ -1,0 +1,72 @@
+---
+const stats = [
+  {
+    metric: '427%',
+    label: 'Gemiddelde leadgroei',
+    detail: 'Bij klanten binnen 6 maanden',
+  },
+  {
+    metric: '0.4s',
+    label: 'Gemiddelde laadtijd',
+    detail: 'vs. 3.2s industriegemiddelde',
+  },
+  {
+    metric: '94+',
+    label: 'PageSpeed score',
+    detail: 'Op alle projecten',
+  },
+  {
+    metric: '2-4 wk',
+    label: 'Van start tot live',
+    detail: 'Geen maanden wachten',
+  },
+];
+---
+
+<section id="results" class="results-section">
+  <span class="orb-bubble" style="--orb-x: 15%; --orb-y: -10%; --orb-size: 40rem; --orb-color: rgba(99, 102, 241, 0.3);"></span>
+  <span class="orb-bubble" style="--orb-x: 85%; --orb-y: 60%; --orb-size: 35rem; --orb-color: rgba(139, 92, 246, 0.25);"></span>
+
+  <div class="results-section__shell">
+    <div class="results-section__intro" data-reveal>
+      <span class="results-section__eyebrow">Bewezen impact</span>
+      <h2>Cijfers die niet liegen.</h2>
+      <p>
+        We zijn geen branding bureau dat "verhalen vertelt". We zijn engineers en marketeers die bouwen aan systemen die omzet genereren.
+      </p>
+    </div>
+
+    <div class="results-section__stats">
+      {stats.map((stat, index) => (
+        <div class="results-section__stat" data-reveal style={`--reveal-delay: ${index * 0.1}s;`}>
+          <div class="results-section__stat-metric">{stat.metric}</div>
+          <div class="results-section__stat-label">{stat.label}</div>
+          <div class="results-section__stat-detail">{stat.detail}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="results-section__proof" data-reveal style="--reveal-delay: 0.4s;">
+      <div class="results-section__proof-badges">
+        <div class="results-section__badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Google Partner</span>
+        </div>
+        <div class="results-section__badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>ISO 27001 gecertificeerd</span>
+        </div>
+        <div class="results-section__badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>30+ projecten live</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

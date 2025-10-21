@@ -15,32 +15,22 @@ const techLogos = [
 const marqueeItems = [...techLogos, ...techLogos];
 ---
 
-<section id="stack" class="orb-section tech-strip" aria-label="Technologieën waar we mee bouwen">
+<section id="stack" class="services-basic__section" style="position: relative; padding: clamp(3rem, 5vw, 4rem) 0;">
   <span class="orb-bubble" style="--orb-x: 14%; --orb-y: -18%; --orb-size: 36rem; --orb-color: rgba(122, 70, 255, 0.28);"></span>
   <span class="orb-bubble" style="--orb-x: 84%; --orb-y: 112%; --orb-size: 42rem; --orb-color: rgba(51, 132, 255, 0.22);"></span>
 
-  <div class="orb-shell tech-strip__shell">
-    <header class="orb-intro tech-strip__intro">
-      <span class="orb-tag">Stack & tooling</span>
-      <h2 class="orb-title">Van headless CMS tot marketing automation – alles sluit op elkaar aan.</h2>
-      <p class="orb-copy">
-        Wij combineren moderne frameworks met growth tooling. Zo bouwen we razendsnelle experiences die makkelijk te beheren zijn én direct data teruggeven.
+  <div class="services-basic__shell">
+    <header class="services-basic__intro" style="text-align: center; max-width: 48rem; margin: 0 auto 3rem;">
+      <span class="services-basic__eyebrow">Waarmee we bouwen</span>
+      <h2>Moderne tech die snel laadt en makkelijk schaalbaar is.</h2>
+      <p>
+        Van WordPress tot custom frameworks—we kiezen de juiste tools die bij jouw budget en ambities passen.
       </p>
     </header>
 
     <div class="tech-strip__marquee" aria-hidden="true">
       <div class="tech-strip__mask">
         <div class="tech-strip__track" data-direction="left">
-          {marqueeItems.map((logo, index) => (
-            <div class="tech-strip__item" style={`--accent: ${logo.accent}`}>
-              <span class="tech-strip__icon">
-                <img src={logo.src} alt="" loading="lazy" decoding="async" aria-hidden="true" />
-              </span>
-              <span class="tech-strip__label">{logo.name}</span>
-            </div>
-          ))}
-        </div>
-        <div class="tech-strip__track" data-direction="right">
           {marqueeItems.map((logo, index) => (
             <div class="tech-strip__item" style={`--accent: ${logo.accent}`}>
               <span class="tech-strip__icon">
