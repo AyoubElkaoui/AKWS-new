@@ -1900,7 +1900,7 @@ body::after {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 2;
+  z-index: 10;
   color: var(--nexus-text-primary);
   width: 90%;
   max-width: 840px;
@@ -7149,8 +7149,8 @@ body::after {
   opacity: 0;
   transform: translateY(40px);
   transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
+    opacity var(--reveal-duration, 0.7s) ease,
+    transform var(--reveal-duration, 0.7s) ease;
   transition-delay: var(--reveal-delay, 0s);
 }
 

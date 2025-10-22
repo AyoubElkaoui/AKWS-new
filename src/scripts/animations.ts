@@ -243,6 +243,14 @@ function initializeRevealAnimations() {
   const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
   if (!elements.length || typeof IntersectionObserver === 'undefined') return;
 
+  // Mobile optimization: trigger reveals earlier and with faster animations
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  
+  // On mobile: reveal elements 150px before they enter viewport for snappier feel
+  // On desktop: reveal at -5% for smoother experience
+  const rootMargin = isMobile ? '0px 0px 150px 0px' : '0px 0px -5% 0px';
+  const threshold = isMobile ? 0.05 : 0.1;
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -252,10 +260,16 @@ function initializeRevealAnimations() {
         }
       });
     },
-    { rootMargin: '0px 0px -5% 0px', threshold: 0.1 }
+    { rootMargin, threshold }
   );
 
-  elements.forEach((el) => observer.observe(el));
+  elements.forEach((el) => {
+    // Speed up animation duration on mobile for snappier reveals
+    if (isMobile) {
+      el.style.setProperty('--reveal-duration', '0.4s');
+    }
+    observer.observe(el);
+  });
 }
 
 function initializeParallaxElements() {
