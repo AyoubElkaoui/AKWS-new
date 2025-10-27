@@ -33,9 +33,6 @@ export default defineConfig({
         defaultStrategy: 'hover', // Prefetch on hover for instant navigation
         prefetchAll: false,
     },
-    experimental: {
-        optimizeHoistedScript: true, // Optimize script loading
-    },
     image: {
         service: {
             entrypoint: 'astro/assets/services/sharp', // Use sharp for image optimization
