@@ -44,7 +44,7 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
         <script is:inline define:vars={{ RECAPTCHA_SITE_KEY }}>
             window.RECAPTCHA_SITE_KEY = RECAPTCHA_SITE_KEY;
             
-            // Lazy load reCAPTCHA only when needed (on contact page or form interaction)
+            // Lazy load reCAPTCHA only when needed
             window.loadRecaptcha = function() {
                 if (window.grecaptcha) return Promise.resolve();
                 
@@ -59,12 +59,14 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
                 });
             };
             
-            // Auto-load on contact page only
-            if (window.location.pathname === '/contact') {
+            // ONLY load on contact page - not homepage!
+            const path = window.location.pathname;
+            if (path === '/contact' || path === '/contact/') {
+                // Defer even further on contact page
                 if ('requestIdleCallback' in window) {
-                    requestIdleCallback(() => window.loadRecaptcha(), { timeout: 3000 });
+                    requestIdleCallback(() => window.loadRecaptcha(), { timeout: 5000 });
                 } else {
-                    setTimeout(() => window.loadRecaptcha(), 2000);
+                    setTimeout(() => window.loadRecaptcha(), 3000);
                 }
             }
         </script>
@@ -121,11 +123,23 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
         <link rel="dns-prefetch" href="https://www.google.com" />
         
         <!-- Preload critical fonts with high priority -->
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" as="style" fetchpriority="high" />
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" fetchpriority="high" />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
         <noscript>
             <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
         </noscript>
+        
+        <!-- Inline critical CSS for instant render -->
+        <style>
+            body {
+                margin: 0;
+                background-color: #06070d;
+                color: #f4f4f5;
+                font-family: system-ui, -apple-system, sans-serif;
+            }
+            .hero-section { min-height: 100vh; position: relative; }
+            .site-brand img { display: block; }
+        </style>
         <title>{metaTitle}</title>
         {schemaEntries.map((entry) => (
             <script type="application/ld+json" set:text={JSON.stringify(entry)}></script>
