@@ -73,13 +73,17 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
             </>
         ) : null}
         
-        <!-- Google Analytics 4 - Deferred loading after cookie consent -->
+        <!-- Google Analytics 4 - Load only on interaction -->
         <script is:inline>
-            // Defer GA initialization to after page load
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             
+            let analyticsLoaded = false;
+            
             function initAnalytics() {
+                if (analyticsLoaded) return;
+                analyticsLoaded = true;
+                
                 const cookieConsent = localStorage.getItem('cookieConsent');
                 if (cookieConsent === 'accepted') {
                     const gaScript = document.createElement('script');
@@ -97,12 +101,13 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
                 }
             }
             
-            // Load after page is fully loaded
-            if (document.readyState === 'complete') {
-                initAnalytics();
-            } else {
-                window.addEventListener('load', initAnalytics);
-            }
+            // Load on first interaction (scroll, click, keydown)
+            ['scroll', 'click', 'keydown', 'touchstart'].forEach(event => {
+                window.addEventListener(event, initAnalytics, { once: true, passive: true });
+            });
+            
+            // Fallback: load after 5s if no interaction
+            setTimeout(initAnalytics, 5000);
         </script>
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={description} />
