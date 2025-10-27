@@ -118,9 +118,6 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
         {absoluteSocialImage && <meta name="twitter:image" content={absoluteSocialImage} />}
         <link rel="icon" type="image/png" href="/favicon.png" />
         
-        <!-- Preload critical logo image (LCP candidate) -->
-        <link rel="preload" as="image" href="/_astro/fulllogo_transparent_nobuffer.BueXHwKE.png" fetchpriority="high" />
-        
         <!-- Preconnect to critical domains -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
