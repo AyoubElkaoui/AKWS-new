@@ -49,19 +49,46 @@
 <script>
   import initNexusHero from '../../scripts/nexusHero';
   
-  // Nexus 3D Hero Background (desktop only)
+  // Enhanced device capability detection
+  function hasWebGLSupport() {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+    } catch (e) {
+      return false;
+    }
+  }
+  
+  function isLowPerformanceDevice() {
+    const memoryGb = (navigator as any).deviceMemory ?? 8;
+    const cores = navigator.hardwareConcurrency ?? 8;
+    const isIntegratedGPU = /Intel.*HD|Intel.*UHD|Intel.*Iris/i.test(navigator.userAgent);
+    
+    // Skip heavy animations on:
+    // - Devices with ≤4GB RAM
+    // - Devices with ≤4 CPU cores
+    // - Devices with integrated Intel graphics
+    return memoryGb <= 4 || cores <= 4 || isIntegratedGPU;
+  }
+  
+  // Nexus 3D Hero Background (only on capable devices)
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const isTouchViewport = window.matchMedia('(max-width: 768px)');
-  const lowPowerThreads = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-
-  const shouldSkipHero = prefersReducedMotion.matches || isTouchViewport.matches || lowPowerThreads;
+  
+  const shouldSkipHero = 
+    prefersReducedMotion.matches || 
+    isTouchViewport.matches || 
+    !hasWebGLSupport() ||
+    isLowPerformanceDevice();
 
   if (!shouldSkipHero) {
     const loadHero = () => {
       try {
         initNexusHero();
       } catch (err) {
-        console.warn('[hero] init failed', err);
+        console.warn('[hero] init failed, falling back to static background', err);
+        // Fallback: add static gradient class
+        document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
       }
     };
 
@@ -70,5 +97,8 @@
     } else {
       setTimeout(loadHero, 160);
     }
+  } else {
+    // Apply static fallback immediately for low-power devices
+    document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
   }
 </script>

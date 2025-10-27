@@ -119,8 +119,14 @@ export default function initNexusHero(): Cleanup | void {
   const hardwareConcurrency = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 0 : 0;
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
   const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-  const isLowPowerDevice = isMobile || hardwareConcurrency <= 4;
-  const devicePixelRatio = Math.min(window.devicePixelRatio || 1, isMobile ? 1.2 : 1.5);
+  
+  // Enhanced low-power device detection
+  const memoryGb = (navigator as any).deviceMemory ?? 8;
+  const isIntegratedGPU = /Intel.*HD|Intel.*UHD|Intel.*Iris/i.test((navigator as any).userAgentData?.platform || ua);
+  const isLowPowerDevice = isMobile || hardwareConcurrency <= 4 || memoryGb <= 4 || isIntegratedGPU;
+  
+  // Reduce pixel ratio for low-power devices to improve performance
+  const devicePixelRatio = Math.min(window.devicePixelRatio || 1, isLowPowerDevice ? 1 : (isMobile ? 1.2 : 1.5));
 
   let scene: THREE.Scene;
   let camera: THREE.OrthographicCamera;
@@ -356,10 +362,14 @@ export default function initNexusHero(): Cleanup | void {
     maxMovementScale: 0.95,
   } as HeroSettings;
 
+  // Aggressive performance optimization for low-power devices
   if (isLowPowerDevice) {
-    settings.sphereCount = Math.min(settings.sphereCount, isMobile ? 2 : 4);
-    settings.animationSpeed *= 0.75;
-    settings.movementScale *= 0.85;
+    settings.sphereCount = Math.min(settings.sphereCount, isMobile ? 2 : 3);
+    settings.animationSpeed *= 0.6;
+    settings.movementScale *= 0.7;
+    settings.smoothness *= 0.5; // Reduce smoothness for faster rendering
+    settings.fogDensity *= 0.5; // Less fog calculations
+    settings.cursorGlowIntensity *= 0.5; // Reduce glow calculations
   }
 
   const container = document.getElementById('container');

@@ -22,3 +22,15 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Documentation and deployment files (not needed in git)
+BLOG_CMS_SETUP.md
+DEPLOYMENT.md
+MOBILE_FIXES_SUMMARY.md
+
+# SSH keys
+*.pub
+lunux
+linux
+linux.pub
+
