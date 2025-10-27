@@ -13,6 +13,32 @@ export default defineConfig({
     ],
     vite: {
         plugins: [tailwindcss()],
+        build: {
+            cssCodeSplit: true,
+            minify: 'terser',
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: true,
+                },
+            },
+        },
     },
     output: 'static',
+    build: {
+        inlineStylesheets: 'auto', // Inline critical CSS automatically
+    },
+    compressHTML: true,
+    prefetch: {
+        defaultStrategy: 'hover', // Prefetch on hover for instant navigation
+        prefetchAll: false,
+    },
+    experimental: {
+        optimizeHoistedScript: true, // Optimize script loading
+    },
+    image: {
+        service: {
+            entrypoint: 'astro/assets/services/sharp', // Use sharp for image optimization
+        },
+    },
 });

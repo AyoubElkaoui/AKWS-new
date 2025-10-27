@@ -1,5 +1,7 @@
 ---
-// Use direct path instead of import to control loading behavior
+import { Image } from 'astro:assets';
+import logo from '../../assets/fulllogo_transparent_nobuffer.png';
+
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/diensten', label: 'Diensten' },
@@ -21,19 +23,19 @@ const navLinks = [
 
     <div class="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
       <a href="/" class="site-brand" aria-label="AK Web Solutions">
-        <img src="/_astro/fulllogo_transparent_nobuffer.BueXHwKE.png" alt="AK Web Solutions" width="204" height="48" fetchpriority="high" decoding="async" />
+        <Image src={logo} alt="AK Web Solutions" width={204} height={48} loading="eager" fetchpriority="high" decoding="async" quality={90} />
       </a>
 
       <nav class="hidden items-center gap-8 lg:flex">
         {navLinks.map((link) => (
-          <a href={link.href} class="nav-link" data-nav>
+          <a href={link.href} class="nav-link" data-nav data-astro-prefetch>
             {link.label}
           </a>
         ))}
       </nav>
 
       <div class="flex items-center gap-4">
-        <a href="/contact" class="btn-primary hidden md:inline-flex">
+        <a href="/contact" class="btn-primary hidden md:inline-flex" data-astro-prefetch>
           <span class="flex items-center gap-2">
             Start project
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -57,11 +59,11 @@ const navLinks = [
     <div id="mobile-menu" class="relative hidden border-t border-white/[0.08] bg-gradient-to-b from-[#0a0b0f]/98 to-[#0a0b0f]/95 backdrop-blur-xl lg:hidden">
       <div class="mx-auto grid max-w-7xl gap-2 px-6 py-6">
         {navLinks.map((link) => (
-          <a href={link.href} class="rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-3.5 text-base font-medium text-white/80 backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-indigo-500/[0.08] hover:text-white" data-nav>
+          <a href={link.href} class="rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-3.5 text-base font-medium text-white/80 backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-indigo-500/[0.08] hover:text-white" data-nav data-astro-prefetch>
             {link.label}
           </a>
         ))}
-        <a href="/contact" class="btn-primary justify-center mt-2">
+        <a href="/contact" class="btn-primary justify-center mt-2" data-astro-prefetch>
           Start project
         </a>
       </div>
