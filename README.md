@@ -1,10 +1,11 @@
-# Astro Starter Kit: Basics
+# AK Web Solutions - Optimized Astro Website
 
-```sh
-npm create astro@latest -- --template basics
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+High-performance website built with Astro, featuring:
+- ⚡ Critical CSS inlining & HTML compression
+- 🖼️ Automatic image optimization (WebP/AVIF)
+- 🚀 Prefetch on hover for instant navigation
+- 📦 Terser minification with dead code elimination
+- 🎨 Tailwind CSS v4 with Vite plugin
 
 ## 🚀 Project Structure
 
