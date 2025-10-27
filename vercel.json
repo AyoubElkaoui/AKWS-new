@@ -1,11 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "https://www.akwebsolutions.nl/:path*",
-      "destination": "https://akwebsolutions.nl/:path*",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -33,25 +26,7 @@
       ]
     },
     {
-      "source": "/fonts/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.(jpg|jpeg|png|gif|ico|svg|webp))",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.(js|css))",
+      "source": "/_astro/:path*",
       "headers": [
         {
           "key": "Cache-Control",
