@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="center-logo">
-      <h1 id="logo-text">Nexus.</h1>
+      <div id="logo-text" role="presentation">Nexus.</div>
     </div>
   </header>
 
@@ -47,8 +47,6 @@
 </section>
 
 <script>
-  import initNexusHero from '../../scripts/nexusHero';
-  
   // Enhanced device capability detection
   function hasWebGLSupport() {
     try {
@@ -84,7 +82,13 @@
   if (!shouldSkipHero) {
     const loadHero = () => {
       try {
-        initNexusHero();
+        // Dynamic import to reduce initial bundle size
+        import('../../scripts/nexusHero').then(module => {
+          module.default();
+        }).catch(err => {
+          console.warn('[hero] Failed to load 3D background', err);
+          document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
+        });
       } catch (err) {
         console.warn('[hero] init failed, falling back to static background', err);
         // Fallback: add static gradient class
@@ -92,10 +96,11 @@
       }
     };
 
+    // Use requestIdleCallback to load after critical resources
     if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadHero, { timeout: 1200 });
+      requestIdleCallback(loadHero, { timeout: 2000 });
     } else {
-      setTimeout(loadHero, 160);
+      setTimeout(loadHero, 300);
     }
   } else {
     // Apply static fallback immediately for low-power devices

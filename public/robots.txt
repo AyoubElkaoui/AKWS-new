@@ -1,0 +1,14 @@
+# Robots.txt for akwebsolutions.nl
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://akwebsolutions.nl/sitemap-index.xml
+Sitemap: https://www.akwebsolutions.nl/sitemap-index.xml
+
+# Crawl delay (optional, helps prevent overload)
+Crawl-delay: 1
+
+# Disallow admin/private areas if any exist in future
+Disallow: /api/
+Disallow: /.well-known/

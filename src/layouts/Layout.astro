@@ -38,31 +38,43 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
         <meta name="theme-color" content="#0f0f0f" />
         {canonical && <link rel="canonical" href={canonical} />}
         
-        <!-- Google reCAPTCHA v3 -->
+        <!-- Defer Google reCAPTCHA v3 to not block rendering -->
+        <link rel="preconnect" href="https://www.google.com" crossorigin />
+        <link rel="dns-prefetch" href="https://www.gstatic.com" />
         <script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} async defer></script>
         <script is:inline define:vars={{ RECAPTCHA_SITE_KEY }}>
             window.RECAPTCHA_SITE_KEY = RECAPTCHA_SITE_KEY;
         </script>
         
-        <!-- Google Analytics 4 - Only loads after cookie consent -->
+        <!-- Google Analytics 4 - Deferred loading after cookie consent -->
         <script is:inline>
+            // Defer GA initialization to after page load
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             
-            // Check consent from localStorage
-            const cookieConsent = localStorage.getItem('cookieConsent');
-            if (cookieConsent === 'accepted') {
-                // Load Google Analytics
-                const gaScript = document.createElement('script');
-                gaScript.async = true;
-                gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-FN01ZESQ91';
-                document.head.appendChild(gaScript);
-                
-                gtag('js', new Date());
-                gtag('config', 'G-FN01ZESQ91', {
-                    'anonymize_ip': true,
-                    'cookie_flags': 'SameSite=None;Secure'
-                });
+            function initAnalytics() {
+                const cookieConsent = localStorage.getItem('cookieConsent');
+                if (cookieConsent === 'accepted') {
+                    const gaScript = document.createElement('script');
+                    gaScript.async = true;
+                    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-FN01ZESQ91';
+                    document.head.appendChild(gaScript);
+                    
+                    gaScript.onload = () => {
+                        gtag('js', new Date());
+                        gtag('config', 'G-FN01ZESQ91', {
+                            'anonymize_ip': true,
+                            'cookie_flags': 'SameSite=None;Secure'
+                        });
+                    };
+                }
+            }
+            
+            // Load after page is fully loaded
+            if (document.readyState === 'complete') {
+                initAnalytics();
+            } else {
+                window.addEventListener('load', initAnalytics);
             }
         </script>
         <meta property="og:title" content={metaTitle} />
@@ -76,9 +88,18 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
         <meta name="twitter:description" content={description} />
         {absoluteSocialImage && <meta name="twitter:image" content={absoluteSocialImage} />}
         <link rel="icon" type="image/png" href="/favicon.png" />
+        
+        <!-- Preconnect to critical domains -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
+        
+        <!-- Preload critical fonts -->
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" as="style" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+        <noscript>
+            <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+        </noscript>
         <title>{metaTitle}</title>
         {schemaEntries.map((entry) => (
             <script type="application/ld+json" set:text={JSON.stringify(entry)}></script>
