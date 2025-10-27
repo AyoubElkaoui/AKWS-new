@@ -26,7 +26,7 @@ export default defineConfig({
     },
     output: 'static',
     build: {
-        inlineStylesheets: 'auto', // Inline critical CSS automatically
+        inlineStylesheets: 'always', // Force inline ALL CSS to eliminate render-blocking
     },
     compressHTML: true,
     prefetch: {
