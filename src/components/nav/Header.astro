@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../../assets/fulllogo_transparent_nobuffer.png';
+
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/diensten', label: 'Diensten' },
@@ -20,7 +23,7 @@ const navLinks = [
 
     <div class="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
       <a href="/" class="site-brand" aria-label="AK Web Solutions">
-        <img src="/_astro/fulllogo_transparent_nobuffer.BueXHwKE_Z2suKpE.webp" alt="AK Web Solutions" width="204" height="48" fetchpriority="high" decoding="async" />
+        <Image src={logo} alt="AK Web Solutions" width={204} height={48} format="webp" quality={85} fetchpriority="high" decoding="async" />
       </a>
 
       <nav class="hidden items-center gap-8 lg:flex">
