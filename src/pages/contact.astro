@@ -281,9 +281,9 @@ const heroHighlights = [
       formMessage.style.display = 'none';
 
       try {
-        // Check if grecaptcha is loaded
+        // Load reCAPTCHA if not already loaded
         if (typeof (window as any).grecaptcha === 'undefined') {
-          throw new Error('reCAPTCHA niet geladen');
+          await (window as any).loadRecaptcha();
         }
 
         // Execute reCAPTCHA v3

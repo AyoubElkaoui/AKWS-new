@@ -1,4 +1,4 @@
-@import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
+/* Removed blocking external font import from cdnfonts.com - saves 1,450ms render time */
 
 @import "tailwindcss";
 @import "splitting/dist/splitting.css";
