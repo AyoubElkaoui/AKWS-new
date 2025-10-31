@@ -646,8 +646,12 @@ export default function initNexusHero(): Cleanup | void {
       height: 100vh !important;
       z-index: 0 !important;
       display: block !important;
+      opacity: 0; /* hide until first stable render to avoid jumping */
+      transition: opacity 320ms ease-in-out;
+      transform: translateZ(0);
     `;
     container.appendChild(canvas);
+    let canvasShown = false;
 
     material = new THREE.ShaderMaterial({
       uniforms: {
@@ -1152,6 +1156,18 @@ export default function initNexusHero(): Cleanup | void {
         renderer.renderLists.dispose();
       }
       renderer.render(scene, camera);
+
+      // Reveal canvas after first successful render to prevent visible reposition/jump
+      try {
+        if (!canvasShown) {
+          const spinner = document.querySelector('.hero-3d-loading');
+          if (spinner) (spinner as HTMLElement).style.display = 'none';
+          canvas.style.opacity = '1';
+          canvasShown = true;
+        }
+      } catch (e) {
+        // ignore
+      }
     }
   }
 
