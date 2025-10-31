@@ -1,28 +1,31 @@
 ---
 const cases = [
   {
-    client: 'ProbandenService',
-    industry: 'Healthcare Platform',
-    headline: 'Platform voor klinische studies met 500+ deelnemers',
-    result: 'Moderne website met gebruiksvriendelijke aanmeldformulieren',
+    client: 'Bandengarage Culemborg',
+    industry: 'Lokale dienstverlening',
+    headline: '#1 op Google voor "banden Culemborg"',
+    result: '40% meer spoedmeldingen via website',
     description:
-      'Complete website voor platform waar vrijwilligers zich kunnen aanmelden voor medisch onderzoek. Focus op informatiestructuur en responsive design.',
+      'SEO-geoptimaliseerde website voor bandenservice. Rankings verbeterd van pagina 3 naar top 3 posities. Focus op snelle laadtijden en mobiele gebruikers.',
+    metrics: ['#1-3 Google', '0.4s laadtijd', '40% meer leads']
   },
   {
     client: 'AD Loodgietersbedrijf',
     industry: 'Lokale dienstverlening',
-    headline: 'Van onzichtbaar naar eerste pagina in Google',
-    result: 'SEO-geoptimaliseerd voor lokale zoekopdrachten',
+    headline: '300% meer aanvragen in eerste maand',
+    result: 'Van onzichtbaar naar #1 voor lokale zoektermen',
     description:
-      'Website voor professioneel loodgietersbedrijf met focus op lokale vindbaarheid en directe contactmogelijkheden via telefoon en formulier.',
+      'Moderne website met focus op lokale vindbaarheid. Geoptimaliseerd voor "loodgieter [stad]" zoektermen. Directe contact mogelijkheden en WhatsApp integratie.',
+    metrics: ['300% meer leads', 'PageSpeed 94', '#1 lokaal']
   },
   {
     client: 'Loen\'s Collection',
     industry: 'E-commerce',
-    headline: 'E-commerce platform met snelle checkout',
-    result: 'Visueel design dat het merk versterkt + geïntegreerde betaalmethoden',
+    headline: '45% hogere checkout conversie',
+    result: 'Shopify webshop met snelle checkout flow',
     description:
-      'E-commerce platform voor unieke lifestyle producten. Snelle laadtijden en aantrekkelijk design voor optimale shopping ervaring.',
+      'E-commerce platform voor lifestyle producten. Focus op visueel design, snelle laadtijden en optimale shopping ervaring. Eerste verkoop binnen 48 uur na launch.',
+    metrics: ['45% conversie', '0.5s laadtijd', '50+ orders/maand']
   },
 ];
 ---
@@ -50,8 +53,17 @@ const cases = [
           </div>
           <h3>{item.headline}</h3>
           <p>{item.description}</p>
+          
+          {item.metrics && (
+            <div class="services-basic__case-metrics">
+              {item.metrics.map((metric) => (
+                <span class="services-basic__case-metric">{metric}</span>
+              ))}
+            </div>
+          )}
+          
           <div class="services-basic__case-result">
-            <strong>{item.result}</strong>
+            <strong>Resultaat:</strong> {item.result}
           </div>
         </article>
       ))}

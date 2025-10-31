@@ -1,7 +1,12 @@
 <section class="section hero-section" id="hero">
   <div id="container" aria-hidden="true"></div>
-  <div id="stats"></div>
+  <div id="stats" style="display: none;"></div>
   <div id="ui-container"></div>
+  
+  <!-- Loading indicator for 3D background -->
+  <div class="hero-3d-loading" aria-hidden="true">
+    <div class="loading-spinner"></div>
+  </div>
 
   <header class="hero-header">
     <div class="logo-container" aria-hidden="true">
@@ -57,53 +62,95 @@
     }
   }
   
-  function isLowPerformanceDevice() {
-    const memoryGb = (navigator as any).deviceMemory ?? 8;
-    const cores = navigator.hardwareConcurrency ?? 8;
-    const isIntegratedGPU = /Intel.*HD|Intel.*UHD|Intel.*Iris/i.test(navigator.userAgent);
-    
-    // Skip heavy animations on:
-    // - Devices with ≤4GB RAM
-    // - Devices with ≤4 CPU cores
-    // - Devices with integrated Intel graphics
-    return memoryGb <= 4 || cores <= 4 || isIntegratedGPU;
+  // Test GPU performance with a quick render test
+  async function testGPUPerformance(): Promise<boolean> {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) return false;
+      
+      // Quick render test
+      const start = performance.now();
+      (gl as WebGLRenderingContext).clear((gl as WebGLRenderingContext).COLOR_BUFFER_BIT);
+      (gl as WebGLRenderingContext).finish();
+      const renderTime = performance.now() - start;
+      
+      // If even a simple clear takes >5ms, GPU is struggling
+      return renderTime < 5;
+    } catch {
+      return false;
+    }
   }
   
-  // Nexus 3D Hero Background (only on capable devices)
+  // Nexus 3D Hero Background - Now loads on ALL devices with adaptive quality
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const isTouchViewport = window.matchMedia('(max-width: 768px)');
   
-  const shouldSkipHero = 
-    prefersReducedMotion.matches || 
-    isTouchViewport.matches || 
-    !hasWebGLSupport() ||
-    isLowPerformanceDevice();
+  // Only skip if user explicitly disabled motion
+  const shouldSkipHero = prefersReducedMotion.matches || !hasWebGLSupport();
 
   if (!shouldSkipHero) {
-    const loadHero = () => {
+    const loadHero = async () => {
       try {
-        // Dynamic import to reduce initial bundle size
+        // Test GPU before loading heavy 3D
+        const gpuOk = await testGPUPerformance();
+        
+        if (!gpuOk) {
+          console.log('[hero] GPU test failed, using lightweight version');
+        }
+        
+        // Dynamic import - the script now auto-adapts based on device capabilities
         import('../../scripts/nexusHero').then(module => {
-          module.default();
+          const cleanup = module.default();
+          
+          // Mark as loaded
+          setTimeout(() => {
+            document.querySelector('.hero-section')?.classList.add('hero-loaded');
+          }, 500);
+          
+          // Monitor for issues and fallback if needed
+          let lowFPSCount = 0;
+          const fpsCheck = setInterval(() => {
+            const statsEl = document.getElementById('stats');
+            if (statsEl) {
+              const fpsText = statsEl.textContent || '';
+              const fps = parseInt(fpsText);
+              
+              if (fps > 0 && fps < 15) {
+                lowFPSCount++;
+                if (lowFPSCount >= 5) {
+                  console.log('[hero] Consistently low FPS, showing fallback');
+                  clearInterval(fpsCheck);
+                  if (cleanup) cleanup();
+                  document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
+                }
+              } else {
+                lowFPSCount = 0;
+              }
+            }
+          }, 2000);
+          
+          // Clean up check after 30 seconds
+          setTimeout(() => clearInterval(fpsCheck), 30000);
         }).catch(err => {
-          console.warn('[hero] Failed to load 3D background', err);
+          console.warn('[hero] Failed to load 3D background, using fallback', err);
           document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
         });
       } catch (err) {
         console.warn('[hero] init failed, falling back to static background', err);
-        // Fallback: add static gradient class
         document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
       }
     };
 
-    // Use requestIdleCallback to load after critical resources
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadHero, { timeout: 2000 });
+    // Load immediately (script now handles its own optimization)
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadHero, { once: true });
     } else {
-      setTimeout(loadHero, 300);
+      loadHero();
     }
   } else {
-    // Apply static fallback immediately for low-power devices
+    // Apply static fallback immediately if motion disabled or no WebGL
     document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
   }
 </script>

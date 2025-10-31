@@ -119,14 +119,22 @@ export default function initNexusHero(): Cleanup | void {
   const hardwareConcurrency = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 0 : 0;
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
   const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+  const isChrome = /Chrome/i.test(ua) && !/Edge/i.test(ua);
+  const isEdge = /Edg/i.test(ua);
   
-  // Enhanced low-power device detection
+  // Aggressive low-power device detection
   const memoryGb = (navigator as any).deviceMemory ?? 8;
   const isIntegratedGPU = /Intel.*HD|Intel.*UHD|Intel.*Iris/i.test((navigator as any).userAgentData?.platform || ua);
   const isLowPowerDevice = isMobile || hardwareConcurrency <= 4 || memoryGb <= 4 || isIntegratedGPU;
   
-  // Reduce pixel ratio for low-power devices to improve performance
-  const devicePixelRatio = Math.min(window.devicePixelRatio || 1, isLowPowerDevice ? 1 : (isMobile ? 1.2 : 1.5));
+  // Ultra-low settings for very weak devices
+  const isUltraLowPower = hardwareConcurrency <= 2 || memoryGb <= 2;
+  
+  // Drastically reduce pixel ratio for performance
+  const devicePixelRatio = Math.min(
+    window.devicePixelRatio || 1, 
+    isUltraLowPower ? 0.5 : (isLowPowerDevice ? 0.75 : (isMobile ? 1 : 1))
+  );
 
   let scene: THREE.Scene;
   let camera: THREE.OrthographicCamera;
@@ -140,8 +148,11 @@ export default function initNexusHero(): Cleanup | void {
   let activeMerges = 0;
   let lastTime = performance.now();
   let frameCount = 0;
-  let fps = 0;
+  let fps = 60;
   let rafId = 0;
+  let performanceLevel = isUltraLowPower ? 0 : (isLowPowerDevice ? 1 : 2); // 0=ultra-low, 1=low, 2=normal
+  let consecutiveLowFPS = 0;
+  let autoDowngradeApplied = false;
 
   const presets: Record<PresetName, Partial<HeroSettings>> = {
     moody: {
@@ -362,14 +373,23 @@ export default function initNexusHero(): Cleanup | void {
     maxMovementScale: 0.95,
   } as HeroSettings;
 
-  // Aggressive performance optimization for low-power devices
-  if (isLowPowerDevice) {
+  // Ultra-aggressive performance optimization for low-power devices
+  if (isUltraLowPower) {
+    settings.sphereCount = 2; // Minimum spheres
+    settings.animationSpeed *= 0.3;
+    settings.movementScale *= 0.5;
+    settings.smoothness = 0.1; // Minimal smoothness
+    settings.fogDensity = 0; // Disable fog
+    settings.cursorGlowIntensity = 0; // Disable glow
+    settings.specularIntensity *= 0.3; // Reduce specular
+    settings.ambientIntensity *= 0.5;
+  } else if (isLowPowerDevice) {
     settings.sphereCount = Math.min(settings.sphereCount, isMobile ? 2 : 3);
-    settings.animationSpeed *= 0.6;
-    settings.movementScale *= 0.7;
-    settings.smoothness *= 0.5; // Reduce smoothness for faster rendering
-    settings.fogDensity *= 0.5; // Less fog calculations
-    settings.cursorGlowIntensity *= 0.5; // Reduce glow calculations
+    settings.animationSpeed *= 0.5;
+    settings.movementScale *= 0.6;
+    settings.smoothness *= 0.4;
+    settings.fogDensity *= 0.3;
+    settings.cursorGlowIntensity *= 0.3;
   }
 
   const container = document.getElementById('container');
@@ -579,14 +599,17 @@ export default function initNexusHero(): Cleanup | void {
     clock = new THREE.Clock();
 
     renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile && !isLowPowerDevice,
+      antialias: false, // Disable for all devices - huge performance boost
       alpha: true,
-      powerPreference: isMobile ? 'default' : 'high-performance',
+      powerPreference: 'low-power', // Force low-power mode for better compatibility
       preserveDrawingBuffer: false,
       premultipliedAlpha: false,
+      failIfMajorPerformanceCaveat: false, // Don't fail on slow GPUs
+      depth: true,
+      stencil: false, // Disable stencil buffer
     });
 
-    const pixelRatio = Math.min(devicePixelRatio, isMobile ? 1.5 : 2);
+    const pixelRatio = devicePixelRatio;
     renderer.setPixelRatio(pixelRatio);
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
@@ -653,7 +676,7 @@ export default function initNexusHero(): Cleanup | void {
         }
       `,
       fragmentShader: `
-        ${isMobile || isSafari || isLowPowerDevice ? 'precision mediump float;' : 'precision highp float;'}
+        ${isUltraLowPower || isMobile || isSafari || isLowPowerDevice ? 'precision lowp float;' : 'precision mediump float;'}
         uniform float uTime;
         uniform vec2 uResolution;
         uniform vec2 uActualResolution;
@@ -692,7 +715,7 @@ export default function initNexusHero(): Cleanup | void {
         uniform float uIsLowPower;
         varying vec2 vUv;
         const float PI = 3.14159265359;
-        const float EPSILON = 0.001;
+        const float EPSILON = ${isUltraLowPower ? '0.005' : '0.002'};
         const float MAX_DIST = 100.0;
         float smin(float a, float b, float k) {
           float h = max(k - abs(a - b), 0.0) / k;
@@ -727,8 +750,8 @@ export default function initNexusHero(): Cleanup | void {
             float mixFactor = smoothstep(0.0, 1.0, distToCenter);
             dynamicMovementScale = mix(uMinMovementScale, uMaxMovementScale, mixFactor);
           }
-          int maxIter = int(uIsMobile > 0.5 ? 4.0 : (uIsLowPower > 0.5 ? 6.0 : float(min(uSphereCount, 10))));
-          for (int i = 0; i < 10; i++) {
+          int maxIter = int(uIsMobile > 0.5 ? 2.0 : (uIsLowPower > 0.5 ? 3.0 : float(min(uSphereCount, 6))));
+          for (int i = 0; i < 6; i++) {
             if (i >= uSphereCount || i >= maxIter) break;
             float fi = float(i);
             float speed = 0.4 + fi * 0.12;
@@ -781,70 +804,64 @@ export default function initNexusHero(): Cleanup | void {
           return result;
         }
         vec3 calcNormal(vec3 p) {
-          float eps = uIsLowPower > 0.5 ? 0.002 : 0.001;
+          float eps = uIsLowPower > 0.5 ? 0.004 : 0.002;
+          vec2 e = vec2(eps, 0.0);
           return normalize(vec3(
-            sceneSDF(p + vec3(eps, 0.0, 0.0)) - sceneSDF(p - vec3(eps, 0.0, 0.0)),
-            sceneSDF(p + vec3(0.0, eps, 0.0)) - sceneSDF(p - vec3(0.0, eps, 0.0)),
-            sceneSDF(p + vec3(0.0, 0.0, eps)) - sceneSDF(p - vec3(0.0, 0.0, eps))
+            sceneSDF(p + e.xyy) - sceneSDF(p - e.xyy),
+            sceneSDF(p + e.yxy) - sceneSDF(p - e.yxy),
+            sceneSDF(p + e.yyx) - sceneSDF(p - e.yyx)
           ));
         }
         float ambientOcclusion(vec3 p, vec3 n) {
           if (uIsLowPower > 0.5) {
-            float h1 = sceneSDF(p + n * 0.03);
-            float h2 = sceneSDF(p + n * 0.06);
-            float occ = (0.03 - h1) + (0.06 - h2) * 0.5;
-            return clamp(1.0 - occ * 2.0, 0.0, 1.0);
+            float h = sceneSDF(p + n * 0.05);
+            return clamp(1.0 - (0.05 - h) * 3.0, 0.0, 1.0);
           } else {
             float occ = 0.0;
             float weight = 1.0;
-            for (int i = 0; i < 6; i++) {
-              float dist = 0.01 + 0.015 * float(i * i);
+            for (int i = 0; i < 3; i++) {
+              float dist = 0.02 + 0.03 * float(i);
               float h = sceneSDF(p + n * dist);
               occ += (dist - h) * weight;
-              weight *= 0.85;
+              weight *= 0.7;
             }
             return clamp(1.0 - occ, 0.0, 1.0);
           }
         }
         float softShadow(vec3 ro, vec3 rd, float mint, float maxt, float k) {
           if (uIsLowPower > 0.5) {
-            float result = 1.0;
-            float t = mint;
-            for (int i = 0; i < 3; i++) {
-              t += 0.3;
-              if (t >= maxt) break;
-              float h = sceneSDF(ro + rd * t);
-              if (h < EPSILON) return 0.0;
-              result = min(result, k * h / t);
-            }
-            return result;
+            float t = mint + 0.5;
+            float h = sceneSDF(ro + rd * t);
+            return h < EPSILON ? 0.5 : 1.0;
           } else {
             float result = 1.0;
             float t = mint;
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 8; i++) {
               if (t >= maxt) break;
               float h = sceneSDF(ro + rd * t);
-              if (h < EPSILON) return 0.0;
+              if (h < EPSILON) return 0.3;
               result = min(result, k * h / t);
-              t += h;
+              t += h * 0.5;
             }
             return result;
           }
         }
         float rayMarch(vec3 ro, vec3 rd) {
           float t = 0.0;
-          int maxSteps = int(uIsMobile > 0.5 ? 16.0 : (uIsSafari > 0.5 ? 16.0 : 48.0));
-          for (int i = 0; i < 48; i++) {
+          int maxSteps = int(uIsMobile > 0.5 ? 12.0 : (uIsLowPower > 0.5 ? 16.0 : 32.0));
+          float stepMultiplier = uIsLowPower > 0.5 ? 1.5 : 1.1;
+          
+          for (int i = 0; i < 32; i++) {
             if (i >= maxSteps) break;
             vec3 p = ro + rd * t;
             float d = sceneSDF(p);
             if (d < EPSILON) {
               return t;
             }
-            if (t > 5.0) {
+            if (t > 4.0) {
               break;
             }
-            t += d * (uIsLowPower > 0.5 ? 1.2 : 0.9);
+            t += d * stepMultiplier;
           }
           return -1.0;
         }
@@ -1046,16 +1063,53 @@ export default function initNexusHero(): Cleanup | void {
       if (statsContainer) {
         statsContainer.textContent = `${fps} fps`;
       }
+      
+      // Auto-downgrade if consistently low FPS
+      if (!autoDowngradeApplied && performanceLevel > 0) {
+        if (fps < 20) {
+          consecutiveLowFPS++;
+          if (consecutiveLowFPS >= 3) {
+            console.log('[nexusHero] Low FPS detected, downgrading quality');
+            performanceLevel--;
+            autoDowngradeApplied = true;
+            
+            // Apply emergency optimizations
+            if (performanceLevel === 0) {
+              material.uniforms.uSphereCount.value = 2;
+              material.uniforms.uSmoothness.value = 0.1;
+              material.uniforms.uFogDensity.value = 0;
+              material.uniforms.uCursorGlowIntensity.value = 0;
+              if (renderer) {
+                renderer.setPixelRatio(0.5);
+              }
+            } else {
+              material.uniforms.uSphereCount.value = 3;
+              material.uniforms.uSmoothness.value *= 0.5;
+              if (renderer) {
+                renderer.setPixelRatio(0.75);
+              }
+            }
+          }
+        } else {
+          consecutiveLowFPS = 0;
+        }
+      }
     }
 
-    mousePosition.x += (targetMousePosition.x - mousePosition.x) * settings.mouseSmoothness;
-    mousePosition.y += (targetMousePosition.y - mousePosition.y) * settings.mouseSmoothness;
+    // Smooth mouse movement (skip on ultra-low devices)
+    if (!isUltraLowPower) {
+      mousePosition.x += (targetMousePosition.x - mousePosition.x) * settings.mouseSmoothness;
+      mousePosition.y += (targetMousePosition.y - mousePosition.y) * settings.mouseSmoothness;
+    } else {
+      mousePosition.copy(targetMousePosition);
+    }
 
     material.uniforms.uTime.value = clock.getElapsedTime();
     material.uniforms.uMousePosition.value = mousePosition;
 
     if (renderer) {
-      if (performance.now() % 5000 < 16) {
+      // Aggressive memory management
+      if (frameCount % 300 === 0) {
         renderer.renderLists.dispose();
       }
       renderer.render(scene, camera);

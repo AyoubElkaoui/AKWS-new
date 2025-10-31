@@ -1773,6 +1773,36 @@ button {
   padding: var(--nexus-spacing-large);
 }
 
+/* 3D Loading indicator */
+.hero-3d-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
+}
+
+.hero-section.hero-loaded .hero-3d-loading,
+.hero-section.hero-static-fallback .hero-3d-loading {
+  opacity: 0;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(99, 102, 241, 0.2);
+  border-top-color: rgba(99, 102, 241, 0.8);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Static fallback for low-performance devices (no WebGL/3D animation) */
 .hero-section.hero-static-fallback {
   background: 

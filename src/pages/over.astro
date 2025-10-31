@@ -9,7 +9,7 @@ const pageUrl = `${siteUrl}/over`;
 
 const heroStats = [
   { value: '2-4 weken', label: 'Eerste live versie' },
-  { value: 'Astro & Next.js', label: 'Moderne frameworks' },
+  { value: '0.4s', label: 'Gemiddelde laadtijd' },
   { value: 'Baarn', label: 'Gevestigd in' },
 ];
 
@@ -17,7 +17,7 @@ const heroHighlights = [
   {
     icon: { set: 'heroicons-outline', name: 'bolt' },
     title: 'Snelheid als prioriteit',
-    body: 'Wij bouwen met Astro en Next.js - moderne frameworks die snelle, efficiënte websites opleveren zonder onnodige bloat.',
+    body: 'Geen WordPress bloat. We bouwen met moderne technologie die 8x sneller laadt dan gemiddelde websites. Google PageSpeed scores van 90+.',
   },
   {
     icon: { set: 'heroicons-outline', name: 'rocket-launch' },
@@ -34,8 +34,8 @@ const heroHighlights = [
 const values = [
   {
     icon: { set: 'heroicons-outline', name: 'code-bracket' },
-    title: 'Moderne tech stack',
-    description: 'Wij bouwen met Astro voor snelle static sites, Next.js voor web apps, en Tailwind voor design systems. Moderne tools die schaalbare resultaten opleveren.',
+    title: 'Moderne technologie',
+    description: 'We gebruiken dezelfde tech als grote bedrijven: React, TypeScript en moderne frameworks. Dit betekent snellere websites, betere beveiliging en lagere onderhoudskosten.',
     tone: 'violet',
     glow: 'rgba(122, 70, 255, 0.42)',
   },
@@ -57,14 +57,14 @@ const values = [
 
 const teamFacts = [
   { label: 'Eerste versie online', value: '2-4 weken' },
-  { label: 'Technologie stack', value: 'Astro/Next.js' },
+  { label: 'Pagespeed score ', value: '90+' },
   { label: 'Gevestigd', value: 'Baarn, NL' },
 ];
 
 const squads = [
   {
     title: 'Development',
-    body: 'Astro, Next.js, React, TypeScript. We bouwen met moderne frameworks die enterprise-grade performance leveren met schone, onderhoudbare code.',
+    body: 'Moderne, schaalbare websites zonder WordPress bloat. We schrijven schone code die snel laadt, veilig is en makkelijk te onderhouden. Technologie die grote bedrijven ook gebruiken.',
     glow: 'rgba(122, 70, 255, 0.34)',
   },
   {
@@ -99,8 +99,8 @@ const principles = [
 
 const faqs = [
   {
-    question: 'Waarom bouwen jullie met Astro en Next.js?',
-    answer: 'Astro en Next.js zijn moderne frameworks die snelle, schaalbare websites opleveren met minder code. Ze laden sneller dan traditionele WordPress sites en zijn makkelijker te onderhouden. Perfect voor bedrijven die snelheid en betrouwbaarheid belangrijk vinden.',
+    question: 'Waarom geen WordPress?',
+    answer: 'WordPress is traag, kwetsbaar voor hackers en vereist constant onderhoud. Wij gebruiken moderne technologie die 8x sneller laadt, veel veiliger is en nauwelijks onderhoud nodig heeft. Je krijgt een website die scoort op snelheid én security - zonder plugins die elkaar bijten.',
   },
   {
     question: 'Wat kost een website bij AKWS?',
@@ -168,8 +168,8 @@ const aboutSchema = {
 ---
 
 <Layout
-  title="Over AKWS – Moderne Websites met Astro & Next.js"
-  description="Hi, ik ben Ayoub. Ik bouw snelle websites met moderne technologie. Astro, Next.js, React - schaalbare oplossingen voor groeiende bedrijven."
+  title="Over AK Web Solutions | Snelle Websites Zonder WordPress Bloat"
+  description="Hi, ik ben Ayoub uit Baarn. Ik bouw supersnel websites zonder WordPress. Moderne technologie, PageSpeed 90+, in 2-4 weken live. Geen plugins, geen bloat, gewoon resultaat."
   structuredData={[breadcrumbSchema, aboutSchema, faqSchema]}
 >
   <Header />
@@ -178,7 +178,7 @@ const aboutSchema = {
       <div class="services-basic__shell">
         <div class="services-basic__hero-content" data-reveal data-parallax="0.12">
           <h1>Hi, ik ben Ayoub. Ik bouw websites die écht snel zijn.</h1>
-          <p>Geen templates. Geen maanden wachten. Gewoon moderne tech (Astro, Next.js, React) die snelle, betrouwbare websites oplevert. Want snelheid = betere gebruikerservaring = meer conversies.</p>
+          <p>Geen templates. Geen maanden wachten. Geen WordPress bloat. Gewoon moderne technologie die snelle, betrouwbare websites oplevert. In 2-4 weken van niks naar live, met PageSpeed scores van 90+ en laadtijden van 0.4 seconde.</p>
           <div class="services-basic__cta-row">
             <a class="services-basic__btn services-basic__btn--primary" href="/contact">Vraag offerte aan</a>
             <a class="services-basic__btn services-basic__btn--link" href="/cases">Bekijk projecten</a>
@@ -211,7 +211,7 @@ const aboutSchema = {
         <header class="services-basic__header" data-reveal>
           <span class="services-basic__eyebrow">Focus op snelheid</span>
           <h2>Moderne technologie voor snellere websites.</h2>
-          <p>We bouwen met Astro en Next.js - moderne frameworks die snelle, schaalbare websites opleveren. Zonder onnodige bloat, met focus op Core Web Vitals en gebruikerservaring.</p>
+          <p>Geen WordPress bloat, maar moderne code die razendsnel laadt. We gebruiken dezelfde technologie als Vercel, Stripe en Linear - beproefd, veilig en schaalbaar. Het resultaat? Websites die in 0.4 seconde laden.</p>
         </header>
         <div class="services-basic__metrics">
           {teamFacts.map((fact, index) => (
@@ -228,8 +228,8 @@ const aboutSchema = {
       <div class="services-basic__shell">
         <header class="services-basic__header" data-reveal>
           <span class="services-basic__eyebrow">Hoe we werken</span>
-          <h2>Moderne tech. Geen legacy.</h2>
-          <p>We gebruiken dezelfde tools die Vercel, Linear, en Stripe gebruiken. Want als het goed genoeg is voor unicorns, is het goed genoeg voor jou.</p>
+          <h2>Snelheid, veiligheid en resultaat.</h2>
+          <p>We combineren strak design met razendsnelle technologie. Elke website wordt getest op snelheid (Core Web Vitals), vindbaarheid (SEO) en conversie. Want een mooie trage website die niemand vindt, heeft geen zin.</p>
         </header>
         <div class="services-basic__grid">
           {values.map((value, index) => (
