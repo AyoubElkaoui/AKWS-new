@@ -47,6 +47,8 @@
         </svg>
       </a>
             <a href="#cases" class="hero-btn hero-btn--ghost">Bekijk eerdere projecten</a>
+      <!-- Button to explicitly enable the 3D animation (desktop only). Hidden by default to avoid adding to critical path. -->
+      <button id="enable-hero-btn" class="hero-btn hero-btn--secondary" style="display: none;">Schakel animatie in</button>
     </div>
   </div>
 </section>
@@ -84,84 +86,69 @@
     }
   }
   
-  // Nexus 3D Hero Background - Now loads on ALL devices with adaptive quality
+  // Nexus 3D Hero Background - explicit activation only
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  
-  // Only skip if user explicitly disabled motion
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const smallViewport = window.innerWidth < 900;
-  const shouldSkipHero = prefersReducedMotion.matches || !hasWebGLSupport() || isMobile || smallViewport;
 
-  if (!shouldSkipHero) {
-    const loadHero = async () => {
-      try {
-        // Test GPU before loading heavy 3D
-        const gpuOk = await testGPUPerformance();
-        
-        if (!gpuOk) {
-          console.log('[hero] GPU test failed, using lightweight version');
+  // Only offer the animation on capable desktop devices; otherwise use static fallback immediately
+  const eligibleForAnimation = !prefersReducedMotion.matches && hasWebGLSupport() && !isMobile && !smallViewport;
+
+  // Utility: show the enable button (desktop only) and attach click handler to load the heavy module on demand
+  const enableBtn = document.getElementById('enable-hero-btn');
+
+  async function loadHeroOnDemand() {
+    try {
+      // Hide the button to avoid duplicate clicks
+      if (enableBtn) enableBtn.style.display = 'none';
+
+      // Optional GPU quick test before importing heavy code
+      const gpuOk = await testGPUPerformance();
+      if (!gpuOk) console.log('[hero] GPU quick test suggests low perf — animation may fallback');
+
+      // Dynamic import only when user explicitly requests it
+      const module = await import('../../scripts/nexusHero');
+  const modAny = module;
+  // call whichever exported initializer exists; cast to any-ish behavior to silence strict typings in the inline script
+  const cleanup = (typeof (modAny as any).default === 'function') ? (modAny as any).default() : (typeof (modAny as any).initNexusHero === 'function' ? (modAny as any).initNexusHero() : null);
+
+      // Mark as loaded for styles or other adjustments
+      setTimeout(() => document.querySelector('.hero-section')?.classList.add('hero-loaded'), 500);
+
+      // Monitor a lightweight FPS indicator and fallback if needed (non-blocking)
+      let lowFPSCount = 0;
+      const fpsCheck = setInterval(() => {
+        const statsEl = document.getElementById('stats');
+        if (!statsEl) return;
+        const fps = parseInt(statsEl.textContent || '0') || 0;
+        if (fps > 0 && fps < 15) {
+          lowFPSCount++;
+          if (lowFPSCount >= 5) {
+            clearInterval(fpsCheck);
+            if (cleanup) cleanup();
+            document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
+          }
+        } else {
+          lowFPSCount = 0;
         }
-        
-        // Dynamic import - the script now auto-adapts based on device capabilities
-        import('../../scripts/nexusHero').then(module => {
-          const cleanup = module.default();
-          
-          // Mark as loaded
-          setTimeout(() => {
-            document.querySelector('.hero-section')?.classList.add('hero-loaded');
-          }, 500);
-          
-          // Monitor for issues and fallback if needed
-          let lowFPSCount = 0;
-          const fpsCheck = setInterval(() => {
-            const statsEl = document.getElementById('stats');
-            if (statsEl) {
-              const fpsText = statsEl.textContent || '';
-              const fps = parseInt(fpsText);
-              
-              if (fps > 0 && fps < 15) {
-                lowFPSCount++;
-                if (lowFPSCount >= 5) {
-                  console.log('[hero] Consistently low FPS, showing fallback');
-                  clearInterval(fpsCheck);
-                  if (cleanup) cleanup();
-                  document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
-                }
-              } else {
-                lowFPSCount = 0;
-              }
-            }
-          }, 2000);
-          
-          // Clean up check after 30 seconds
-          setTimeout(() => clearInterval(fpsCheck), 30000);
-        }).catch(err => {
-          console.warn('[hero] Failed to load 3D background, using fallback', err);
-          document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
-        });
-      } catch (err) {
-        console.warn('[hero] init failed, falling back to static background', err);
-        document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
-      }
-    };
+      }, 2000);
 
-    // Defer heavy hero init until after page load or during idle time to avoid blocking LCP
-    const scheduleHeroLoad = () => {
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => loadHero(), { timeout: 1200 });
-      } else {
-  // Fallback: wait for window load then a short timeout
-  (window as any).addEventListener('load', () => setTimeout(loadHero, 800), { once: true });
-      }
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', scheduleHeroLoad, { once: true });
-    } else {
-      scheduleHeroLoad();
+      setTimeout(() => clearInterval(fpsCheck), 30000);
+    } catch (err) {
+      console.warn('[hero] user-initiated load failed, falling back to static background', err);
+      document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
+      if (enableBtn) enableBtn.style.display = 'none';
     }
+  }
+
+  if (eligibleForAnimation && enableBtn) {
+    // Show the explicit enable button for desktop users only; do not download animation until clicked
+    enableBtn.style.display = 'inline-block';
+    enableBtn.addEventListener('click', () => {
+      loadHeroOnDemand();
+    }, { once: true });
   } else {
-    // Apply static fallback immediately if motion disabled or no WebGL
+    // Not eligible: keep the static fallback immediately
     document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
   }
 </script>
