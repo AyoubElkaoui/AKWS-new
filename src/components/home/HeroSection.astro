@@ -170,17 +170,14 @@
         loadHeroOnDemand();
       };
 
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(startLoad, { timeout: 1200 });
-      } else {
-        (window as any).addEventListener('load', () => setTimeout(startLoad, 800), { once: true });
-      }
+      // Start loading immediately to ensure the animation is visible without extra interaction.
+      // We still keep the spinner shown while the module downloads.
+      startLoad();
     };
 
-    // Auto-load only when explicitly forced (query param or global flag). Otherwise user must click.
-    if (forceAnimate) {
-      scheduleAutoLoad();
-    }
+    // Auto-load (deferred) to provide the expected desktop experience.
+    // Previously we restricted this to an explicit force; restoring automatic deferred load now.
+    scheduleAutoLoad();
 
     // Button still allows manual triggering if auto-load hasn't started/failed
     enableBtn.addEventListener('click', () => {

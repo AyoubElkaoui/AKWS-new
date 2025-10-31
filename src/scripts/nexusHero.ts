@@ -626,8 +626,11 @@ export default function initNexusHero(): Cleanup | void {
       stencil: false, // Disable stencil buffer
     });
 
-    const pixelRatio = devicePixelRatio;
-    renderer.setPixelRatio(pixelRatio);
+  const pixelRatio = devicePixelRatio;
+  // Start at a reduced pixel ratio for the first frames to reduce LCP/initial render cost.
+  // We'll ramp up after the scene is stable if the device can handle it.
+  const initialPixelRatio = Math.min(pixelRatio, 0.75);
+  renderer.setPixelRatio(initialPixelRatio);
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     renderer.setSize(viewportWidth, viewportHeight);
@@ -954,6 +957,25 @@ export default function initNexusHero(): Cleanup | void {
       setupUI();
     }
     onPointerMove({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 } as MouseEvent);
+
+    // After a short warm-up period, try increasing pixel ratio to improve visual quality
+    // if the device is not ultra-low-power and the renderer still exists.
+    if (!isUltraLowPower) {
+      setTimeout(() => {
+        try {
+          if (renderer) {
+            renderer.setPixelRatio(pixelRatio);
+            material.uniforms.uPixelRatio.value = pixelRatio;
+            // Also update uActualResolution based on new pixel ratio
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            material.uniforms.uActualResolution.value.set(width * pixelRatio, height * pixelRatio);
+          }
+        } catch (e) {
+          // ignore failures
+        }
+      }, 1200);
+    }
   }
 
   function setupEventListeners() {
