@@ -94,6 +94,17 @@
   // Only offer the animation on capable desktop devices; otherwise use static fallback immediately
   const eligibleForAnimation = !prefersReducedMotion.matches && hasWebGLSupport() && !isMobile && !smallViewport;
 
+  // Allow explicit override via URL `?force-animate=1` or global `window.AKWS_FORCE_ANIMATIONS = true`
+  let forceAnimate = false;
+  try {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('force-animate') === '1') forceAnimate = true;
+    // @ts-ignore
+    if (window.AKWS_FORCE_ANIMATIONS) forceAnimate = true;
+  } catch (e) {
+    // ignore
+  }
+
   // Utility: show the enable button (desktop only) and attach click handler to load the heavy module on demand
   const enableBtn = document.getElementById('enable-hero-btn');
 
@@ -146,7 +157,8 @@
   }
 
   if (eligibleForAnimation && enableBtn) {
-    // Show the explicit enable button as a fallback, but also try to auto-load on capable desktops (deferred)
+    // Show the explicit enable button as a fallback. We will NOT auto-load by default anymore
+    // because it hurts LCP/PageSpeed. Auto-load only happens when explicitly forced.
     enableBtn.style.display = 'inline-block';
 
     // schedule an automatic (deferred) load to provide the expected desktop experience
@@ -165,8 +177,10 @@
       }
     };
 
-    // Auto-load but keep the button available for users who prefer to trigger manually
-    scheduleAutoLoad();
+    // Auto-load only when explicitly forced (query param or global flag). Otherwise user must click.
+    if (forceAnimate) {
+      scheduleAutoLoad();
+    }
 
     // Button still allows manual triggering if auto-load hasn't started/failed
     enableBtn.addEventListener('click', () => {
