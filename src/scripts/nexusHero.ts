@@ -4,19 +4,23 @@ import * as THREE from 'three';
 const ENABLE_DEBUG_UI = import.meta.env?.DEV ?? false;
 
 const TWEAKPANE_URL = 'https://cdn.jsdelivr.net/npm/tweakpane@4.0.4/dist/tweakpane.min.js';
-let tweakpanePromise = null;
+let tweakpanePromise: Promise<any> | null = null;
+
+// Only enable tweakpane in development or when explicitly requested via query flag (?debug=tweakpane)
+const ENABLE_TWEAKPANE = typeof window !== 'undefined' && (import.meta.env.DEV || window.location.search.indexOf('debug=tweakpane') !== -1 || window.location.hostname === 'localhost');
 
 function loadTweakpane() {
   if (typeof window === 'undefined') return Promise.resolve(null);
-  if (window.Tweakpane) return Promise.resolve(window.Tweakpane);
+  if (!ENABLE_TWEAKPANE) return Promise.resolve(null);
+  if ((window as any).Tweakpane) return Promise.resolve((window as any).Tweakpane);
   if (tweakpanePromise) return tweakpanePromise;
 
   tweakpanePromise = new Promise((resolve, reject) => {
     const existing = document.querySelector('script[data-tweakpane]');
 
     const handleLoad = () => {
-      if (window.Tweakpane) {
-        resolve(window.Tweakpane);
+      if ((window as any).Tweakpane) {
+        resolve((window as any).Tweakpane);
       } else {
         reject(new Error('Tweakpane failed to initialise'));
       }
@@ -28,15 +32,15 @@ function loadTweakpane() {
       return;
     }
 
-  const script = document.createElement('script');
-  script.src = TWEAKPANE_URL;
-  // Tweakpane CDN may ship an ESM build; load as module to avoid 'Unexpected token export'
-  script.type = 'module';
-  script.async = true;
-  script.dataset.tweakpane = 'true';
-  script.onload = handleLoad;
-  script.onerror = reject;
-  document.head.appendChild(script);
+    const script = document.createElement('script');
+    script.src = TWEAKPANE_URL;
+    // Tweakpane CDN may ship an ESM build; load as module to avoid 'Unexpected token export'
+    script.type = 'module';
+    script.async = true;
+    script.dataset.tweakpane = 'true';
+    script.onload = handleLoad;
+    script.onerror = reject;
+    document.head.appendChild(script);
   });
 
   return tweakpanePromise;

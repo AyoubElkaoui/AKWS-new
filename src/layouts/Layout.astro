@@ -160,8 +160,36 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
     </body>
 </html>
 
-<script>
-    import '../scripts/animations';
+<!-- Load heavy animation bundle only on capable devices and during idle/load to keep the layout chunk small -->
+<script is:inline type="module">
+    (function () {
+        try {
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const lowThreadDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+
+            if (prefersReducedMotion || lowThreadDevice) {
+                // Skip loading heavy animations on low-power or reduced-motion devices
+                return;
+            }
+
+            const scheduleLoad = () => {
+                // dynamic import so bundler doesn't include animations in the layout chunk
+                import('../scripts/animations').catch((err) => {
+                    // swallow errors — animations are non-critical
+                    console.warn('[layout] failed to load animations', err);
+                });
+            };
+
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(scheduleLoad, { timeout: 2000 });
+            } else {
+                window.addEventListener('load', () => setTimeout(scheduleLoad, 1200), { once: true });
+            }
+        } catch (err) {
+            // defensive: do nothing if anything goes wrong here
+            console.warn('[layout] animation loader error', err);
+        }
+    })();
 </script>
 
 <CookieBanner />
