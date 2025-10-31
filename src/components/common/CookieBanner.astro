@@ -98,6 +98,8 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
+    /* Allow clicks to pass through so banner buttons remain interactive */
+    pointer-events: none;
   }
 
   .cookie-banner__content {
@@ -108,6 +110,9 @@
     max-width: 1200px;
     margin: 0 auto;
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+    /* Ensure content receives pointer events even with overlay present */
+    pointer-events: auto;
+    z-index: 10001;
   }
 
   .cookie-banner__text h3 {
@@ -376,69 +381,77 @@
 </style>
 
 <script>
-  // Cookie Banner Logic
-  const banner = document.getElementById('cookie-banner');
-  const settingsModal = document.getElementById('cookie-settings-modal');
-  const acceptBtn = document.getElementById('cookie-accept');
-  const rejectBtn = document.getElementById('cookie-reject');
-  const settingsBtn = document.getElementById('cookie-settings');
-  const modalClose = document.getElementById('cookie-modal-close');
-  const saveSettingsBtn = document.getElementById('cookie-save-settings');
-  const analyticsToggle = document.getElementById('analytics-toggle') as HTMLInputElement;
+  // Cookie Banner Logic - run after DOM ready to ensure elements exist
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('cookie-banner');
+    const settingsModal = document.getElementById('cookie-settings-modal');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+    const settingsBtn = document.getElementById('cookie-settings');
+    const modalClose = document.getElementById('cookie-modal-close');
+    const saveSettingsBtn = document.getElementById('cookie-save-settings');
+    const analyticsToggle = document.getElementById('analytics-toggle') as HTMLInputElement;
 
-  // Check if user has already made a choice
-  const cookieConsent = localStorage.getItem('cookieConsent');
-  
-  if (!cookieConsent && banner) {
-    // Show banner after 1 second
-    setTimeout(() => {
-      banner.style.display = 'block';
-    }, 1000);
-  }
-
-  // Accept all cookies
-  acceptBtn?.addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'accepted');
-    if (banner) banner.style.display = 'none';
-    loadAnalytics();
-  });
-
-  // Reject analytics cookies
-  rejectBtn?.addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'rejected');
-    if (banner) banner.style.display = 'none';
-  });
-
-  // Open settings modal
-  settingsBtn?.addEventListener('click', () => {
-    if (banner) banner.style.display = 'none';
-    if (settingsModal) settingsModal.style.display = 'flex';
-  });
-
-  // Close modal
-  modalClose?.addEventListener('click', () => {
-    if (settingsModal) settingsModal.style.display = 'none';
-  });
-
-  // Close modal on overlay click
-  settingsModal?.querySelector('.cookie-modal__overlay')?.addEventListener('click', () => {
-    if (settingsModal) settingsModal.style.display = 'none';
-  });
-
-  // Save settings
-  saveSettingsBtn?.addEventListener('click', () => {
-    const analyticsEnabled = analyticsToggle?.checked;
-    localStorage.setItem('cookieConsent', analyticsEnabled ? 'accepted' : 'rejected');
-    if (settingsModal) settingsModal.style.display = 'none';
-    
-    if (analyticsEnabled) {
-      loadAnalytics();
+    // Check if user has already made a choice
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    if (!cookieConsent && banner) {
+      // Show banner after 1 second
+      setTimeout(() => {
+        banner.style.display = 'block';
+      }, 1000);
     }
+
+    // Accept all cookies
+    acceptBtn?.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'accepted');
+      if (banner) banner.style.display = 'none';
+      // Hide banner immediately and reload shortly after to initialize analytics
+      setTimeout(() => {
+        if (banner) banner.style.display = 'none';
+        try { window.location.reload(); } catch (e) { /* ignore */ }
+      }, 150);
+    });
+
+    // Reject analytics cookies
+    rejectBtn?.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'rejected');
+      if (banner) banner.style.display = 'none';
+      setTimeout(() => {
+        if (banner) banner.style.display = 'none';
+        try { window.location.reload(); } catch (e) { /* ignore */ }
+      }, 150);
+    });
+
+    // Open settings modal
+    settingsBtn?.addEventListener('click', () => {
+      if (banner) banner.style.display = 'none';
+      if (settingsModal) settingsModal.style.display = 'flex';
+    });
+
+    // Close modal
+    modalClose?.addEventListener('click', () => {
+      if (settingsModal) settingsModal.style.display = 'none';
+    });
+
+    // Close modal on overlay click
+    settingsModal?.querySelector('.cookie-modal__overlay')?.addEventListener('click', () => {
+      if (settingsModal) settingsModal.style.display = 'none';
+    });
+
+    // Save settings
+    saveSettingsBtn?.addEventListener('click', () => {
+      const analyticsEnabled = analyticsToggle?.checked;
+      localStorage.setItem('cookieConsent', analyticsEnabled ? 'accepted' : 'rejected');
+      if (settingsModal) settingsModal.style.display = 'none';
+      if (analyticsEnabled) {
+        // Reload to initialize analytics safely
+        try { window.location.reload(); } catch (e) { /* ignore */ }
+      }
+    });
   });
 
-  // Load Google Analytics
+  // Load Google Analytics helper (used after accept)
   function loadAnalytics() {
-    // Reload page to trigger GA4 in Layout.astro
-    window.location.reload();
+    try { window.location.reload(); } catch (e) { /* ignore */ }
   }
 </script>

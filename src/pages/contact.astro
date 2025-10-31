@@ -162,13 +162,9 @@ const heroHighlights = [
             </ul>
           </div>
 
-          <!-- Calendly inline widget embed -->
-          <div class="booking-calendar">
-            <div 
-              class="calendly-inline-widget" 
-              data-url="https://calendly.com/akwebsolutions-info/30min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0f101a&text_color=f4f4ff&primary_color=7e44ff" 
-              style="min-width:320px;height:700px;">
-            </div>
+          <!-- Calendly inline widget embed (lazy loaded) -->
+          <div class="booking-calendar" id="booking-calendar">
+            <!-- Widget wordt pas geladen bij scroll -->
           </div>
         </div>
 
@@ -301,8 +297,36 @@ const heroHighlights = [
   <Footer />
 </Layout>
 
-<!-- Calendly widget script -->
-<script is:inline src="https://assets.calendly.com/assets/external/widget.js"></script>
+
+<!-- Preconnect voor Calendly -->
+<link rel="preconnect" href="https://calendly.com">
+<link rel="preconnect" href="https://assets.calendly.com">
+
+<!-- Lazy load Calendly widget -->
+<script>
+  // Lazy load Calendly widget bij scroll naar booking section
+  document.addEventListener('DOMContentLoaded', function() {
+    var loaded = false;
+    var calendar = document.getElementById('booking-calendar');
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !loaded) {
+        loaded = true;
+        var div = document.createElement('div');
+        div.className = 'calendly-inline-widget';
+        div.setAttribute('data-url', 'https://calendly.com/akwebsolutions-info/30min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0f101a&text_color=f4f4ff&primary_color=7e44ff');
+        div.style.minWidth = '320px';
+        div.style.height = '700px';
+        calendar.appendChild(div);
+        var script = document.createElement('script');
+        script.src = 'https://assets.calendly.com/assets/external/widget.js';
+        document.body.appendChild(script);
+      }
+    }, { threshold: 0.2 });
+    if (calendar) {
+      observer.observe(calendar);
+    }
+  });
+</script>
 
 <style>
   /* Booking Section Custom Styling */

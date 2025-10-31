@@ -88,7 +88,9 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   
   // Only skip if user explicitly disabled motion
-  const shouldSkipHero = prefersReducedMotion.matches || !hasWebGLSupport();
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const smallViewport = window.innerWidth < 900;
+  const shouldSkipHero = prefersReducedMotion.matches || !hasWebGLSupport() || isMobile || smallViewport;
 
   if (!shouldSkipHero) {
     const loadHero = async () => {
