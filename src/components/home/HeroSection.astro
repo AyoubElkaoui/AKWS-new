@@ -145,11 +145,20 @@
       }
     };
 
-    // Load immediately (script now handles its own optimization)
+    // Defer heavy hero init until after page load or during idle time to avoid blocking LCP
+    const scheduleHeroLoad = () => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => loadHero(), { timeout: 1200 });
+      } else {
+  // Fallback: wait for window load then a short timeout
+  (window as any).addEventListener('load', () => setTimeout(loadHero, 800), { once: true });
+      }
+    };
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadHero, { once: true });
+      document.addEventListener('DOMContentLoaded', scheduleHeroLoad, { once: true });
     } else {
-      loadHero();
+      scheduleHeroLoad();
     }
   } else {
     // Apply static fallback immediately if motion disabled or no WebGL

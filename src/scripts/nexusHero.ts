@@ -28,13 +28,15 @@ function loadTweakpane() {
       return;
     }
 
-    const script = document.createElement('script');
-    script.src = TWEAKPANE_URL;
-    script.async = true;
-    script.dataset.tweakpane = 'true';
-    script.onload = handleLoad;
-    script.onerror = reject;
-    document.head.appendChild(script);
+  const script = document.createElement('script');
+  script.src = TWEAKPANE_URL;
+  // Tweakpane CDN may ship an ESM build; load as module to avoid 'Unexpected token export'
+  script.type = 'module';
+  script.async = true;
+  script.dataset.tweakpane = 'true';
+  script.onload = handleLoad;
+  script.onerror = reject;
+  document.head.appendChild(script);
   });
 
   return tweakpanePromise;
