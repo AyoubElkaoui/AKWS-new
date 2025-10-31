@@ -115,6 +115,10 @@
       // Mark as loaded for styles or other adjustments
       setTimeout(() => document.querySelector('.hero-section')?.classList.add('hero-loaded'), 500);
 
+      // Hide loading spinner when animation started
+      const spinner = document.querySelector('.hero-3d-loading');
+      if (spinner) (spinner as HTMLElement).style.display = 'none';
+
       // Monitor a lightweight FPS indicator and fallback if needed (non-blocking)
       let lowFPSCount = 0;
       const fpsCheck = setInterval(() => {
@@ -142,13 +146,37 @@
   }
 
   if (eligibleForAnimation && enableBtn) {
-    // Show the explicit enable button for desktop users only; do not download animation until clicked
+    // Show the explicit enable button as a fallback, but also try to auto-load on capable desktops (deferred)
     enableBtn.style.display = 'inline-block';
+
+    // schedule an automatic (deferred) load to provide the expected desktop experience
+    const scheduleAutoLoad = () => {
+      const startLoad = () => {
+        // show spinner briefly while loading
+        const spinner = document.querySelector('.hero-3d-loading');
+        if (spinner) (spinner as HTMLElement).style.display = 'block';
+        loadHeroOnDemand();
+      };
+
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(startLoad, { timeout: 1200 });
+      } else {
+        (window as any).addEventListener('load', () => setTimeout(startLoad, 800), { once: true });
+      }
+    };
+
+    // Auto-load but keep the button available for users who prefer to trigger manually
+    scheduleAutoLoad();
+
+    // Button still allows manual triggering if auto-load hasn't started/failed
     enableBtn.addEventListener('click', () => {
       loadHeroOnDemand();
     }, { once: true });
   } else {
     // Not eligible: keep the static fallback immediately
     document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
+    // ensure spinner is hidden for devices that won't load animation
+    const spinner = document.querySelector('.hero-3d-loading');
+    if (spinner) (spinner as HTMLElement).style.display = 'none';
   }
 </script>
