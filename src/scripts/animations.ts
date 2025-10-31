@@ -6,9 +6,27 @@ import Splitting from 'splitting';
 
 const supportsWindow = typeof window !== 'undefined';
 const reducedMotionQuery = supportsWindow ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+// Allow an explicit override to force animations even when the OS requests reduced motion.
+// Use either the URL query param `?force-animate=1` or set `window.AKWS_FORCE_ANIMATIONS = true` in devtools.
+const forceAnimate = (() => {
+  try {
+    if (!supportsWindow) return false;
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('force-animate') === '1') return true;
+    // global override
+    // @ts-ignore
+    if (window.AKWS_FORCE_ANIMATIONS) return true;
+  } catch (e) {
+    return false;
+  }
+  return false;
+})();
 const lowThreadDevice = typeof navigator !== 'undefined' ? (navigator.hardwareConcurrency ?? 8) <= 4 : false;
 
-const shouldSkipMotion = () => !!(reducedMotionQuery?.matches || lowThreadDevice);
+const shouldSkipMotion = () => {
+  if (forceAnimate) return false;
+  return !!(reducedMotionQuery?.matches || lowThreadDevice);
+};
 let hasBootstrapped = false;
 
 if (supportsWindow) {

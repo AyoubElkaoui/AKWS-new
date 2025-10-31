@@ -113,7 +113,18 @@ export default function initNexusHero(): Cleanup | void {
   }
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (prefersReducedMotion.matches) {
+  // Allow explicit override via URL `?force-animate=1` or global `window.AKWS_FORCE_ANIMATIONS = true`
+  let forceAnimate = false;
+  try {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('force-animate') === '1') forceAnimate = true;
+    // @ts-ignore
+    if (window.AKWS_FORCE_ANIMATIONS) forceAnimate = true;
+  } catch (e) {
+    // ignore
+  }
+
+  if (prefersReducedMotion.matches && !forceAnimate) {
     return;
   }
 
