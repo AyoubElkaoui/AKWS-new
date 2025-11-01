@@ -86,39 +86,27 @@
     }
   }
   
-  // Nexus 3D Hero Background - explicit activation only
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  // SIMPLE: Load 3D on desktop, skip on mobile
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const smallViewport = window.innerWidth < 900;
-
-  // Only offer the animation on capable desktop devices; otherwise use static fallback immediately
-  const eligibleForAnimation = !prefersReducedMotion.matches && hasWebGLSupport() && !isMobile && !smallViewport;
-
-  // Allow explicit override via URL `?force-animate=1` or global `window.AKWS_FORCE_ANIMATIONS = true`
-  let forceAnimate = false;
-  try {
-    const url = new URL(window.location.href);
-    if (url.searchParams.get('force-animate') === '1') forceAnimate = true;
-    // @ts-ignore
-    if (window.AKWS_FORCE_ANIMATIONS) forceAnimate = true;
-  } catch (e) {
-    // ignore
-  }
-
-  // Utility: show the enable button (desktop only) and attach click handler to load the heavy module on demand
+  const isTablet = /iPad|Android/i.test(navigator.userAgent) && window.innerWidth >= 768 && window.innerWidth <= 1024;
   const enableBtn = document.getElementById('enable-hero-btn');
 
   async function loadHeroOnDemand() {
+    console.log('[hero] 📦 loadHeroOnDemand() STARTED');
     try {
       // Hide the button to avoid duplicate clicks
       if (enableBtn) enableBtn.style.display = 'none';
 
       // Optional GPU quick test before importing heavy code
+      console.log('[hero] Testing GPU performance...');
       const gpuOk = await testGPUPerformance();
-      if (!gpuOk) console.log('[hero] GPU quick test suggests low perf — animation may fallback');
+      console.log('[hero] GPU test result:', gpuOk);
+      if (!gpuOk) console.log('[hero] ⚠️  GPU quick test suggests low perf — animation may fallback');
 
       // Dynamic import only when user explicitly requests it
+      console.log('[hero] 📥 Importing nexusHero module...');
       const module = await import('../../scripts/nexusHero');
+      console.log('[hero] ✅ Module imported:', module);
   const modAny = module;
   // call whichever exported initializer exists; cast to any-ish behavior to silence strict typings in the inline script
   const cleanup = (typeof (modAny as any).default === 'function') ? (modAny as any).default() : (typeof (modAny as any).initNexusHero === 'function' ? (modAny as any).initNexusHero() : null);
@@ -156,37 +144,43 @@
     }
   }
 
-  if (eligibleForAnimation && enableBtn) {
-    // Show the explicit enable button as a fallback. We will NOT auto-load by default anymore
-    // because it hurts LCP/PageSpeed. Auto-load only happens when explicitly forced.
-    enableBtn.style.display = 'inline-block';
-
-    // schedule an automatic (deferred) load to provide the expected desktop experience
-    const scheduleAutoLoad = () => {
-      const startLoad = () => {
-        // show spinner briefly while loading
-        const spinner = document.querySelector('.hero-3d-loading');
-        if (spinner) (spinner as HTMLElement).style.display = 'block';
-        loadHeroOnDemand();
-      };
-
-      // Start loading immediately to ensure the animation is visible without extra interaction.
-      // We still keep the spinner shown while the module downloads.
-      startLoad();
-    };
-
-    // Auto-load (deferred) to provide the expected desktop experience.
-    // Previously we restricted this to an explicit force; restoring automatic deferred load now.
-    scheduleAutoLoad();
-
-    // Button still allows manual triggering if auto-load hasn't started/failed
-    enableBtn.addEventListener('click', () => {
+  // BRUTAL DEBUG
+  console.log('[hero] ========================');
+  console.log('[hero] isMobile:', isMobile);
+  console.log('[hero] isTablet:', isTablet);
+  console.log('[hero] window.innerWidth:', window.innerWidth);
+  console.log('[hero] navigator.userAgent:', navigator.userAgent);
+  console.log('[hero] ========================');
+  
+  // DESKTOP = load, MOBILE/TABLET = skip
+  if (!isMobile && !isTablet) {
+    console.log('[hero] ✅ DESKTOP DETECTED');
+    console.log('[hero] enableBtn:', enableBtn);
+    
+    if (enableBtn) {
+      console.log('[hero] Hiding enable button');
+      enableBtn.style.display = 'none';
+    }
+    
+    // Show spinner
+    const spinner = document.querySelector('.hero-3d-loading');
+    console.log('[hero] Spinner element:', spinner);
+    if (spinner) {
+      console.log('[hero] Showing spinner');
+      (spinner as HTMLElement).style.display = 'block';
+    }
+    
+    // LOAD IMMEDIATELY
+    console.log('[hero] 🚀 Calling loadHeroOnDemand()...');
+    try {
       loadHeroOnDemand();
-    }, { once: true });
+      console.log('[hero] ✅ loadHeroOnDemand() called');
+    } catch (err) {
+      console.error('[hero] ❌ ERROR calling loadHeroOnDemand:', err);
+    }
   } else {
-    // Not eligible: keep the static fallback immediately
+    console.log('[hero] ❌ MOBILE/TABLET DETECTED');
     document.querySelector('.hero-section')?.classList.add('hero-static-fallback');
-    // ensure spinner is hidden for devices that won't load animation
     const spinner = document.querySelector('.hero-3d-loading');
     if (spinner) (spinner as HTMLElement).style.display = 'none';
   }

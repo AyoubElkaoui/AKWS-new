@@ -1771,6 +1771,8 @@ button {
 
 .hero-section {
   padding: var(--nexus-spacing-large);
+  position: relative;
+  isolation: isolate;
 }
 
 /* 3D Loading indicator */
@@ -1863,7 +1865,7 @@ body::after {
   height: 100vh;
   background: #0f0f0f;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1 !important;
 }
 
 #ui-container {
@@ -1971,6 +1973,8 @@ body::after {
   width: 90%;
   max-width: 840px;
   animation: heroFadeIn 1.2s ease-out;
+  mix-blend-mode: normal;
+  isolation: auto;
 }
 
 @keyframes heroFadeIn {

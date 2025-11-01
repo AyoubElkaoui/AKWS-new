@@ -170,6 +170,12 @@ export default function initNexusHero(): Cleanup | void {
   let performanceLevel = isUltraLowPower ? 0 : (isLowPowerDevice ? 1 : 2); // 0=ultra-low, 1=low, 2=normal
   let consecutiveLowFPS = 0;
   let autoDowngradeApplied = false;
+  
+  // Performance optimization: track if scene needs re-render
+  let needsRender = true;
+  let lastMouseX = 0.5;
+  let lastMouseY = 0.5;
+  const MOUSE_MOVEMENT_THRESHOLD = 0.001; // Only render if mouse moved significantly
 
   const presets: Record<PresetName, Partial<HeroSettings>> = {
     moody: {
@@ -627,9 +633,8 @@ export default function initNexusHero(): Cleanup | void {
     });
 
   const pixelRatio = devicePixelRatio;
-  // Start at a reduced pixel ratio for the first frames to reduce LCP/initial render cost.
-  // We'll ramp up after the scene is stable if the device can handle it.
-  const initialPixelRatio = Math.min(pixelRatio, 0.75);
+  // Start LOW for fast initial render, gradually increase based on FPS
+  const initialPixelRatio = isMobile ? 0.5 : 0.65;
   renderer.setPixelRatio(initialPixelRatio);
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
@@ -644,13 +649,14 @@ export default function initNexusHero(): Cleanup | void {
       left: 0 !important;
       width: 100vw !important;
       height: 100vh !important;
-      z-index: 0 !important;
+      z-index: -1 !important;
       display: block !important;
-      opacity: 0; /* hide until first stable render to avoid jumping */
-      transition: opacity 320ms ease-in-out;
+      opacity: 1 !important;
       transform: translateZ(0);
+      will-change: transform;
     `;
     container.appendChild(canvas);
+    console.log('[nexusHero] 🎨 Canvas appended to container, opacity: 1');
     let canvasShown = false;
 
     material = new THREE.ShaderMaterial({
@@ -1025,8 +1031,17 @@ export default function initNexusHero(): Cleanup | void {
   }
 
   function onPointerMove(event: MouseEvent) {
-    targetMousePosition.x = event.clientX / window.innerWidth;
-    targetMousePosition.y = 1.0 - event.clientY / window.innerHeight;
+    const newMouseX = event.clientX / window.innerWidth;
+    const newMouseY = 1.0 - event.clientY / window.innerHeight;
+    
+    // Skip if mouse barely moved (throttle calculations)
+    const deltaX = Math.abs(newMouseX - targetMousePosition.x);
+    const deltaY = Math.abs(newMouseY - targetMousePosition.y);
+    if (deltaX < 0.002 && deltaY < 0.002) return;
+    
+    targetMousePosition.x = newMouseX;
+    targetMousePosition.y = newMouseY;
+    needsRender = true; // Force render on mouse move
 
     const worldPos = screenToWorldJS(targetMousePosition.x, targetMousePosition.y);
     cursorSphere3D.copy(worldPos);
@@ -1098,13 +1113,34 @@ export default function initNexusHero(): Cleanup | void {
     const currentTime = performance.now();
     frameCount += 1;
 
-    if (currentTime - lastTime >= 1000) {
+    // FPS monitoring - check every second initially, then every 2 seconds after stabilization
+    const fpsCheckInterval = frameCount < 300 ? 1000 : 2000;
+    
+    if (currentTime - lastTime >= fpsCheckInterval) {
       fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
       updateStory(cursorSphere3D.x, cursorSphere3D.y, material.uniforms.uCursorRadius.value, activeMerges, fps);
       frameCount = 0;
       lastTime = currentTime;
       if (statsContainer) {
         statsContainer.textContent = `${fps} fps`;
+      }
+      
+      // Smart pixel ratio scaling based on FPS (max 1.5 instead of 2)
+      if (renderer && frameCount > 60) {
+        const currentPixelRatio = renderer.getPixelRatio();
+        const maxPixelRatio = isMobile ? 1.25 : 1.5; // Lower max for better performance
+        
+        if (fps >= 55 && currentPixelRatio < maxPixelRatio) {
+          // Good FPS: gradually increase quality
+          const newRatio = Math.min(currentPixelRatio + 0.1, maxPixelRatio);
+          renderer.setPixelRatio(newRatio);
+          console.log(`[nexusHero] ⬆️ Pixel ratio increased to ${newRatio.toFixed(2)} (${fps} fps)`);
+        } else if (fps < 30 && currentPixelRatio > 0.5) {
+          // Low FPS: decrease quality
+          const newRatio = Math.max(currentPixelRatio - 0.15, 0.5);
+          renderer.setPixelRatio(newRatio);
+          console.log(`[nexusHero] ⬇️ Pixel ratio decreased to ${newRatio.toFixed(2)} (${fps} fps)`);
+        }
       }
       
       // Auto-downgrade if consistently low FPS
@@ -1129,7 +1165,7 @@ export default function initNexusHero(): Cleanup | void {
               material.uniforms.uSphereCount.value = 3;
               material.uniforms.uSmoothness.value *= 0.5;
               if (renderer) {
-                renderer.setPixelRatio(0.75);
+                renderer.setPixelRatio(0.65);
               }
             }
           }
@@ -1146,24 +1182,45 @@ export default function initNexusHero(): Cleanup | void {
     } else {
       mousePosition.copy(targetMousePosition);
     }
+    
+    // Check if mouse actually moved significantly
+    const mouseMoved = 
+      Math.abs(mousePosition.x - lastMouseX) > MOUSE_MOVEMENT_THRESHOLD ||
+      Math.abs(mousePosition.y - lastMouseY) > MOUSE_MOVEMENT_THRESHOLD;
+    
+    if (mouseMoved) {
+      needsRender = true;
+      lastMouseX = mousePosition.x;
+      lastMouseY = mousePosition.y;
+    }
 
     material.uniforms.uTime.value = clock.getElapsedTime();
-    material.uniforms.uMousePosition.value = mousePosition;
+    
+    // Only update mouse uniform if it changed
+    if (mouseMoved) {
+      material.uniforms.uMousePosition.value = mousePosition;
+    }
 
-    if (renderer) {
-      // Aggressive memory management
-      if (frameCount % 300 === 0) {
+    // PERFORMANCE: Only render when needed
+    if (renderer && needsRender) {
+      // Less aggressive memory management (every 600 frames instead of 300)
+      if (frameCount % 600 === 0) {
         renderer.renderLists.dispose();
       }
       renderer.render(scene, camera);
+      
+      // Animation always needs next frame, but we can skip some
+      // Keep rendering for first 180 frames (3 seconds @ 60fps) for smooth startup
+      needsRender = frameCount < 180;
 
-      // Reveal canvas after first successful render to prevent visible reposition/jump
+      // Canvas is already visible (opacity 1 from start)
+      // Just hide spinner on first render
       try {
         if (!canvasShown) {
           const spinner = document.querySelector('.hero-3d-loading');
           if (spinner) (spinner as HTMLElement).style.display = 'none';
-          canvas.style.opacity = '1';
           canvasShown = true;
+          console.log('[nexusHero] ✅ First render complete, spinner hidden');
         }
       } catch (e) {
         // ignore
