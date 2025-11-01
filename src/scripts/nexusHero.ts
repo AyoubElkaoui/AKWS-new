@@ -179,7 +179,7 @@ export default function initNexusHero(): Cleanup | void {
 
   const presets: Record<PresetName, Partial<HeroSettings>> = {
     moody: {
-      sphereCount: isMobile ? 4 : 6,
+      sphereCount: isMobile ? 3 : 4, // REDUCED from 4:6 for better initial performance
       ambientIntensity: 0.02,
       diffuseIntensity: 0.6,
       specularIntensity: 1.8,
@@ -633,8 +633,8 @@ export default function initNexusHero(): Cleanup | void {
     });
 
   const pixelRatio = devicePixelRatio;
-  // Start LOW for fast initial render, gradually increase based on FPS
-  const initialPixelRatio = isMobile ? 0.5 : 0.65;
+  // Start VERY LOW for fast initial render, gradually increase based on FPS
+  const initialPixelRatio = isMobile ? 0.4 : 0.5; // REDUCED from 0.5:0.65 for PageSpeed
   renderer.setPixelRatio(initialPixelRatio);
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;

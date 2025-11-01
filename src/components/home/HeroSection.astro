@@ -152,7 +152,7 @@
   console.log('[hero] navigator.userAgent:', navigator.userAgent);
   console.log('[hero] ========================');
   
-  // DESKTOP = load, MOBILE/TABLET = skip
+  // DESKTOP = load AFTER page load, MOBILE/TABLET = skip
   if (!isMobile && !isTablet) {
     console.log('[hero] ✅ DESKTOP DETECTED');
     console.log('[hero] enableBtn:', enableBtn);
@@ -162,21 +162,25 @@
       enableBtn.style.display = 'none';
     }
     
-    // Show spinner
-    const spinner = document.querySelector('.hero-3d-loading');
-    console.log('[hero] Spinner element:', spinner);
-    if (spinner) {
-      console.log('[hero] Showing spinner');
-      (spinner as HTMLElement).style.display = 'block';
-    }
-    
-    // LOAD IMMEDIATELY
-    console.log('[hero] 🚀 Calling loadHeroOnDemand()...');
-    try {
-      loadHeroOnDemand();
-      console.log('[hero] ✅ loadHeroOnDemand() called');
-    } catch (err) {
-      console.error('[hero] ❌ ERROR calling loadHeroOnDemand:', err);
+    // CRITICAL: Wait for page to be FULLY LOADED before starting 3D animation
+    // This prevents blocking main thread during initial page load
+    if (document.readyState === 'complete') {
+      console.log('[hero] ✅ Document already loaded, starting animation after delay');
+      setTimeout(() => {
+        const spinner = document.querySelector('.hero-3d-loading');
+        if (spinner) (spinner as HTMLElement).style.display = 'block';
+        loadHeroOnDemand();
+      }, 500); // Small delay to let browser finish painting
+    } else {
+      console.log('[hero] ⏳ Waiting for window.load event...');
+      window.addEventListener('load', () => {
+        console.log('[hero] ✅ Window loaded, starting animation after delay');
+        setTimeout(() => {
+          const spinner = document.querySelector('.hero-3d-loading');
+          if (spinner) (spinner as HTMLElement).style.display = 'block';
+          loadHeroOnDemand();
+        }, 1000); // Wait 1 second after load to ensure smooth experience
+      });
     }
   } else {
     console.log('[hero] ❌ MOBILE/TABLET DETECTED');
