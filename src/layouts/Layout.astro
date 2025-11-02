@@ -172,6 +172,16 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Lfg5fE
                 return;
             }
 
+            // CRITICAL: Skip animations.ts on homepage to avoid competing with 3D hero animation
+            // Homepage has its own heavy 3D animation (nexusHero.ts ~460KB)
+            // Loading both causes main thread blocking and poor PageSpeed scores
+            const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+            
+            if (isHomepage) {
+                console.log('[layout] Skipping animations.ts on homepage (3D hero takes priority)');
+                return;
+            }
+
             const scheduleLoad = () => {
                 // dynamic import so bundler doesn't include animations in the layout chunk
                 import('../scripts/animations').catch((err) => {
