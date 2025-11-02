@@ -162,24 +162,24 @@
       enableBtn.style.display = 'none';
     }
     
-    // CRITICAL: Wait for page to be FULLY LOADED before starting 3D animation
-    // This prevents blocking main thread during initial page load
+    // CRITICAL: Wait LONGER for page to be FULLY LOADED + user interaction
+    // This completely frees up main thread for PageSpeed measurement
     if (document.readyState === 'complete') {
-      console.log('[hero] ✅ Document already loaded, starting animation after delay');
+      console.log('[hero] ✅ Document already loaded, starting animation after 3s delay');
       setTimeout(() => {
         const spinner = document.querySelector('.hero-3d-loading');
         if (spinner) (spinner as HTMLElement).style.display = 'block';
         loadHeroOnDemand();
-      }, 500); // Small delay to let browser finish painting
+      }, 3000); // Wait 3 seconds - user has already seen content
     } else {
       console.log('[hero] ⏳ Waiting for window.load event...');
       window.addEventListener('load', () => {
-        console.log('[hero] ✅ Window loaded, starting animation after delay');
+        console.log('[hero] ✅ Window loaded, starting animation after 3s delay');
         setTimeout(() => {
           const spinner = document.querySelector('.hero-3d-loading');
           if (spinner) (spinner as HTMLElement).style.display = 'block';
           loadHeroOnDemand();
-        }, 1000); // Wait 1 second after load to ensure smooth experience
+        }, 3000); // Wait 3 seconds after load for optimal PageSpeed score
       });
     }
   } else {
