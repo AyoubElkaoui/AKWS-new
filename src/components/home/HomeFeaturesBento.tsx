@@ -15,96 +15,52 @@ export default function HomeFeaturesBento() {
       description:
         "Gebouwd met moderne tech stack. Geen WordPress bloat, alleen pure snelheid en performance die zorgt voor hogere conversies.",
       skeleton: <SkeletonOne />,
-      className:
-        "col-span-1 lg:col-span-4 border-b lg:border-r border-neutral-800",
     },
     {
       title: "SEO die rankings behaalt",
       description:
         "Eerste pagina Google binnen 4-6 weken. Technische SEO, local SEO en content strategie ingebouwd.",
       skeleton: <SkeletonTwo />,
-      className: "border-b col-span-1 lg:col-span-2 border-neutral-800",
     },
     {
       title: "Van strategie tot resultaat",
       description:
         "Niet alleen een mooie website, maar een digitaal systeem dat klanten binnenhaalt. Data-driven aanpak met meetbare KPIs.",
       skeleton: <SkeletonThree />,
-      className:
-        "col-span-1 lg:col-span-3 lg:border-r border-neutral-800",
     },
     {
       title: "Live binnen 2-4 weken",
       description:
         "Sprint-based development betekent snelle levering zonder in te leveren op kwaliteit. Start vandaag, live over een maand.",
       skeleton: <SkeletonFour />,
-      className: "col-span-1 lg:col-span-3 border-b lg:border-none",
     },
   ];
 
   return (
-    <div className="relative z-20 py-10 lg:py-40 max-w-7xl mx-auto">
-      <div className="px-8">
-        <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium text-white">
-          Snelle websites die converteren.
-        </h4>
+    <section className="services-basic__section" style={{ position: 'relative' }}>
+      <span className="orb-bubble" style={{ '--orb-x': '15%', '--orb-y': '-20%', '--orb-size': '40rem', '--orb-color': 'rgba(99, 102, 241, 0.2)' } as React.CSSProperties}></span>
+      <span className="orb-bubble" style={{ '--orb-x': '85%', '--orb-y': '25%', '--orb-size': '38rem', '--orb-color': 'rgba(139, 92, 246, 0.18)' } as React.CSSProperties}></span>
 
-        <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-gray-400 text-center font-normal">
-          Van strategie tot live website. Snelheid, SEO en conversie ingebouwd
-          in elke pixel. Klaar om te groeien?
-        </p>
-      </div>
+      <div className="services-basic__shell">
+        <header className="services-basic__intro" data-reveal>
+          <span className="services-basic__eyebrow">Wat we aanbieden</span>
+          <h2>Snelle websites die converteren.</h2>
+          <p>Van strategie tot live website. Snelheid, SEO en conversie ingebouwd in elke pixel.</p>
+        </header>
 
-      <div className="relative">
-        <div className="grid grid-cols-1 lg:grid-cols-6 mt-12 xl:border rounded-md border-neutral-800">
-          {features.map((feature) => (
-            <FeatureCard key={feature.title} className={feature.className}>
-              <FeatureTitle>{feature.title}</FeatureTitle>
-              <FeatureDescription>{feature.description}</FeatureDescription>
-              <div className="h-full w-full">{feature.skeleton}</div>
-            </FeatureCard>
+        <div className="services-basic__grid">
+          {features.map((feature, index) => (
+            <div key={feature.title} className="services-basic__card" data-reveal style={{ '--reveal-delay': `${index * 0.08}s` } as React.CSSProperties}>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+              <div className="h-full w-full mt-4">{feature.skeleton}</div>
+            </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
-
-const FeatureCard = ({
-  children,
-  className,
-}: {
-  children?: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn(`p-4 sm:p-8 relative overflow-hidden`, className)}>
-      {children}
-    </div>
-  );
-};
-
-const FeatureTitle = ({ children }: { children?: React.ReactNode }) => {
-  return (
-    <p className="max-w-5xl mx-auto text-left tracking-tight text-white text-xl md:text-2xl md:leading-snug">
-      {children}
-    </p>
-  );
-};
-
-const FeatureDescription = ({ children }: { children?: React.ReactNode }) => {
-  return (
-    <p
-      className={cn(
-        "text-sm md:text-base max-w-4xl text-left mx-auto",
-        "text-gray-400 text-center font-normal",
-        "text-left max-w-sm mx-0 md:text-sm my-2"
-      )}
-    >
-      {children}
-    </p>
-  );
-};
 
 // Speed/Performance skeleton
 export const SkeletonOne = () => {
