@@ -58,7 +58,7 @@ if (supportsWindow) {
     if ('requestIdleCallback' in window) {
       requestIdleCallback(bootstrapAnimations, { timeout: 1200 });
     } else {
-      window.setTimeout(bootstrapAnimations, 160);
+      setTimeout(bootstrapAnimations, 160);
     }
   });
 
@@ -253,7 +253,7 @@ function initializeAnimations() {
     hero.addEventListener('pointerleave', () => {
       heroCursor.style.opacity = '0';
     });
-    hero.addEventListener('pointermove', moveCursor);
+  hero.addEventListener('pointermove', moveCursor as EventListener);
   }
 }
 
@@ -592,7 +592,7 @@ function initializeTiltEffects() {
     return;
   }
 
-  VanillaTilt.init(tiltElements as NodeListOf<Element>, {
+  VanillaTilt.init(Array.from(tiltElements) as HTMLElement[], {
     max: 8,
     speed: 500,
     glare: true,
